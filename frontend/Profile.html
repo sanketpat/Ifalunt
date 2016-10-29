@@ -1,0 +1,276 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Iflaunt-A New way to show off!</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Fashion Club Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- css -->
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" media="all" />
+ <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+      
+<!--// css -->
+<!-- font -->
+<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<!-- //font -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+ 
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script language="javascript">
+       var app=  angular
+            .module('Profile', ['ngMaterial','ngMessages'])
+            .controller('dateController', dateController);
+app.directive('appFilereader', function($q) {
+    var slice = Array.prototype.slice;
+
+    return {
+        restrict: 'A',
+        require: '?ngModel',
+        link: function(scope, element, attrs, ngModel) {
+                if (!ngModel) return;
+
+                ngModel.$render = function() {};
+
+                element.bind('change', function(e) {
+                    var element = e.target;
+
+                    $q.all(slice.call(element.files, 0).map(readFile))
+                        .then(function(values) {
+                            if (element.multiple) ngModel.$setViewValue(values);
+                            else ngModel.$setViewValue(values.length ? values[0] : null);
+                        });
+
+                    function readFile(file) {
+                        var deferred = $q.defer();
+
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            deferred.resolve(e.target.result);
+                        };
+                        reader.onerror = function(e) {
+                            deferred.reject(e);
+                        };
+                        reader.readAsDataURL(file);
+
+                        return deferred.promise;
+                    }
+
+                }); //change
+
+            } //link
+    }; //return
+});
+         function dateController ($scope) {
+            $scope.myDate = new Date();
+            $scope.minDate = new Date(
+               $scope.myDate.getFullYear(),
+               $scope.myDate.getMonth() - 2,
+               $scope.myDate.getDate());
+            $scope.maxDate = new Date(
+               $scope.myDate.getFullYear(),
+               $scope.myDate.getMonth() + 2,
+               $scope.myDate.getDate());
+            $scope.onlyWeekendsPredicate = function(date) {
+               var day = date.getDay();
+               return day === 0 || day === 6;
+            }
+         }                 
+      </script>      
+</head>
+<body ng-app="Profile">
+<div class="header-top-w3layouts">
+	<div class="container" >
+		<div class="col-md-6 logo-w3">
+			<a href="index.html"><img src="images/logo2.png" alt=" " /><h1>IFLAUNT<span class="glyphicon glyphicon-heart-empty"></span></h1></a>
+		</div>
+		<div class="col-md-6 phone-w3l">
+			<ul>
+				<a href="login.html">Home</a>
+				
+			</ul>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+<div class="header-bottom-w3ls">
+	
+</div>
+	<div class="login">
+	
+		<div class="main-agileits">
+				<div class="form-w3agile" ng-cloak>
+					<h3>Profile</h3>
+					<form action="#" name="Profile" method="post">
+					
+										
+  
+								<div class="key">
+							<img ng-repeat="image in dummy.images | limitTo: 1" ng-src="{{dummy.images}}" class="img-responsive" alt="Cinque Terre" width="304" height="236" >
+						
+					
+						
+						  <input type="file" ng-model="dummy.images" accept="image/*"  app-filereader /><br />
+   					
+							<div class="clearfix"></div>
+						</div>
+					 
+							<div  ng-show="Profile.firstname.$touched && Profile.firstname.$invalid" style="color:red" >First Name is Empty</div>
+						<div class="key">
+							<i class="fa fa-user" aria-hidden="true"></i>
+							<input  type="text"  name="firstname" ng-model="firstname" required  placeholder="First Name">
+							<div class="clearfix"></div>
+						</div>
+								<div  ng-show="Profile.lastname.$touched && Profile.lastname.$invalid" style="color:red">Last Name is Empty</div>
+						<div class="key">
+							<i class="fa fa-user" aria-hidden="true"></i>
+
+							<input ng-model="lastname" type="text"  name="lastname"  required placeholder="Last Name">
+							<div class="clearfix"></div>
+						</div>
+				
+						<div  ng-show="Profile.Email.$touched && Profile.Email.$invalid" style="color:red">Invalid Email</div>
+					
+						
+						<div class="key">						<i class="fa fa-asterisk" aria-hidden="true"></i>
+						<input  type="email" ng-model="Email" name="Email" required placeholder="Email">
+							<div class="clearfix"></div>
+						</div>
+						<div  ng-show="Profile.Password.$touched && Profile.Password.$invalid" style="color:red">Password must be atleast 6 to 12 charactr</div>
+						
+							<div class="key">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+							<input  type="password" ng-model="Password"  name="Password"  ng-minlength="6" maxlength="12" required placeholder="Password">
+							<div class="clearfix"></div>
+						</div>
+						<div class="key">
+								
+							
+							
+							 <div  ng-controller="dateController" layout="column" ng-cloak>
+         <md-content>
+           
+            <md-datepicker 
+               ng-model="myDate" 
+               md-placeholder="DOB MM/DD/YYYY"></md-datepicker>
+							</md-content></div>
+							
+							
+							
+							
+							
+							
+							
+							<div class="clearfix"></div>
+						</div>
+						<div class="key">
+								<i class="fa fa-user" aria-hidden="true"></i>
+							<input  type="radio" name="male" checked>&nbsp;Male&nbsp;
+							<input  type="radio" name="male">&nbsp;Female
+														<div class="clearfix"></div>
+						</div>
+						<div class="key">
+							
+							<textarea name="Text1"  style="width:100%" placeholder="BIO.."></textarea><div class="clearfix"></div>
+						</div>
+						<input type="submit" value="Save">
+					</form>
+				</div>
+			</div>
+		</div>
+	
+			
+</div>
+<!-- top-brands -->
+	<div class="top-brands">
+		<div class="container">
+			<h3>Top Brands</h3>
+			<div class="sliderfig">
+				<ul id="flexiselDemo1">			
+					<li>
+						<img src="images/4.png" alt=" " class="img-responsive" />
+					</li>
+					<li>
+						<img src="images/5.png" alt=" " class="img-responsive" />
+					</li>
+					<li>
+						<img src="images/6.png" alt=" " class="img-responsive" />
+					</li>
+					<li>
+						<img src="images/7.png" alt=" " class="img-responsive" />
+					</li>
+					<li>
+						<img src="images/46.jpg" alt=" " class="img-responsive" />
+					</li>
+				</ul>
+			</div>
+					<script type="text/javascript">
+							$(window).load(function() {
+								$("#flexiselDemo1").flexisel({
+									visibleItems: 4,
+									animationSpeed: 1000,
+									autoPlay: false,
+									autoPlaySpeed: 3000,    		
+									pauseOnHover: true,
+									enableResponsiveBreakpoints: true,
+									responsiveBreakpoints: { 
+										portrait: { 
+											changePoint:480,
+											visibleItems: 1
+										}, 
+										landscape: { 
+											changePoint:640,
+											visibleItems:2
+										},
+										tablet: { 
+											changePoint:768,
+											visibleItems: 3
+										}
+									}
+								});
+								
+							});
+					</script>
+					<script type="text/javascript" src="js/jquery.flexisel.js"></script>
+		</div>
+	</div>
+<!-- //top-brands -->
+	<!-- cart-js -->
+	<script src="js/minicart.js"></script>
+	<script>
+        w3ls1.render();
+
+        w3ls1.cart.on('w3sb1_checkout', function (evt) {
+        	var items, len, i;
+
+        	if (this.subtotal() > 0) {
+        		items = this.items();
+
+        		for (i = 0, len = items.length; i < len; i++) {
+        			items[i].set('shipping', 0);
+        			items[i].set('shipping2', 0);
+        		}
+        	}
+        });
+    </script>  
+	<!-- //cart-js -->  
+</body>
+</html>
