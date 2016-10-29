@@ -27,7 +27,7 @@ public class User {
 
 	private String birthDate;
 
-	private boolean isMale;
+	private String gender;
 
 	private String bio;
 
@@ -87,12 +87,12 @@ public class User {
 		this.birthDate = birthDate;
 	}
 
-	public boolean isMale() {
-		return isMale;
+	public String getGender() {
+		return gender;
 	}
 
-	public void setMale(boolean isMale) {
-		this.isMale = isMale;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public String getBio() {
