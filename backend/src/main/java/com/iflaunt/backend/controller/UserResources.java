@@ -37,25 +37,7 @@ public class UserResources {
 		return userService.findByUserName(userName);
 	}
 	
-	@RequestMapping(value="/photo/upload", method=RequestMethod.POST)
-	public String upload (HttpServletResponse reponse, HttpServletRequest request) {
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		Iterator<String> it = multipartRequest.getFileNames();
-		MultipartFile multipartFile = multipartRequest.getFile(it.next());
-		String fileName = multipartFile.getOriginalFilename();
-		imageName = fileName;
-		
-		String path= new File("src/main/resources/static/images").getAbsolutePath()+"/"+fileName;
-		
-		try {
-			multipartFile.transferTo(new File(path));
-			System.out.println(path);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return "Upload Image Success!";
-	}
+
 	
 	
 	@RequestMapping(value="/user/update", method=RequestMethod.POST)
