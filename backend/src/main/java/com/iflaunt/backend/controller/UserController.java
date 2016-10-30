@@ -80,7 +80,12 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		return null;
+	}
+	
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public User updateUser(@RequestBody User user) {
+		System.out.println("i am here");
+		return userService.save(user);
 	}
 }
