@@ -3,46 +3,33 @@ package com.iflaunt.backend.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.*;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 public class User {
-	
-
-	
-	private String firstName;
-	private String lastName;
 	@Id
 	@Column(nullable = false)
 	private String userName;
+
 	@Column(nullable = false)
 	private String password;
-	
-	
+
 	@CreationTimestamp
 	private Date created;
 
+	private String firstName;
 
+	private String lastName;
 
-	public String getFirstName() {
-		return firstName;
-	}
+	private String photoName;
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+	private String birthDate;
 
-	public String getLastName() {
-		return lastName;
-	}
+	private String gender;
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+	private String bio;
 
 	public String getUserName() {
 		return userName;
@@ -67,5 +54,52 @@ public class User {
 	public void setCreated(Date created) {
 		this.created = created;
 	}
-	
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPhotoName() {
+		return photoName;
+	}
+
+	public void setPhotoName(String photoName) {
+		this.photoName = photoName;
+	}
+
+	public String getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
 }
