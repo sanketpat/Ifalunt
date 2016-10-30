@@ -33,18 +33,59 @@ angular.module('Register', []).directive('validPasswordC', function () {
         require: 'ngModel',
         link: function (scope, elm, attrs, ctrl) {
             ctrl.$parsers.unshift(function (viewValue, $scope) {
-                var noMatch = viewValue != scope.RegisterForm.Password.$viewValue
+                var noMatch = viewValue != scope.RegisterForm.Password.$viewValue;
                 ctrl.$setValidity('noMatch', !noMatch)
             })
         }
     }
-})
+}).controller('myCtrl', ["$scope","$http",function($scope, $http) {
+	
+
+
+	
+
+
+
+console.info($scope.Username);
+		$scope.SendData = function () {
+			// use $.param jQuery function to serialize data from JSON
+			var data = {
+				userName: $scope.Username,
+				password: $scope.Password
+			};
+		/*	var config = {
+				headers : {
+					'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+				}
+		}*/
+		var request = {
+			method : 'POST',
+			url:"http://localhost:8080/user/register",
+			data: data,
+			headers : {
+				'Content-Type' : 'application/json'
+			}
+		}
+
+			$http(request).then(
+					function (response) {
+						// success callback
+						if (response.status == 200) {
+							$scope.signUpSuccess = false;
+							alert("Sign Up Successful!");
+
+						} else {
+							alert("Error: "
+									+ response.data.statusText);
+						}
+					});};
+    }]);
 
 </script>
 </head>
 <body ng-app="Register">
 <div class="header-top-w3layouts">
-	<div class="container">
+	<div class="container" >
 		<div class="col-md-6 logo-w3">
 			<a href="index.html"><img src="images/logo2.png" alt=" " /><h1>IFLAUNT<span class="glyphicon glyphicon-heart-empty"></span></h1></a>
 		</div>
@@ -62,15 +103,15 @@ angular.module('Register', []).directive('validPasswordC', function () {
 </div>
 	<div class="login">
 	
-		<div class="main-agileits" >
+		<div class="main-agileits" ng-controller="myCtrl" >
 				<div class="form-w3agile">
 					<h3>Register</h3>
-					<form action="#"  name="RegisterForm" method="post">
+					<form action="#"  name="RegisterForm" method="post" >
 					<div  ng-show="RegisterForm.Username.$touched && RegisterForm.Username.$invalid" style="color:red">Invalid Email address</div>
 				
 						<div class="key">
 							<i class="fa fa-user" aria-hidden="true"></i>
-							<input  type="email"  ng-model="Registration.Username" name="Username" required placeholder="email">
+							<input  type="email"  ng-model="Username" name="Username" required placeholder="email">
 							<div class="clearfix"></div>
 						</div>
 	<div  ng-show="RegisterForm.Password.$touched && RegisterForm.Password.$invalid" style="color:red">Password must be atleast 6-12 characters</div>
@@ -87,7 +128,7 @@ angular.module('Register', []).directive('validPasswordC', function () {
 						</div>
 						<div  ng-show="!RegisterForm.ConfirmPassword.$error.required && RegisterForm.ConfirmPassword.$error.noMatch && RegisterForm.Password.$dirty" style="color:red">Password did not match</div>
 	
-						<input type="submit" value="Register" ng-disabled="form.$invalid">
+						<input type="submit" value="Register" ng-disabled="form.$invalid" ng-click="SendData()">
 					</form>
 				</div>
 			</div>

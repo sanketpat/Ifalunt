@@ -39,6 +39,9 @@ iflaunt.controller('LoginController',
 iflaunt.controller('RegisterController',
     ['$window','$scope', '$http', function($window,$scope, $http) {
             $scope.signUpSuccess = true;
+            $scope.FlagEmail=false;
+            $scope.passwordFlag=false; 
+            $scope.ConfirmpasswordFlag=false;
             $scope.email;
             $scope.password;
             $scope.confirmPassword;
@@ -55,7 +58,34 @@ iflaunt.controller('RegisterController',
                         password : password
                     }
                 }
-                if(password == confirmPassword){
+                
+                
+                
+                if($scope.email==null || $scope.password==null||$scope.password==""||$scope.email==""||$scope.confirmPassword==""||$scope.confirmPassword==null){
+                	
+                	if($scope.email=null||$scope.email==""){
+                	$scope.FlagEmail=true; 
+                	}
+                	else if($scope.password==null||$scope.password==""){
+                		$scope.passwordFlag=true; 
+                		$scope.email=email;
+                			}
+                	else if($scope.confirmPassword==null||$scope.confirmPassword==""){
+                		$scope.ConfirmpasswordFlag=true; 
+                		$scope.passwordFlag=false;
+                		$scope.email=email;
+                		 $scope.password=""
+                			 $scope.confirmPassword=""
+                	                
+                    		
+                	}
+                	
+                	
+                }else if($scope.password != $scope.confirmPassword){
+                	alert("Password Mismatch");
+                }else
+                
+                if(password == $scope.confirmPassword){
                     $http(req).then(
                         function(response) {
                             // success callback
