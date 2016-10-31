@@ -79,10 +79,19 @@ body {
 								<div ng-controller="LoginController">
 									<form id="login-form" method="post" role="form"
 										style="display: block;">
+										
+										<div class="form-group">
+											<div ng-show="FlagEmailLogin" style="color: #f4d442">Enter the
+												email</div>
+										</div>
 										<div class="form-group">
 											<input type="email" name="email" id="email" tabindex="1"
 												class="form-control" placeholder="Email Address" value=""
 												ng-model="email" required>
+										</div>
+										<div class="form-group">
+											<div ng-show="passwordFlagLogin" style="color: #f4d442">Enter
+												the Password</div>
 										</div>
 										<div class="form-group">
 											<input type="password" name="password" id="password"
@@ -105,8 +114,11 @@ body {
 								<div ng-controller="RegisterController">
 									<form id="register-form" name="register-form" method="post"
 										role="form" style="display: none;">
+											<div class="form-group">
+											<div ng-show="UseralreadyExist" style="color: #f4d442">User already Exist</div>
+										</div>
 										<div class="form-group">
-											<div ng-show="FlagEmail" style="color: red">Enter the
+											<div ng-show="FlagEmail" style="color: #f4d442">Enter the
 												email</div>
 										</div>
 										<div class="form-group">
@@ -115,11 +127,11 @@ body {
 												ng-model="email">
 										</div>
 										<div class="form-group">
-											<div ng-show="passwordFlag" style="color: red">Enter
+											<div ng-show="passwordFlag" style="color: #f4d442">Enter
 												the Password with atleast 6 to 12 characters</div>
 										</div>
 										<div class="form-group">
-											<div ng-show="ConfirmpasswordFlag" style="color: red">Password Mismatch</div>
+											<div ng-show="ConfirmpasswordFlag" style="color: #f4d442">Password Mismatch</div>
 										</div>
 										<div class="form-group">
 											<input type="password" name="password" id="password"

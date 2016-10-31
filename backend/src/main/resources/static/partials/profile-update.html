@@ -4,17 +4,81 @@
          
         
         <title>Profile Update</title>
+      
         <meta name="generator" content="Bootply">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="description" content="User information form snippet with timezones">
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" type="text/css" rel="stylesheet">
         <link href="../css/profile-update.css" type="text/css" rel="stylesheet">
-
         <link rel="stylesheet" href="../css/form-elements.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 
+<script language="javascript">
+       var app=  angular
+            .module('Profile', ['ngMaterial','ngMessages'])
+            .controller('dateController', dateController);
+app.directive('appFilereader', function($q) {
+    var slice = Array.prototype.slice;
 
+    return {
+        restrict: 'A',
+        require: '?ngModel',
+        link: function(scope, element, attrs, ngModel) {
+                if (!ngModel) return;
 
+                ngModel.$render = function() {};
+
+                element.bind('change', function(e) {
+                    var element = e.target;
+
+                    $q.all(slice.call(element.files, 0).map(readFile))
+                        .then(function(values) {
+                            if (element.multiple) ngModel.$setViewValue(values);
+                            else ngModel.$setViewValue(values.length ? values[0] : null);
+                        });
+
+                    function readFile(file) {
+                        var deferred = $q.defer();
+
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            deferred.resolve(e.target.result);
+                        };
+                        reader.onerror = function(e) {
+                            deferred.reject(e);
+                        };
+                        reader.readAsDataURL(file);
+
+                        return deferred.promise;
+                    }
+
+                }); //change
+
+            } //link
+    }; //return
+});
+         function dateController ($scope) {
+            $scope.myDate = new Date();
+            $scope.minDate = new Date(
+               $scope.myDate.getFullYear(),
+               $scope.myDate.getMonth() - 2,
+               $scope.myDate.getDate());
+            $scope.maxDate = new Date(
+               $scope.myDate.getFullYear(),
+               $scope.myDate.getMonth() + 2,
+               $scope.myDate.getDate());
+            $scope.onlyWeekendsPredicate = function(date) {
+               var day = date.getDay();
+               return day === 0 || day === 6;
+            }
+         }                 
+      </script>      
 
         <!--[if lt IE 9]>
           <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -31,80 +95,97 @@
     
     <!-- HTML code from Bootply.com editor -->
     
-    <body>
-        
-        <div class="container">
-    <h1>Edit Profile</h1>
-  	<hr>
-	<div class="row">
-      <!-- left column -->
-      <div class="col-md-3">
-        <div class="text-center">
-          <img src="../images/100" class="avatar img-circle" alt="avatar">
-          <h6>Upload a different photo...</h6>
-          
-          <input type="file" class="form-control">
-            <input type="button" class="btn" ng-click="uploadFiles()" value="Upload" />
-        </div>
-      </div>
-      
-      <!-- edit form column -->
-      <div class="col-md-9 personal-info">
-        <h3>Personal info</h3>
-        
-        <form class="form-horizontal" role="form">
-          <div class="form-group">
-            <label class="col-lg-3 control-label">First name:</label>
-            <div class="col-lg-8">
-              <input class="form-control" type="text" value="">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Last name:</label>
-            <div class="col-lg-8">
-              <input class="form-control" type="text" value="">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Username:</label>
-            <div class="col-lg-8">
-              <input class="form-control" type="text" value="" placeholder="Email Address">
-            </div>
-          </div> 	
-          <div class="form-group">
-            <label class="col-md-3 control-label">Password:</label>
-            <div class="col-md-8">
-              <input class="form-control" type="password" >
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-3 control-label">Confirm password:</label>
-            <div class="col-md-8">
-              <input class="form-control" type="password" >
-            </div>
-          </div>
-		  <div class="form-group">
-            <label class="col-lg-3 control-label">Bio:</label>
-            <div class="col-lg-8">
-              <textarea class="form-control" name="comment" form="usrform">About yourself...</textarea>
-            </div>
-          </div> 	
-          <div class="form-group">
-            <label class="col-md-3 control-label"></label>
-            <div class="col-md-8">
-              <input type="button" class="btn btn-primary" value="Save Changes">
-              <span></span>
-              <input type="reset" class="btn btn-default" value="Cancel">
-            </div>
-          </div>
-        </form>
-      </div>
-  </div>
-</div>
-<hr>
-</body>
+    <body ng-app="Profile">
+    
+    <div class="login">
+	
+		<div class="main-agileits">
+				<div class="form-w3agile" ng-cloak>
+					<h3>Profile</h3>
+					<form class="form-horizontal" name="Profile" method="post">
+					
+										
+  
+								<div class="form-group">
+								<img ng-repeat="image in dummy.images | limitTo: 1" ng-src="{{dummy.images}}" class="img-responsive" alt="Cinque Terre" width="304" height="236" >
+						
+					
+						
+						  <input type="file" ng-model="dummy.images" accept="image/*"  app-filereader /><br />
+   					
+							<div class="clearfix"></div>
+						</div>
+					 
+							<div  ng-show="Profile.firstname.$touched && Profile.firstname.$invalid" style="color:red" >First Name is Empty</div>
+						<div class="form-group">
+							<i class="fa fa-user" aria-hidden="true"></i>
+							<input  type="text"  name="firstname" ng-model="firstname"  required  placeholder="First Name">
+							<div class="clearfix"></div>
+						</div>
+								<div  ng-show="Profile.lastname.$touched && Profile.lastname.$invalid" style="color:red">Last Name is Empty</div>
+						<div class="form-group">
+							<i class="fa fa-user" aria-hidden="true"></i>
+
+							<input ng-model="lastname" type="text"  name="lastname"  required placeholder="Last Name">
+							<div class="clearfix"></div>
+						</div>
+				
+						<div  ng-show="Profile.Email.$touched && Profile.Email.$invalid" style="color:red">Invalid Email</div>
+					
+						
+						<div class="form-group">						
+						<input  type="email" ng-model="Email" name="Email" required placeholder="Email">
+							<div class="clearfix"></div>
+						</div>
+						<div  ng-show="Profile.Password.$touched && Profile.Password.$invalid" style="color:red">Password must be atleast 6 to 12 charactr</div>
+						
+							<div class="form-group">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+							<input  type="password" ng-model="Password"  name="Password"  ng-minlength="6" maxlength="12" required placeholder="Password">
+							<div class="clearfix"></div>
+						</div>
+						<div class="form-group">
+								
+							
+							
+							 <div  ng-controller="dateController" layout="column" ng-cloak>
+         <md-content>
+           
+            <md-datepicker 
+               ng-model="myDate" 
+               md-placeholder="DOB MM/DD/YYYY"></md-datepicker>
+							</md-content></div>
+							
+							
+							
+							
+							
+							
+							
+							<div class="clearfix"></div>
+						</div>
+						<div class="form-group">
+								<i class="fa fa-user" aria-hidden="true"></i>
+							<input  type="radio" name="male" checked>&nbsp;Male&nbsp;
+							<input  type="radio" name="male">&nbsp;Female
+														<div class="clearfix"></div>
+						</div>
+						<div class="form-group">
+							
+							<textarea name="Text1"  style="width:100%" placeholder="BIO.."></textarea><div class="clearfix"></div>
+						</div>
+						<input type="submit" value="Save">
+					</form>
+				</div>
+			</div>
+		</div>
+	
+    
+    
+    </body>
 
 <script src="../js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script src="../customjs/login-register.js"></script>
 
 </html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://www.bootply.com/run?ext=1 -->
+<html lang="en" ng-app="Profile">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+<script language="javascript">
+       var app=  angular
+            .module('Profile', ['ngMaterial','ngMessages'])
+           
+app.directive('appFilereader', function($q) {
+    var slice = Array.prototype.slice;
+
+    return {
+        restrict: 'A',
+        require: '?ngModel',
+        link: function(scope, element, attrs, ngModel) {
+                if (!ngModel) return;
+
+                ngModel.$render = function() {};
+
+                element.bind('change', function(e) {
+                    var element = e.target;
+
+                    $q.all(slice.call(element.files, 0).map(readFile))
+                        .then(function(values) {
+                            if (element.multiple) ngModel.$setViewValue(values);
+                            else ngModel.$setViewValue(values.length ? values[0] : null);
+                        });
+
+                    function readFile(file) {
+                        var deferred = $q.defer();
+
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            deferred.resolve(e.target.result);
+                        };
+                        reader.onerror = function(e) {
+                            deferred.reject(e);
+                        };
+                        reader.readAsDataURL(file);
+
+                        return deferred.promise;
+                    }
+
+                }); //change
+
+            } //link
+    }; //return
+});
+
+       app.controller('Profile',
+           ['$window','$scope', '$http', function($window,$scope, $http) {
+                  
+                   $scope.signUp= function(email, password, confirmPassword)
+                   {
+                       var req = {
+                           method : 'POST',
+                           url : 'http://localhost:8080/user/register',
+                           headers : {
+                               'Content-Type' : 'application/json'
+                           },
+                           data : {
+                               userName : email,
+                               password : password
+                           }
+                       }
+                       
+                      
+                       if(password == $scope.confirmPassword){
+                           $http(req).then(
+                               function(response) {
+                               	$scope.response=response;
+                                   // success callback
+                                   if (response.status == 200 && response.data!="") {
+                                       $scope.signUpSuccess = false;
+                                      var json= JSON.parse(JSON.stringify(response.data));
+
+
+                                       alert("Sign Up Successful!"+ json.userName);
+                                       $window.location.href = './partials/profile-update.html';
+
+                                   }
+                                   
+                                   
+                                   else if(response.data==""){
+                                   	$scope.UseralreadyExist=true; 
+                                   	$scope.ConfirmpasswordFlag=false; 
+                               		$scope.passwordFlag=false;	
+                                   }                           
+                                   else {userName
+                                       alert("Error: "
+                                           + response.data.statusText);
+                                   }
+                               });
+                       }
+                          
+               }
+           ]
+
+       );
+
+      </script>      
+
+
+    <title>Profile Update</title>
+    <meta name="generator" content="Bootply">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="User information form snippet with timezones">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" type="text/css" rel="stylesheet">
+    <link href="../css/profile-update.css" type="text/css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/form-elements.css">
+
+
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="apple-touch-icon" href="http://www.bootply.com/bootstrap/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="http://www.bootply.com/bootstrap/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114"
+          href="http://www.bootply.com/bootstrap/img/apple-touch-icon-114x114.png">
+
+    <!-- CSS code from Bootply.com editor -->
+
+    <style type="text/css">
+        /* CSS used here will be applied after bootstrap.css */
+    </style>
+
+    <!-- HTML code from Bootply.com editor -->
+
+<body>
+
+<div class="container" ng-app="ProfileUpdate">
+    <h1>Edit Profile</h1>
+    <hr>
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-3">
+            <div class="text-center">
+                <h6>You can upload your Profile Picture Here</h6>
+
+                <img ng-repeat="image in dummy.images | limitTo: 1" ng-src="{{dummy.images}}" class="img-responsive" alt="Upload Your Profile Picture" width="304" height="236" >
+						
+					
+						
+						  <input type="file" ng-model="dummy.images" accept="image/*"  app-filereader /><br />
+						  <input type="Button" class="btn btn-primary" ng-click="" value="Upload"></Button>
+   					 </div>
+        </div>
+
+        <!-- edit form column -->
+        <div class="col-md-9 personal-info">
+            <h3>Personal info</h3>
+
+            <form class="form-horizontal" role="form" name="Profile">
+           
+         				
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">First name:</label>
+                    <div class="col-lg-8">
+                     <div  ng-show="Profile.firstname.$touched && Profile.firstname.$invalid" style="color:red" >First Name is Empty</div>
+		
+                        	<input  type="text"  name="firstname" ng-model="firstname"  required  placeholder="First Name">
+						
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Last name:</label>
+                    <div class="col-lg-8">
+                    <div  ng-show="Profile.lastname.$touched && Profile.lastname.$invalid" style="color:red">Last Name is Empty</div>
+						
+                       <input ng-model="lastname" type="text"  name="lastname"  required placeholder="Last Name">
+							</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Username:</label>
+                    <div class="col-lg-8">
+                    <div  ng-show="Profile.Email.$touched && Profile.Email.$invalid" style="color:red">Invalid Email</div>
+					
+                    <input  type="email" ng-model="Email" name="Email" required placeholder="Email">
+						</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Password:</label>
+                    <div class="col-md-8">
+                      
+                      <div  ng-show="Profile.Password.$touched && Profile.Password.$invalid" style="color:red">Password must be atleast 6 to 12 charactr</div>
+					<input  type="password" ng-model="Password"  name="Password"  ng-minlength="6" maxlength="12" required placeholder="Password">
+							    </div>
+                </div>
+             
+								
+					  <div class="form-group">
+                    <label class="col-md-3 control-label">DOB:</label>
+                    <div class="col-md-8">
+                      
+                      <div  ng-show="Profile.Password.$touched && Profile.Password.$invalid" style="color:red">Password must be atleast 6 to 12 charactr</div>
+					<input  type="Text" ng-model="Date"  name="Date"   " required placeholder="MM/DD/YYYY">
+							    </div>
+                </div>		
+						
+			
+              
+                   <div class="form-group">
+                    <label class="col-lg-3 control-label">Bio:</label>
+                    <div class="col-lg-8">
+                        <textarea class="form-control" name="comment" form="usrform" ng-model="Bio">About yourself...</textarea>
+                    </div>
+               
+               
+             </div>  
+               
+                   <div class="form-group">
+                    <label class="col-lg-3 control-label">Gender:</label>
+                    <div class="col-lg-8">
+                    <input type="radio"  n-model="male">&nbspMale
+                     <input type="radio"  n-model="Female">&nbspFemale
+                                  </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">
+                        <input type="button" class="btn btn-primary" value="Save Changes">
+                      </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<hr>
+</body>
+
+<script src="../js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+
+</html>
