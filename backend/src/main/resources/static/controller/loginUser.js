@@ -34,19 +34,19 @@ iflaunt.controller('LoginController',
                 $http(req).then(
                         function(response) {
                             // success callback
-                            if (response.status == 200) {
+                            if (response.status == 200 && response.data!="") {
                                 alert("Login Successful!");
                                 $window.location.href = './profile-update.html';
 
                             }
-                            else if (response.status == 500) {
+                            else if (response.data=="") {
                                 alert("Incorrect Credentials ");
                                
                             }else {
                                 alert("Error: "
                                     + response.data.statusText);
                             }
-                        },function(response) {alert("Invalid Credentials")});}
+                        });}
 
             }
         }
