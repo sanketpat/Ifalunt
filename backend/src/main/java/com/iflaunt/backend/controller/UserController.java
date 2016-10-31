@@ -38,7 +38,7 @@ public class UserController {
 		
 	}
 
-	@RequestMapping(value = "login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public User login(@RequestBody Map<String, String> json) throws ServletException {
 
 		if (json.get("username") == null || json.get("password") == null) {
@@ -51,7 +51,7 @@ public class UserController {
 		User user = userService.findByUserName(userName);
 
 		if (user == null) {
-			throw new ServletException("User name not found.");
+			return null;
 		}
 
 		String pwd = user.getPassword();
