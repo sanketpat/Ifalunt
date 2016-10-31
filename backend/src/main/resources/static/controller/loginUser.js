@@ -5,6 +5,8 @@ iflaunt.controller('LoginController',
     ['$window', '$scope', '$http', function($window, $scope, $http) {
             $scope.email;
             $scope.password;
+            $scope.FlagEmailLogin=false;
+           $scope.passwordFlagLogin=false;
             $scope.signIn= function(eamil, password)
             {
                 var req = {
@@ -18,6 +20,17 @@ iflaunt.controller('LoginController',
                         password : password
                     }
                 }
+                
+                
+    if($scope.email==""||$scope.email==null){
+                	$scope.FlagEmailLogin=true;
+                	
+                }
+                else if( $scope.password==""|| $scope.password==null){
+                	$scope.FlagEmailLogin=false;
+                	$scope.passwordFlagLogin=true;
+                	
+                }else{
                 $http(req).then(
                         function(response) {
                             // success callback
@@ -29,12 +42,15 @@ iflaunt.controller('LoginController',
                                 alert("Error: "
                                     + response.data.statusText);
                             }
-                        });
+                        });}
 
             }
         }
     ]
 );
+
+
+
 
 iflaunt.controller('RegisterController',
     ['$window','$scope', '$http', function($window,$scope, $http) {
@@ -44,6 +60,8 @@ iflaunt.controller('RegisterController',
             $scope.ConfirmpasswordFlag=false;
             $scope.email;
             $scope.password;
+            $scope.UseralreadyExist=false;
+        	
             $scope.confirmPassword;
             $scope.signUp= function(email, password, confirmPassword)
             {
@@ -82,14 +100,18 @@ iflaunt.controller('RegisterController',
                 	
                 	
                 }else if($scope.password != $scope.confirmPassword){
-                	alert("Password Mismatch");
+                	$scope.ConfirmpasswordFlag=true; 
+            		$scope.passwordFlag=false;
+            		 $scope.password=""
+            			 $scope.confirmPassword=""
                 }else
                 
                 if(password == $scope.confirmPassword){
                     $http(req).then(
                         function(response) {
+                        	$scope.response=response;
                             // success callback
-                            if (response.status == 200) {
+                            if (response.status == 200 && response.data!="") {
                                 $scope.signUpSuccess = false;
                                var json= JSON.parse(JSON.stringify(response.data));
 
@@ -97,16 +119,37 @@ iflaunt.controller('RegisterController',
                                 alert("Sign Up Successful!"+ json.userName);
                                 $window.location.href = './partials/profile-update.html';
 
-                            } else {userName
+                            }
+                            
+                            
+                            else if(response.data==""){
+                            	$scope.UseralreadyExist=true; 
+                            	$scope.ConfirmpasswordFlag=false; 
+                        		$scope.passwordFlag=false;	
+                            }                           
+                            else {userName
                                 alert("Error: "
                                     + response.data.statusText);
                             }
                         });
                 }
             }
+            
+            
+            
         }
     ]
+
 );
+
+iflaunt.service('sharedProperties', function () {
+    var property = $scope.response.data;
+
+  this.getdata=function(){
+	  var property = $scope.response.data;
+	  return property;
+  }
+});
 
 
 
