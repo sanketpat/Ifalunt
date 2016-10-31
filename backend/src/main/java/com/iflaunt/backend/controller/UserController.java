@@ -7,16 +7,12 @@ import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -67,22 +63,29 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(value = "/uploadPicture", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<?> uploadFile(@RequestParam("uploadfile") MultipartFile uploadfile) {
+	@RequestMapping(value="/upload", method=RequestMethod.POST)
+	public String upload (HttpServletRequest request) {
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		Iterator<String> it = multipartRequest.getFileNames();
+		String userDisplaypicName=multipartRequest.getParameter("username");
+		MultipartFile multipartFile = multipartRequest.getFile(it.next());
+		String fileNameExt = multipartFile.getOriginalFilename();
+		String fileExtention=FilenameUtils.getExtension(fileNameExt);
+		String newFileName= userDisplaypicName.trim()+"."+fileExtention.trim();
+		String path= new File("src/main/resources/static/images").getAbsolutePath()+"/"+newFileName;
 		try {
-			String filename = uploadfile.getOriginalFilename();
-			String imageName = filename;
-
-			String path = new File("src/main/resources/static/images").getAbsolutePath() + "/" + filename;
-
-			uploadfile.transferTo(new File(path));
+			multipartFile.transferTo(new File(path));
 			System.out.println(path);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return newFileName;
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-
-		return new ResponseEntity<>(HttpStatus.OK);
+		return null;
+	}
+	
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public User updateUser(@RequestBody User user) {
+		System.out.println("i am here");
+		return userService.save(user);
 	}
 }
