@@ -24,8 +24,71 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //font -->
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+	<script language="javascript">
+		var app=  angular
+				.module('UploadImages', ['ngMaterial','ngMessages'])
+		app.controller('myCtrl', function($scope) {
+			$scope.Brands = ["Levis", "Wrangler", "LP","Allen Solley","CK"];
+
+
+		});
+		app.directive('appFilereader', function($q) {
+			var slice = Array.prototype.slice;
+
+			return {
+				restrict: 'A',
+				require: '?ngModel',
+				link: function(scope, element, attrs, ngModel) {
+					if (!ngModel) return;
+
+					ngModel.$render = function() {};
+
+					element.bind('change', function(e) {
+						var element = e.target;
+
+						$q.all(slice.call(element.files, 0).map(readFile))
+								.then(function(values) {
+									if (element.multiple) ngModel.$setViewValue(values);
+									else ngModel.$setViewValue(values.length ? values[0] : null);
+								});
+
+						function readFile(file) {
+							var deferred = $q.defer();
+
+							var reader = new FileReader();
+							reader.onload = function(e) {
+								deferred.resolve(e.target.result);
+							};
+							reader.onerror = function(e) {
+								deferred.reject(e);
+							};
+							reader.readAsDataURL(file);
+
+							return deferred.promise;
+						}
+
+					}); //change
+
+				} //link
+			}; //return
+		});
+
+	</script>
+
+	<script>
+		var app = angular.module('myApp', []);
+
+	</script>
+
 </head>
-<body>
+<body ng-app="UploadImages">
 <div class="header-top-w3layouts">
 	<div class="container" >
 		<div class="col-md-6 logo-w3">
@@ -78,8 +141,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 
 <div class="about">
-	<div class="container"> 
+	<div class="container" ng-controller="myCtrl">
+		<div class="login">
+		<div class="main-agileits">
+		<div class="form-w3agile" ng-cloak>
+			<h3>Upload Image</h3>
+		<img ng-repeat="image in dummy.images | limitTo: 1" ng-src="{{dummy.images}}" class="img-responsive" alt="Upload The Image" width="304" height="236" >
+
+		<div class="key">
+
+
+
+			<input type="file" ng-model="dummy.images" accept="image/*"  app-filereader /><br />
+
+			<div class="clearfix"></div>
 		</div>
+
+			</div>
+
+
+
+</div>
+			</div>
+				</div></div>
 		</div>
 	<!-- cart-js -->
 	<script src="js/minicart.js"></script>

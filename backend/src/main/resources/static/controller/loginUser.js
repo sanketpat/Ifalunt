@@ -36,13 +36,17 @@ iflaunt.controller('LoginController',
                             // success callback
                             if (response.status == 200) {
                                 alert("Login Successful!");
-                                $window.location.href = './partials/profile-update.html';
+                                $window.location.href = './profile-update.html';
 
-                            } else {
+                            }
+                            else if (response.status == 500) {
+                                alert("Incorrect Credentials ");
+                               
+                            }else {
                                 alert("Error: "
                                     + response.data.statusText);
                             }
-                        });}
+                        },function(response) {alert("Invalid Credentials")});}
 
             }
         }

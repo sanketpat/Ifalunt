@@ -39,13 +39,6 @@ angular.module('Register', []).directive('validPasswordC', function () {
         }
     }
 }).controller('myCtrl', ["$scope","$http",function($scope, $http) {
-	
-
-
-	
-
-
-
 console.info($scope.Username);
 		$scope.SendData = function () {
 			// use $.param jQuery function to serialize data from JSON
@@ -68,8 +61,10 @@ console.info($scope.Username);
 		}
 
 			$http(request).then(
-					function (response) {
+					function(response) {
 						// success callback
+						alert("Sign Up Successful!");
+
 						if (response.status == 200) {
 							$scope.signUpSuccess = false;
 							alert("Sign Up Successful!");
@@ -77,8 +72,10 @@ console.info($scope.Username);
 						} else {
 							alert("Error: "
 									+ response.data.statusText);
-						}
-					});};
+						}}, function(response){
+						alert("Error response"+response.data.statusText);
+					}
+			)};
     }]);
 
 </script>
