@@ -34,16 +34,14 @@ color:#019299 ;
 
 }
 
-.empty {
-	 background-color: #888;
-}
+
 
 .header{
     z-index: 500;
-    height: 85px;
+    height: 40px;
     width: 100%;
     background-color: #888;
-    color: rgb(136, 172, 217);
+    color: white;
 }
 .header ul{
     margin: 0;
@@ -51,7 +49,7 @@ color:#019299 ;
 }
 .header li{
     width: 100px;
-    height: 85px;
+    height: 65px;
     background-color: #019299;
     padding: 0px 0 0 0px;
     text-align: center;
