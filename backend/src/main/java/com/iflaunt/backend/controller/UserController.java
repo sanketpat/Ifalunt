@@ -35,7 +35,7 @@ public class UserController {
 		else{
 			return null;
 		}
-		
+
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -64,7 +64,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String upload (HttpServletRequest request) {
+	public User upload (HttpServletRequest request) {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Iterator<String> it = multipartRequest.getFileNames();
 		String userDisplaypicName=multipartRequest.getParameter("username");
@@ -76,13 +76,15 @@ public class UserController {
 		try {
 			multipartFile.transferTo(new File(path));
 			System.out.println(path);
-			return newFileName;
+			User user = userService.findByUserName(multipartRequest.getParameter("username"));
+			user.setPhotoName(newFileName);
+			return user;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public User updateUser(@RequestBody User user) {
 		System.out.println("i am here");
