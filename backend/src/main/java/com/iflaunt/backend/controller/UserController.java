@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FilenameUtils;
@@ -89,5 +90,11 @@ public class UserController {
 	public User updateUser(@RequestBody User user) {
 		System.out.println("i am here");
 		return userService.save(user);
+	}
+	
+	public User CheckCookie(HttpServletRequest request){
+		Cookie []cookies=request.getCookies();
+		return null;
+		
 	}
 }
