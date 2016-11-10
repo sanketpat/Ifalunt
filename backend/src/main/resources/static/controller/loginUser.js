@@ -1,8 +1,7 @@
 
-var iflaunt=angular.module('iflaunt', []);
-
-iflaunt.controller('LoginController',
-    ['$window', '$scope', '$http', function($window, $scope, $http) {
+'use strict';
+app.controller('LoginController',
+    ['$window', '$scope', '$http','sessionService', function($window, $scope, $http, sessionService) {
             $scope.email;
             $scope.password;
             $scope.FlagEmailLogin=false;
@@ -36,7 +35,10 @@ iflaunt.controller('LoginController',
                             // success callback
                             if (response.status == 200 && response.data!="") {
                                 alert("Login Successful!");
+                                sessionService.set('user',$scope.email);
+                                alert("Session Created"+ sessionService.get($scope.email));
                                 $window.location.href = './profile-update.html';
+                                
 
                             }
                             else if (response.data=="") {
@@ -56,8 +58,8 @@ iflaunt.controller('LoginController',
 
 
 
-iflaunt.controller('RegisterController',
-    ['$window','$scope', '$http', function($window,$scope, $http) {
+app.controller('RegisterController',
+    ['$window','$scope', '$http','sessionService', function($window,$scope, $http, sessionService) {
             $scope.signUpSuccess = true;
             $scope.FlagEmail=false;
             $scope.passwordFlag=false; 
@@ -121,7 +123,11 @@ iflaunt.controller('RegisterController',
 
 
                                 alert("Sign Up Successful!"+ json.userName);
-                                $window.location.href = './partials/profile-update.html';
+                                
+                                sessionService.set('user',$scope.email);
+                                alert("Session Created"+ sessionService.get('user'));
+                                
+                                $window.location.href = './profile-update.html';
 
                             }
                             
@@ -146,14 +152,6 @@ iflaunt.controller('RegisterController',
 
 );
 
-iflaunt.service('sharedProperties', function () {
-    var property = $scope.response.data;
-
-  this.getdata=function(){
-	  var property = $scope.response.data;
-	  return property;
-  }
-});
 
 
 
