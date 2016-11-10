@@ -79,10 +79,10 @@ body {
 								<div ng-controller="LoginController">
 									<form id="login-form" method="post" role="form"
 										style="display: block;">
-										
+
 										<div class="form-group">
-											<div ng-show="FlagEmailLogin" style="color: #f4d442">Enter the
-												email</div>
+											<div ng-show="FlagEmailLogin" style="color: #f4d442">Enter
+												the email</div>
 										</div>
 										<div class="form-group">
 											<input type="email" name="email" id="email" tabindex="1"
@@ -114,24 +114,26 @@ body {
 								<div ng-controller="RegisterController">
 									<form id="register-form" name="register-form" method="post"
 										role="form" style="display: none;">
-											<div class="form-group">
-											<div ng-show="UseralreadyExist" style="color: #f4d442">User already Exist</div>
+										<div class="form-group">
+											<div ng-show="UseralreadyExist" style="color: #f4d442">User
+												already Exist</div>
 										</div>
 										<div class="form-group">
-											<div ng-show="FlagEmail" style="color: #f4d442">Enter the
-												email</div>
+											<div ng-show="FlagEmail" style="color: #f4d442">Enter
+												the email</div>
 										</div>
 										<div class="form-group">
-											<input type="email" required name="email" id="email" tabindex="1"
-												class="form-control" placeholder="Email Address" value=""
-												ng-model="email">
+											<input type="email" required name="email" id="email"
+												tabindex="1" class="form-control"
+												placeholder="Email Address" value="" ng-model="email">
 										</div>
 										<div class="form-group">
 											<div ng-show="passwordFlag" style="color: #f4d442">Enter
 												the Password with atleast 6 to 12 characters</div>
 										</div>
 										<div class="form-group">
-											<div ng-show="ConfirmpasswordFlag" style="color: #f4d442">Password Mismatch</div>
+											<div ng-show="ConfirmpasswordFlag" style="color: #f4d442">Password
+												Mismatch</div>
 										</div>
 										<div class="form-group">
 											<input type="password" name="password" id="password"
@@ -140,7 +142,7 @@ body {
 												ng-model="password">
 										</div>
 
-										
+
 										<div class="form-group">
 											<input type="password" name="confirm-password"
 												id="confirm-password" ng-minlength="6" ng-minlength="12"
@@ -173,10 +175,19 @@ body {
 
 
 	<!-- Javascript -->
-	
+
 	<script src="./js/angular.min.js"></script>
 	<script src="./js/angular-route.min.js"></script>
-<script src="./controller/app.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+
+	<script src="./controller/app.js"></script>
 
 	<script src="./controller/loginUser.js"></script>
 	<script src="./controller/sessionService.js"></script>
@@ -187,6 +198,7 @@ body {
 	<script src="./js/retina-1.1.0.min.js"></script>
 	<script src="./js/scripts.js"></script>
 	<script src="./customjs/login-register.js"></script>
+
 
 
 

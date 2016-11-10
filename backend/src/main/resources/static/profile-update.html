@@ -2,28 +2,37 @@
 <!-- saved from url=(0032)http://www.bootply.com/run?ext=1 -->
 <html lang="en" ng-app="iflaunt">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-	
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+
 <script src="./js/angular-route.min.js"></script>
-    
+
 <script src="./controller/app.js"></script>
- <style>
-         .datepickerdemo md-content {
-            padding-bottom: 200px; 
-         }
-        .datepickerdemo .validation-messages {
-            font-size: 11px;
-            color: darkred;
-            margin: 10px 0 0 25px; 
-         }
-      </style>
- <script language="javascript">
+<style>
+.datepickerdemo md-content {
+	padding-bottom: 200px;
+}
+
+.datepickerdemo .validation-messages {
+	font-size: 11px;
+	color: darkred;
+	margin: 10px 0 0 25px;
+}
+</style>
+<script language="javascript">
        
            
 app.directive('appFilereader', function($q) {
@@ -153,7 +162,7 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
     
 });
 
-     </script>      
+     </script>
 
 <style>
 body {
@@ -166,148 +175,175 @@ body {
 	-o-background-size: cover;
 }
 </style>
-    <title>Profile Update</title>
-    <meta name="generator" content="Bootply">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="User information form snippet with timezones">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/font-awesome.min.css" type="text/css" rel="stylesheet">
-    <link href="../css/profile-update.css" type="text/css" rel="stylesheet">
+<title>Profile Update</title>
+<meta name="generator" content="Bootply">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description"
+	content="User information form snippet with timezones">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/font-awesome.min.css" type="text/css"
+	rel="stylesheet">
+<link href="../css/profile-update.css" type="text/css" rel="stylesheet">
 
-    <link rel="stylesheet" href="../css/form-elements.css">
+<link rel="stylesheet" href="../css/form-elements.css">
 
 
-    <!--[if lt IE 9]>
+<!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link rel="apple-touch-icon" href="http://www.bootply.com/bootstrap/img/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="http://www.bootply.com/bootstrap/img/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114"
-          href="http://www.bootply.com/bootstrap/img/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon"
+	href="http://www.bootply.com/bootstrap/img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72"
+	href="http://www.bootply.com/bootstrap/img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114"
+	href="http://www.bootply.com/bootstrap/img/apple-touch-icon-114x114.png">
 
-    <!-- CSS code from Bootply.com editor -->
+<!-- CSS code from Bootply.com editor -->
 
-    <style type="text/css">
-        /* CSS used here will be applied after bootstrap.css */
-    </style>
+<style type="text/css">
+/* CSS used here will be applied after bootstrap.css */
+</style>
 
-    <!-- HTML code from Bootply.com editor -->
-
+<!-- HTML code from Bootply.com editor -->
 <body>
 
-<div class="container" >
-    <h1>Welcome to Iflaunt!
-    <br/><H5> Kindly Update your Profile details</H5></h1>
-    <hr>
-    <form name="pic" enctype="multipart/form-data">
-    <div class="row">
-        <!-- left column -->
-        <div class="col-md-3">
-            <div class="text-center" ng-controller="fupController">
-                <h6>You can upload your Profile Picture Here</h6>
-              
+	<div class="container">
+		<h1>
+			Welcome to Iflaunt! <br />
+			<H5>Kindly Update your Profile details</H5>
+		</h1>
+		<hr>
+		<form name="pic" enctype="multipart/form-data">
+			<div class="row">
+				<!-- left column -->
+				<div class="col-md-3">
+					<div class="text-center" ng-controller="fupController">
+						<h6>You can upload your Profile Picture Here</h6>
 
-                <img ng-repeat="image in dummy.images | limitTo: 1" ng-src="{{ng-files}}" class="img-responsive" alt="Upload Your Profile Picture" width="304" height="236" >
-						
-					
-						<input type="file" id="file1" name="file"  ng-files="getTheFiles($files)" />
-<!-- 						  <input type="file" ng-model="dummy.images" accept="image/*"  app-filereader /><br /> -->
-						  <input type="Button" class="btn btn-primary" ng-click="uploadFiles()" value="Upload"></Button>
-   					 </div>
-        </div>
-        </form>
-    
 
-        <!-- edit form column -->
-        <div class="col-md-9 personal-info">
-            <h3>Personal info</h3>
+						<img ng-repeat="image in dummy.images | limitTo: 1"
+							ng-src="{{ng-files}}" class="img-responsive"
+							alt="Upload Your Profile Picture" width="304" height="236">
 
-            <form class="form-horizontal" role="form" name="Profile" >
-           
-         				
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">First name:</label>
-                    <div class="col-lg-8">
-                     <div  ng-show="Profile.firstname.$touched && Profile.firstname.$invalid" style="color:red" >First Name is Empty</div>
-		
-                        	<input  type="text"  name="firstname" ng-model="firstname"  required  placeholder="First Name">
-						
-                        </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Last name:</label>
-                    <div class="col-lg-8">
-                    <div  ng-show="Profile.lastname.$touched && Profile.lastname.$invalid" style="color:red">Last Name is Empty</div>
-						
-                       <input ng-model="lastname" type="text"  name="lastname"  required placeholder="Last Name">
-							</div>
-                </div>
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Username:</label>
-                    <div class="col-lg-8">
-                    <div  ng-show="Profile.Email.$touched && Profile.Email.$invalid" style="color:red">Invalid Email</div>
-					
-                    <input  type="email" ng-model="Email" name="Email" required placeholder="Email">
+
+						<input type="file" id="file1" name="file"
+							ng-files="getTheFiles($files)" />
+						<!-- 						  <input type="file" ng-model="dummy.images" accept="image/*"  app-filereader /><br /> -->
+						<input type="Button" class="btn btn-primary"
+							ng-click="uploadFiles()" value="Upload">
+						</Button>
+					</div>
+				</div>
+		</form>
+
+
+		<!-- edit form column -->
+		<div class="col-md-9 personal-info">
+			<h3>Personal info</h3>
+
+			<form class="form-horizontal" role="form" name="Profile">
+
+
+				<div class="form-group">
+					<label class="col-lg-3 control-label">First name:</label>
+					<div class="col-lg-8">
+						<div
+							ng-show="Profile.firstname.$touched && Profile.firstname.$invalid"
+							style="color: red">First Name is Empty</div>
+
+						<input type="text" name="firstname" ng-model="firstname" required
+							placeholder="First Name">
+
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">Last name:</label>
+					<div class="col-lg-8">
+						<div
+							ng-show="Profile.lastname.$touched && Profile.lastname.$invalid"
+							style="color: red">Last Name is Empty</div>
+
+						<input ng-model="lastname" type="text" name="lastname" required
+							placeholder="Last Name">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">Username:</label>
+					<div class="col-lg-8">
+						<div ng-show="Profile.Email.$touched && Profile.Email.$invalid"
+							style="color: red">Invalid Email</div>
+
+						<input type="email" ng-model="Email" name="Email" required
+							placeholder="Email">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Password:</label>
+					<div class="col-md-8">
+
+						<div
+							ng-show="Profile.Password.$touched && Profile.Password.$invalid"
+							style="color: red">Password must be atleast 6 to 12
+							charactr</div>
+						<input type="password" ng-model="Password" name="Password"
+							ng-minlength="6" maxlength="12" required placeholder="Password">
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<label class="col-md-3 control-label">DOB:</label>
+					<div class="col-md-8">
+
+						<div
+							ng-show="Profile.Password.$touched && Profile.Password.$invalid"
+							style="color: red">Password must be atleast 6 to 12
+							charactr</div>
+						<md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
+
+
+
+					</div>
+				</div>
+
+
+
+				<div class="form-group">
+					<label class="col-lg-3 control-label">Bio:</label>
+					<div class="col-lg-8">
+						<textarea class="form-control" name="comment" form="usrform"
+							ng-model="Bio">About yourself...</textarea>
+					</div>
+
+
+				</div>
+
+				<div class="form-group">
+					<label class="col-lg-3 control-label">Gender:</label>
+					<div class="col-lg-8">
+						<input type="radio" n-model="male">&nbspMale <input
+							type="radio" n-model="Female">&nbspFemale
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label"></label>
+						<div class="col-md-8">
+							<input type="button" class="btn btn-primary" value="Save Changes"
+								ng-click=>
 						</div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Password:</label>
-                    <div class="col-md-8">
-                      
-                      <div  ng-show="Profile.Password.$touched && Profile.Password.$invalid" style="color:red">Password must be atleast 6 to 12 charactr</div>
-					<input  type="password" ng-model="Password"  name="Password"  ng-minlength="6" maxlength="12" required placeholder="Password">
-							    </div>
-                </div>
-             
-								
-					  <div class="form-group">
-                    <label class="col-md-3 control-label">DOB:</label>
-                    <div class="col-md-8" >
-                      
-                      <div  ng-show="Profile.Password.$touched && Profile.Password.$invalid" style="color:red">Password must be atleast 6 to 12 charactr</div>
-					<input  type="Text" ng-model="Date"  name="Date"   " required placeholder="MM/DD/YYYY">
-					 <md-datepicker 
-               ng-model="myDate" 
-               md-placeholder="Enter date"></md-datepicker>
-							 
-							 
-							 
-							    </div>
-                </div>		
-						
-			
-              
-                   <div class="form-group">
-                    <label class="col-lg-3 control-label">Bio:</label>
-                    <div class="col-lg-8">
-                        <textarea class="form-control" name="comment" form="usrform" ng-model="Bio">About yourself...</textarea>
-                    </div>
-               
-               
-             </div>  
-               
-                   <div class="form-group">
-                    <label class="col-lg-3 control-label">Gender:</label>
-                    <div class="col-lg-8">
-                    <input type="radio"  n-model="male">&nbspMale
-                     <input type="radio"  n-model="Female">&nbspFemale
-                                  </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label"></label>
-                    <div class="col-md-8">
-                        <input type="button" class="btn btn-primary" value="Save Changes" ng-click=>
-                      </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<hr>
+					</div>
+			</form>
+		</div>
+	</div>
+	</div>
+	<hr>
 </body>
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
 
 <script src="../js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 
-	<script src="./controller/sessionService.js"></script>
+<script src="./controller/sessionService.js"></script>
 
 </html>
