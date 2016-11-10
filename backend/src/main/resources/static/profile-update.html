@@ -13,6 +13,16 @@
 <script src="./js/angular-route.min.js"></script>
     
 <script src="./controller/app.js"></script>
+ <style>
+         .datepickerdemo md-content {
+            padding-bottom: 200px; 
+         }
+        .datepickerdemo .validation-messages {
+            font-size: 11px;
+            color: darkred;
+            margin: 10px 0 0 25px; 
+         }
+      </style>
  <script language="javascript">
        
            
@@ -122,6 +132,25 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
                     }
                 });
     }
+    
+    
+    
+    function dateController ($scope) {
+        $scope.myDate = new Date();
+        $scope.minDate = new Date(
+           $scope.myDate.getFullYear(),
+           $scope.myDate.getMonth() - 2,
+           $scope.myDate.getDate());
+        $scope.maxDate = new Date(
+           $scope.myDate.getFullYear(),
+           $scope.myDate.getMonth() + 2,
+           $scope.myDate.getDate());
+        $scope.onlyWeekendsPredicate = function(date) {
+           var day = date.getDay();
+           return day === 0 || day === 6;
+        }
+     } 
+    
 });
 
      </script>      
@@ -233,10 +262,16 @@ body {
 								
 					  <div class="form-group">
                     <label class="col-md-3 control-label">DOB:</label>
-                    <div class="col-md-8">
+                    <div class="col-md-8" >
                       
                       <div  ng-show="Profile.Password.$touched && Profile.Password.$invalid" style="color:red">Password must be atleast 6 to 12 charactr</div>
 					<input  type="Text" ng-model="Date"  name="Date"   " required placeholder="MM/DD/YYYY">
+					 <md-datepicker 
+               ng-model="myDate" 
+               md-placeholder="Enter date"></md-datepicker>
+							 
+							 
+							 
 							    </div>
                 </div>		
 						
