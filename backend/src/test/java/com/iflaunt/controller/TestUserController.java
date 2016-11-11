@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -24,7 +24,7 @@ import com.iflaunt.backend.IflauntApplication;
 import com.iflaunt.backend.model.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {IflauntApplication.class, WebApplicationContext.class})
+@SpringBootTest(classes={IflauntApplication.class, WebApplicationContext.class})
 @WebAppConfiguration
 public class TestUserController {
 	@Autowired
