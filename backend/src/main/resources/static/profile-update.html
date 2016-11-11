@@ -99,6 +99,9 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
 	if(sessionService.get('user')==null){
 		$window.location.href = './index.html';
         
+	}else{
+		$scope.user=sessionService.get('user')
+		$scope.Email=$scope.user;
 	}
 	
     var formdata = new FormData();
@@ -110,6 +113,10 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
         
         
     };
+    $scope.setGender = function (value) {
+        //If DIV is visible it will be hidden and vice versa.
+        $scope.gender = value;
+    }
 
     $scope.uploadFiles = function () {
 
@@ -149,40 +156,56 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
     
 
     $scope.uploadDetails = function () {
+    	
+    //	alert("You are herte");
+    	
 
-        var request = {
-            method: 'POST',
-            url: 'user/upload',
-            data: formdata,
-            headers: {
-                'Content-Type': undefined
-            }
-        };
+    	 var req = {
+                 method : 'POST',
+                 url : 'http://localhost:8080/user/update',
+                 headers : {
+                     'Content-Type' : 'application/json'
+                 },
+                 data : {
+                     userName : $scope.user,
+                     firstName:$scope.firstname,
+                    	 lastName:$scope.lastname,
+                    		 photoName:$scope.Email,
+                    			 birthDate:$scope.myDate,
+                    				 gender:$scope.gender,
+                    					 bio:$scope.Bio
+                 }
+             }
+    	
+    	
+if($scope.firstname==""||$scope.myDate==""||$scope.gender==""){
+	alert("Enter Valid Details")
+}  
+else	 if($scope.firstname==null||$scope.myDate==null||$scope.gender==null){
+    			alert("Enter Valid Details")
+    		}  
 
-        // SEND THE FILES.
-        $http(request)
-        .then(function(response) {
-                    // success callback
-                    if (response.status == 200 && response.data!="") {
-                        alert("Photo Uploaded Successfully");
-                        alert("Session Name"+sessionService.get('user'));
-                        
-                        $scope.photoname=response.data.photoName;
-                       // ./images/muraligowthamsb@gmail.com.jpg
-                      //  alert($scope.photoname);
-                        //$window.location.href = './profile-update.html';
 
-                    }
-                    else if (response.data=="") {
-                        alert("Incorrect Credentials ");
-                       
-                    }else {
-                        alert("Error: "
-                            + response.data.statusText);
-                    }
-                });
+else{ 	
+    	  $http(req).then(
+                  function(response) {
+                  	$scope.response=response;
+                      // success callback
+                      if (response.status == 200 && response.data!="") {
+                          $scope.signUpSuccess = false;
+                         var json= JSON.parse(JSON.stringify(response.data));
+                        $window.location.href = './Home.html';
+
+                      }
+                                               
+                      else {userName
+                          alert("Error: "
+                              + response.data.statusText);
+                      }
+                  });
+
+    	 }
     }
-    
     
     function dateController ($scope) {
         $scope.myDate = new Date();
@@ -248,7 +271,7 @@ body {
 <!-- HTML code from Bootply.com editor -->
 <body>
 
-	<div class="container"  ng-controller="fupController">
+	<div class="container" ng-controller="fupController">
 		<h1>
 			Welcome to Iflaunt! <br />
 			<H5>Kindly Update your Profile details</H5>
@@ -262,8 +285,7 @@ body {
 						<h6>You can upload your Profile Picture Here</h6>
 
 
-						<img 
-							ng-src="./images/{{photoname}}" class="img-responsive"
+						<img ng-src="./images/{{photoname}}" class="img-responsive"
 							alt="Upload Your Profile Picture" width="304" height="200">
 
 
@@ -308,35 +330,13 @@ body {
 							placeholder="Last Name">
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-lg-3 control-label">Username:</label>
-					<div class="col-lg-8">
-						<div ng-show="Profile.Email.$touched && Profile.Email.$invalid"
-							style="color: red">Invalid Email</div>
-
-						<input type="email" ng-model="Email" name="Email" required
-							placeholder="Email">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">Password:</label>
-					<div class="col-md-8">
-
-						<div
-							ng-show="Profile.Password.$touched && Profile.Password.$invalid"
-							style="color: red">Password must be atleast 6 to 12
-							charactr</div>
-						<input type="password" ng-model="Password" name="Password"
-							ng-minlength="6" maxlength="12" required placeholder="Password">
-					</div>
-				</div>
-
+				
 
 				<div class="form-group">
 					<label class="col-md-3 control-label">DOB:</label>
 					<div class="col-md-8">
 
-						
+
 						<md-datepicker ng-model="myDate" md-placeholder="MM/DD/YYYY"></md-datepicker>
 
 
@@ -359,8 +359,8 @@ body {
 				<div class="form-group">
 					<label class="col-lg-3 control-label">Gender:</label>
 					<div class="col-lg-8">
-						<input type="radio" n-model="male">&nbspMale <input
-							type="radio" n-model="Female">&nbspFemale
+						<input type="radio" n-model="male" ng-click="setGender('M')" >&nbspMale <input
+							type="radio" n-model="Female" ng-click="setGender('F')">&nbspFemale
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label"></label>
