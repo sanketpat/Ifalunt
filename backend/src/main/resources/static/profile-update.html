@@ -21,6 +21,8 @@
 <script src="./js/angular-route.min.js"></script>
 
 <script src="./controller/app.js"></script>
+<script src="./controller/ProfileUpdate.js">
+     </script>
 <style>
 .datepickerdemo md-content {
 	padding-bottom: 200px;
@@ -32,200 +34,7 @@
 	margin: 10px 0 0 25px;
 }
 </style>
-<script language="javascript">
-       
-           
-app.directive('appFilereader', function($q) {
-    var slice = Array.prototype.slice;
 
-    return {
-        restrict: 'A',
-        require: '?ngModel',
-        link: function(scope, element, attrs, ngModel) {
-                if (!ngModel) return;
-
-                ngModel.$render = function() {};
-
-                element.bind('change', function(e) {
-                    var element = e.target;
-
-                    $q.all(slice.call(element.files, 0).map(readFile))
-                        .then(function(values) {
-                            if (element.multiple) ngModel.$setViewValue(values);
-                            else ngModel.$setViewValue(values.length ? values[0] : null);
-                        });
-
-                    function readFile(file) {
-                        var deferred = $q.defer();
-
-                        var reader = new FileReader();
-                        reader.onload = function(e) {
-                            deferred.resolve(e.target.result);
-                        };
-                        reader.onerror = function(e) {
-                            deferred.reject(e);
-                        };
-                        reader.readAsDataURL(file);
-
-                        return deferred.promise;
-                    }
-
-                }); //change
-
-            } //link
-    }; //return
-});
-
-
-app.directive('ngFiles', ['$parse', function ($parse) {
-
-    function fn_link(scope, element, attrs) {
-        var onChange = $parse(attrs.ngFiles);
-        element.on('change', function (event) {
-            onChange(scope, { $files: event.target.files });
-        });
-    };
-
-    return {
-        link: fn_link
-    }
-} ]);
-
-
-app.controller('fupController', function ($scope, $http, sessionService, $window) {
-
-	//alert("Session Created"+ sessionService.get('user'));
-    
-	if(sessionService.get('user')==null){
-		$window.location.href = './index.html';
-        
-	}else{
-		$scope.user=sessionService.get('user')
-		$scope.Email=$scope.user;
-	}
-	
-    var formdata = new FormData();
-    $scope.getTheFiles = function ($files) {
-        angular.forEach($files, function (value, key) {
-            formdata.append(key, value);
-        });
-        formdata.append("username",sessionService.get('user'));
-        
-        
-    };
-    $scope.setGender = function (value) {
-        //If DIV is visible it will be hidden and vice versa.
-        $scope.gender = value;
-    }
-
-    $scope.uploadFiles = function () {
-
-        var request = {
-            method: 'POST',
-            url: 'user/upload',
-            data: formdata,
-            headers: {
-                'Content-Type': undefined
-            }
-        };
-
-        // SEND THE FILES.
-        $http(request)
-        .then(function(response) {
-                    // success callback
-                    if (response.status == 200 && response.data!="") {
-                        alert("Photo Uploaded Successfully");
-                        alert("Session Name"+sessionService.get('user'));
-                        
-                        $scope.photoname=response.data.photoName;
-                       // ./images/muraligowthamsb@gmail.com.jpg
-                      //  alert($scope.photoname);
-                        //$window.location.href = './profile-update.html';
-
-                    }
-                    else if (response.data=="") {
-                        alert("Incorrect Credentials ");
-                       
-                    }else {
-                        alert("Error: "
-                            + response.data.statusText);
-                    }
-                });
-    }
-    
-    
-
-    $scope.uploadDetails = function () {
-    	
-    //	alert("You are herte");
-    	
-
-    	 var req = {
-                 method : 'POST',
-                 url : 'http://localhost:8080/user/update',
-                 headers : {
-                     'Content-Type' : 'application/json'
-                 },
-                 data : {
-                     userName : $scope.user,
-                     firstName:$scope.firstname,
-                    	 lastName:$scope.lastname,
-                    		 photoName:$scope.Email,
-                    			 birthDate:$scope.myDate,
-                    				 gender:$scope.gender,
-                    					 bio:$scope.Bio
-                 }
-             }
-    	
-    	
-if($scope.firstname==""||$scope.myDate==""||$scope.gender==""){
-	alert("Enter Valid Details")
-}  
-else	 if($scope.firstname==null||$scope.myDate==null||$scope.gender==null){
-    			alert("Enter Valid Details")
-    		}  
-
-
-else{ 	
-    	  $http(req).then(
-                  function(response) {
-                  	$scope.response=response;
-                      // success callback
-                      if (response.status == 200 && response.data!="") {
-                          $scope.signUpSuccess = false;
-                         var json= JSON.parse(JSON.stringify(response.data));
-                        $window.location.href = './Home.html';
-
-                      }
-                                               
-                      else {userName
-                          alert("Error: "
-                              + response.data.statusText);
-                      }
-                  });
-
-    	 }
-    }
-    
-    function dateController ($scope) {
-        $scope.myDate = new Date();
-        $scope.minDate = new Date(
-           $scope.myDate.getFullYear(),
-           $scope.myDate.getMonth() - 2,
-           $scope.myDate.getDate());
-        $scope.maxDate = new Date(
-           $scope.myDate.getFullYear(),
-           $scope.myDate.getMonth() + 2,
-           $scope.myDate.getDate());
-        $scope.onlyWeekendsPredicate = function(date) {
-           var day = date.getDay();
-           return day === 0 || day === 6;
-        }
-     } 
-    
-});
-
-     </script>
 
 <style>
 body {
@@ -359,8 +168,8 @@ body {
 				<div class="form-group">
 					<label class="col-lg-3 control-label">Gender:</label>
 					<div class="col-lg-8">
-						<input type="radio" n-model="male" ng-click="setGender('M')" >&nbspMale <input
-							type="radio" n-model="Female" ng-click="setGender('F')">&nbspFemale
+						<input type="radio" n-model="male" ng-click="setGender('M')"  name="gender">&nbspMale <input
+							type="radio" n-model="Female" ng-click="setGender('F')"  name="gender"	>&nbspFemale
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label"></label>

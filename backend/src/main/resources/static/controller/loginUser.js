@@ -36,8 +36,8 @@ app.controller('LoginController',
                             if (response.status == 200 && response.data!="") {
                                 alert("Login Successful!");
                                 sessionService.set('user',$scope.email);
-                                alert("Session Created"+ sessionService.get($scope.email));
-                                $window.location.href = './profile-update.html';
+                                //alert("Session Created"+ sessionService.get($scope.email));
+                                $window.location.href = './Home.html';
                                 
 
                             }
