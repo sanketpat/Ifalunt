@@ -60,7 +60,7 @@ app.directive('ngFiles', ['$parse', function ($parse) {
 app.controller('fupController', function ($scope, $http, sessionService, $window) {
 
 	//alert("Session Created"+ sessionService.get('user'));
-    
+
 	if(sessionService.get('user')==null){
 		$window.location.href = './index.html';
         
@@ -118,6 +118,9 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
                 });
     }
     
+	$scope. NavigetetoHome= function () {
+    	$window.location.href = './Home.html';
+    }
     
 
     $scope.uploadDetails = function () {
