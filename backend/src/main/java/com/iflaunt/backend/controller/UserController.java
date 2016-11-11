@@ -97,7 +97,7 @@ public class UserController {
 	
 	public User CheckCookie(HttpServletRequest request){
 		Cookie []cookies=request.getCookies();
-		return null;
+		return null;	
 		
 	}
 }
