@@ -1,110 +1,46 @@
 <!DOCTYPE html>
 <!-- saved from url=(0032)http://www.bootply.com/run?ext=1 -->
-<html lang="en" ng-app="Profile">
+<html lang="en" ng-app="iflaunt">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+
+<script src="./js/angular-route.min.js"></script>
+
+<script src="./controller/app.js"></script>
+<script src="./controller/sessionService.js"></script>
 
 <script language="javascript">
-       var app=  angular
-            .module('Profile', ['ngMaterial','ngMessages'])
-           
-app.directive('appFilereader', function($q) {
-    var slice = Array.prototype.slice;
-
-    return {
-        restrict: 'A',
-        require: '?ngModel',
-        link: function(scope, element, attrs, ngModel) {
-                if (!ngModel) return;
-
-                ngModel.$render = function() {};
-
-                element.bind('change', function(e) {
-                    var element = e.target;
-
-                    $q.all(slice.call(element.files, 0).map(readFile))
-                        .then(function(values) {
-                            if (element.multiple) ngModel.$setViewValue(values);
-                            else ngModel.$setViewValue(values.length ? values[0] : null);
-                        });
-
-                    function readFile(file) {
-                        var deferred = $q.defer();
-
-                        var reader = new FileReader();
-                        reader.onload = function(e) {
-                            deferred.resolve(e.target.result);
-                        };
-                        reader.onerror = function(e) {
-                            deferred.reject(e);
-                        };
-                        reader.readAsDataURL(file);
-
-                        return deferred.promise;
-                    }
-
-                }); //change
-
-            } //link
-    }; //return
+      
+      
+      
+app.controller('Home', function ($scope, $http, sessionService, $window) {
+	if(sessionService.get('user')==null){
+		$window.location.href = './index.html';
+        
+	}else{
+		$scope.user=sessionService.get('user')
+		$scope.Email=$scope.user;
+	}
+	  $scope.Logout = function () {
+		  sessionService.destroy('user');
+		  $window.location.href = './index.html';
+	        	  
+	  }
+	
 });
-
-       app.controller('Profile',
-           ['$window','$scope', '$http', function($window,$scope, $http) {
-                  
-                   $scope.signUp= function(email, password, confirmPassword)
-                   {
-                       var req = {
-                           method : 'POST',
-                           url : 'http://localhost:8080/user/register',
-                           headers : {
-                               'Content-Type' : 'application/json'
-                           },
-                           data : {
-                               userName : email,
-                               password : password
-                           }
-                       }
-                       
-                      
-                       if(password == $scope.confirmPassword){
-                           $http(req).then(
-                               function(response) {
-                               	$scope.response=response;
-                                   // success callback
-                                   if (response.status == 200 && response.data!="") {
-                                       $scope.signUpSuccess = false;
-                                      var json= JSON.parse(JSON.stringify(response.data));
-
-
-                                       alert("Sign Up Successful!"+ json.userName);
-                                       $window.location.href = './partials/profile-update.html';
-
-                                   }
-                                   
-                                   
-                                   else if(response.data==""){
-                                   	$scope.UseralreadyExist=true; 
-                                   	$scope.ConfirmpasswordFlag=false; 
-                               		$scope.passwordFlag=false;	
-                                   }                           
-                                   else {userName
-                                       alert("Error: "
-                                           + response.data.statusText);
-                                   }
-                               });
-                       }
-                          
-               }
-           ]
-
-       );
 
       </script>      
 
@@ -147,18 +83,28 @@ body {
 
     <!-- HTML code from Bootply.com editor -->
 
-<body>
+<body ng-controller="Home">
 
-<div class="container" ng-app="ProfileUpdate">
-    <h1>Iflaunt</h1>
+<div class="container" >
+   
+   <div class="row">
+  <div class="col-sm-3"><h3>Iflaunt</h3></div>
+  <div class="col-sm-6"></div>
+  <div class="col-sm-3"></div>
+</div>
     <hr>
     <div class="row">
+    <div class="col-sm-9" >
     <a href="home.html" >Home</a>
     &nbsp| &nbsp
      <a href="ImageUpload.html" >Upload Your Image</a>
-    
+     &nbsp| &nbsp
+     <a href="FriendsRequest.html" >Friend Request</a>
+    &nbsp| &nbsp
+     <a href="TrendsNearby.html" >Trends Near by</a>
     
     </div>
+    <div class="col-sm-3"><input type="button" class="btn btn-primary" value="Signout" ng-click="Logout()"></div>
       </div>
 <hr>
 </body>
