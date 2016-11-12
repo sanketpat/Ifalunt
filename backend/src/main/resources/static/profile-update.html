@@ -94,12 +94,25 @@ body {
 						<h6>You can upload your Profile Picture Here</h6>
 
 
-						<img ng-src="./images/{{photoname}}" class="img-responsive"
-							alt="Upload Your Profile Picture" width="304" height="200">
-
+								<img ng-repeat="image in dummy.images | limitTo: 1" ng-src="{{dummy.images}}" class="img-responsive" alt="Cinque Terre" width="304" height="236" >
+						
+						
 
 						<input type="file" id="file1" name="file"
-							ng-files="getTheFiles($files)" />
+							ng-files="getTheFiles($files)"  ng-model="dummy.images" accept="image/*"  app-filereader/>
+							
+							
+							
+							
+							
+							
+							
+					
+							
+							
+							
+							
+							
 						<!-- 						  <input type="file" ng-model="dummy.images" accept="image/*"  app-filereader /><br /> -->
 						<input type="Button" class="btn btn-primary"
 							ng-click="uploadFiles()" value="Upload">
