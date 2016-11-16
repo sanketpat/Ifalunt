@@ -33,7 +33,7 @@ public class PhotoController {
 		return photoService.findAll();
 	}
 	
-	@RequestMapping(value="/photo/upload", method=RequestMethod.POST)
+	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public String upload (HttpServletResponse reponse, HttpServletRequest request) {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Iterator<String> it = multipartRequest.getFileNames();
@@ -52,7 +52,7 @@ public class PhotoController {
 		return "Upload Image Success!";
 	}
 	
-	@RequestMapping(value="/photo/user", method=RequestMethod.POST)
+	@RequestMapping(value="/userPhotos", method=RequestMethod.POST)
 	public List<Photo> getPhotosByUser (@RequestBody User user) {
 		
 		return photoService.findByUser(user);
