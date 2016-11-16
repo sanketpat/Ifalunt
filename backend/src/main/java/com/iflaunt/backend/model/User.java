@@ -1,11 +1,14 @@
 package com.iflaunt.backend.model;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Entity;
 import javax.persistence.*;
 
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.iflaunt.backend.model.Photo;
 
 @Entity
 public class User {
@@ -31,6 +34,11 @@ public class User {
 
 	private String bio;
 
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
+	private List<Photo> photoList;
+	
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -101,5 +109,13 @@ public class User {
 
 	public void setBio(String bio) {
 		this.bio = bio;
+	}
+	
+	public List<Photo> getPhotoList() {
+		return photoList;
+	}
+
+	public void setPhotoList(List<Photo> photoList) {
+		this.photoList = photoList;
 	}
 }

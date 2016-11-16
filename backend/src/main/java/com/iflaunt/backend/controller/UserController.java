@@ -95,9 +95,4 @@ public class UserController {
 		return userService.save(user);
 	}
 	
-	public User CheckCookie(HttpServletRequest request){
-		Cookie []cookies=request.getCookies();
-		return null;	
-		
-	}
 }
