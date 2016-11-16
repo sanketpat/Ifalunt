@@ -18,15 +18,20 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.iflaunt.backend.model.Photo;
 import com.iflaunt.backend.service.PhotoService;
+import com.iflaunt.backend.service.UserService;
 import com.iflaunt.backend.model.User;
 
 @RestController
 @RequestMapping("/photo")
 public class PhotoController {
 
+	private String imageName;
 	
 	@Autowired
 	private PhotoService photoService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping("/allPhotos")
 	public List<Photo> getAllPhotos() {
@@ -39,7 +44,7 @@ public class PhotoController {
 		Iterator<String> it = multipartRequest.getFileNames();
 		MultipartFile multipartFile = multipartRequest.getFile(it.next());
 		String fileName = multipartFile.getOriginalFilename();
-		
+		imageName = fileName;
 		String path= new File("src/main/resources/static/images").getAbsolutePath()+"/"+fileName;
 		
 		try {
@@ -51,6 +56,14 @@ public class PhotoController {
 		
 		return "Upload Image Success!";
 	}
+	
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+	public Photo addPhoto (@RequestBody Photo photo) {
+		photo.setUser(userService.findByUserName(photo.getUser().getUserName()));
+		photo.setImageName(imageName);
+		return photoService.save(photo);
+	}
+	
 	
 	@RequestMapping(value="/userPhotos", method=RequestMethod.POST)
 	public List<Photo> getPhotosByUser (@RequestBody User user) {
