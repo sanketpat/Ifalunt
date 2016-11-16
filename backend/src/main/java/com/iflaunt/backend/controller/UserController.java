@@ -87,7 +87,6 @@ public class UserController {
 
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public User updateUser(@RequestBody User user) {
-		System.out.println("i am here");
 		User userTemp=userService.findByUserName(user.getUserName());
 		user.setPassword(userTemp.getPassword());
 		user.setCreated(userTemp.getCreated());
