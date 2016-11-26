@@ -1,6 +1,10 @@
 package com.iflaunt.backend.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.iflaunt.backend.model.User;
@@ -21,5 +25,8 @@ public class UserServiceImpl implements UserService{
 		return userDao.findByUserName(userName);
 	}
 	
+	public List<HashMap<Long,String>> findUserByFirstNameLike(@Param("keyword") String keyword) {
+		return userDao.findUserByFirstNameLike( keyword);
+	}
 
 }

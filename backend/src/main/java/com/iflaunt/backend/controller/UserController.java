@@ -2,7 +2,9 @@ package com.iflaunt.backend.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -92,5 +95,15 @@ public class UserController {
 		user.setCreated(userTemp.getCreated());
 		return userService.save(user);
 	}
+	
+	@RequestMapping(value = "/search/{keyword}",method = RequestMethod.GET)
+    public Object search(@PathVariable String keyword){
+
+        if(!keyword.isEmpty()) {
+           List<HashMap<Long,String>> obj = userService.findUserByFirstNameLike("%" + keyword + "%");
+           return obj;
+        }
+        return null;
+    }
 	
 }

@@ -1,5 +1,10 @@
 package com.iflaunt.backend.service;
 
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.data.repository.query.Param;
+
 import com.iflaunt.backend.model.User;
 
 public interface UserService {
@@ -7,6 +12,7 @@ public interface UserService {
 	
 	User findByUserName(String userName);
 	
+	List<HashMap<Long,String>> findUserByFirstNameLike(@Param("keyword") String keyword);
 
 
 }
