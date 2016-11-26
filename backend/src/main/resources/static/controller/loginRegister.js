@@ -2,6 +2,11 @@
 'use strict';
 app.controller('LoginController',
     ['$window', '$scope', '$http','sessionService', function($window, $scope, $http, sessionService) {
+    	
+    	if(sessionService.get('user')!=null){
+    		$window.location.href = './Home.html';
+            
+    	}
             $scope.email;
             $scope.password;
             $scope.FlagEmailLogin=false;
@@ -60,6 +65,10 @@ app.controller('LoginController',
 
 app.controller('RegisterController',
     ['$window','$scope', '$http','sessionService', function($window,$scope, $http, sessionService) {
+    	if(sessionService.get('user')!=null){
+    		$window.location.href = './Home.html';
+            
+    	}
             $scope.signUpSuccess = true;
             $scope.FlagEmail=false;
             $scope.passwordFlag=false; 

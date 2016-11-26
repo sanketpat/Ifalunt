@@ -59,7 +59,55 @@ app.directive('ngFiles', ['$parse', function ($parse) {
 
 app.controller('fupController', function ($scope, $http, sessionService, $window) {
 
-	//alert("Session Created"+ sessionService.get('user'));
+	
+		  var req = {
+		             method : 'POST',
+		             url : 'http://localhost:8080/user/getUserdetails',
+		             headers : {
+		                 'Content-Type' : 'application/json'
+		             },
+		             data : {
+		                 username :sessionService.get('user')
+		                }
+		         };
+		     
+		     $http(req)
+		     .then(function(response) {
+		    	 if (response.status == 200 && response.data!="") {
+                     //alert("Photo Uploaded Successfully");
+                     
+                     
+                     $scope.firstname=response.data.firstName;
+                     $scope.lastname=response.data.lastName;
+                     
+                     $scope.myDate= response.data.birthDate
+                     $scope.Bio= response.data.bio
+                    
+                  if( response.data.gender=="M")
+                	  { $scope.male=response.data.gender;
+                	  
+                	  }
+                  else{$scope.male=response.data.gender;
+                	  
+                  }
+                 //    alert("Session Name"+sessionService.get('user'));
+                     
+                    // $scope.photoname=response.data.photoName;
+                    // ./images/muraligowthamsb@gmail.com.jpg
+                   //  alert($scope.photoname);
+                     //$window.location.href = './profile-update.html';
+
+                 }
+		    	 
+		    	 
+		    	 
+		     });
+		     
+		     
+
+	  
+	
+		//alert("Session Created"+ sessionService.get('user'));
 
 	if(sessionService.get('user')==null){
 		$window.location.href = './index.html';
@@ -93,6 +141,12 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
                 'Content-Type': undefined
             }
         };
+        
+        
+       
+        
+        
+        
 
         // SEND THE FILES.
         $http(request)
