@@ -115,4 +115,5 @@ public class UserController {
 		User user = userService.findByUserName(userName);
 		return user;
 	}
+	
 }
