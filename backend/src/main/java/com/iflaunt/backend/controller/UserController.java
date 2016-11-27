@@ -2,6 +2,8 @@ package com.iflaunt.backend.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -12,11 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -29,6 +34,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	private String imageName;
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public User registerUser(@RequestBody User user) {
@@ -81,6 +87,7 @@ public class UserController {
 			System.out.println(path);
 			User user = userService.findByUserName(multipartRequest.getParameter("username"));
 			user.setPhotoName(newFileName);
+			imageName=newFileName;
 			return user;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -93,6 +100,7 @@ public class UserController {
 		User userTemp=userService.findByUserName(user.getUserName());
 		user.setPassword(userTemp.getPassword());
 		user.setCreated(userTemp.getCreated());
+		user.setPhotoName(imageName);
 		return userService.save(user);
 	}
 	
@@ -115,5 +123,31 @@ public class UserController {
 		User user = userService.findByUserName(userName);
 		return user;
 	}
+	
+    @RequestMapping(value = "/getProfilePicture/{userName:.+}",method = RequestMethod.GET)
+    public HttpEntity<byte[]> getSingleProfilePicture(@PathVariable String userName, WebRequest request) throws IOException{
+        User usr = userService.findByUserName(userName);
+        String name = null;
+        try{
+             name = usr.getPhotoName();
+
+        }catch (Exception e){
+            name = "default.png";
+        }
+        File photo = new File("src/main/resources/static/images",name);
+        if (!photo.exists()){
+            System.out.print("Photo not found");
+        }
+
+        if (request.checkNotModified(photo.lastModified()))
+            return null;
+
+        byte[] photoFile = Files.readAllBytes(Paths.get(photo.getPath()));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentLength(photoFile.length);
+        headers.setLastModified(photo.lastModified());
+        return new HttpEntity<byte[]>(photoFile,headers);
+
+    }
 	
 }

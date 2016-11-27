@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-blue-grey.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="./css/friends.css">
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 </style>
@@ -19,7 +20,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 <link rel="stylesheet"
-	href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+	href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min
+">
 
 <script src="./js/angular-route.min.js"></script>
 
@@ -34,6 +36,51 @@ app.controller('Home', function ($scope, $http, sessionService, $window) {
 	}else{
 		$scope.user=sessionService.get('user')
 		$scope.Email=$scope.user;
+		
+		var req = {
+	             method : 'POST',
+	             url : 'http://localhost:8080/user/getUserdetails',
+	             headers : {
+	                 'Content-Type' : 'application/json'
+	             },
+	             data : {
+	                 username :sessionService.get('user')
+	                }
+	         };
+		
+	     $http(req)
+	     .then(function(response) {
+	    	 if (response.status == 200 && response.data!="") {
+                //alert("Photo Uploaded Successfully");
+                
+                
+                $scope.firstname=response.data.firstName;
+                $scope.lastname=response.data.lastName;
+                
+                $scope.myDate= response.data.birthDate
+                $scope.Bio= response.data.bio
+               
+             if( response.data.gender=="M")
+           	  { $scope.male=response.data.gender;
+           	  
+           	  }
+             else{$scope.male=response.data.gender;
+           	  
+             }
+            //    alert("Session Name"+sessionService.get('user'));
+                
+               // $scope.photoname=response.data.photoName;
+               // ./images/muraligowthamsb@gmail.com.jpg
+              //  alert($scope.photoname);
+                //$window.location.href = './profile-update.html';
+
+            }
+	    	 
+	    	 
+	    	 
+	     });
+		
+		
 	}
 	  $scope.Logout = function () {
 		  sessionService.destroy('user');
@@ -47,7 +94,7 @@ app.controller('Home', function ($scope, $http, sessionService, $window) {
 </head><body class="w3-theme-l5" ng-controller="Home">
 
 <!-- Navbar -->
-<div class="w3-top">
+<div class="w3-top" ng-cloak>
  <ul class="w3-navbar w3-theme-d2 w3-left-align w3-large">
   <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
     <a class="w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
@@ -67,7 +114,8 @@ app.controller('Home', function ($scope, $http, sessionService, $window) {
   <i class="fa fa-power-off"></i></a>
     
   </li>
-  <li class="w3-hide-small w3-right"><a href="profile-update.html" class="w3-padding-large w3-hover-white" title="My Account"> {{user}} <img src="./images/avatar.png" class="w3-circle" style="height:25px;width:25px" alt="Avatar"></a></li>
+ <li class="w3-hide-small w3-right"><a href="profile-update.html" class=" w3-hover-white" title="My Account"> {{firstname}} {{lastname}}
+  <img ng-src="/user/getProfilePicture/{{user}}" src="/user/getProfilePicture/{{user}}" class="w3-circle" style="height:30px;width:30px" alt="Avatar"></a></li>
  </ul>
 </div>
 
