@@ -82,4 +82,10 @@ public class PhotoController {
 		photoService.save(currentPhoto);
 	}
 	
+	
+	@RequestMapping(value="/getBrands", method=RequestMethod.POST)
+	public List<Photo> getBrands () {
+				System.out.println(photoService.countsBybrand());
+	return photoService.countsBybrand();
+	}
 }
