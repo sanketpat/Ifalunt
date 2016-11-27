@@ -6,11 +6,9 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.iflaunt.backend.model.User;
-import com.iflaunt.backend.service.UserService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -18,9 +16,6 @@ public class TestUser {
 
 	private User user;
     
-	@Mock
-    private UserService userService;
-
     @Before
 	public void setUp() throws Exception{
 		user = new User();
@@ -54,91 +49,4 @@ public class TestUser {
     	assertFalse(exceptionCaught);
     }
   
-    /*@Test
-    public void testInvalidFirstName() throws Exception{
-    	
-    	boolean exceptionCaught = false;
-		try{
-			user.setFirstName(null);
-			userService.createUser(user);
-		}
-		catch(Exception e){
-			exceptionCaught = true;
-		}
-		assertTrue(exceptionCaught);
-    }
-    
-    @Test
-    public void testValidLastName() throws Exception{
-    	boolean exceptionCaught = false;
-    	try{
-    		userService.createUser(user);
-    	}catch(Exception e){
-    		exceptionCaught = true;
-    	}
-    	assertFalse(exceptionCaught);
-    }
-  
-    @Test
-    public void testInvalidLastName() throws Exception{
-    	
-    	boolean exceptionCaught = false;
-		try{
-			user.setLastName(null);
-			userService.createUser(user);
-		}
-		catch(Exception e){
-			exceptionCaught = true;
-		}
-		assertTrue(exceptionCaught);
-    }
-    @Test
-    public void testValidEmail() throws Exception{
-    	boolean exceptionCaught = false;
-    	try{
-    		userService.createUser(user);
-    	}catch(Exception e){
-    		exceptionCaught = true;
-    	}
-    	assertFalse(exceptionCaught);
-    }
-  
-    @Test
-    public void testInvalidEmail() throws Exception{
-    	
-    	boolean exceptionCaught = false;
-		try{
-			user.setEmail(null);
-			userService.createUser(user);
-		}
-		catch(Exception e){
-			exceptionCaught = true;
-		}
-		assertTrue(exceptionCaught);
-    }
-    
-    @Test
-    public void testValidPassword() throws Exception{
-    	boolean exceptionCaught = false;
-    	try{
-    		userService.createUser(user);
-    	}catch(Exception e){
-    		exceptionCaught = true;
-    	}
-    	assertFalse(exceptionCaught);
-    }
-  
-    @Test
-    public void testInvalidPassword() throws Exception{
-    	
-    	boolean exceptionCaught = false;
-		try{
-			user.setPassword(null);
-			userService.createUser(user);
-		}
-		catch(Exception e){
-			exceptionCaught = true;
-		}
-		assertTrue(exceptionCaught);
-    }*/
 }
