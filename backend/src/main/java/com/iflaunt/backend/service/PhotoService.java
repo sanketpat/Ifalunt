@@ -13,4 +13,5 @@ public interface PhotoService {
 	Photo findByPhotoId(Long photoId);
 	
 	List<Photo> findAll();
+	List<Photo> countsBybrand();
 }
