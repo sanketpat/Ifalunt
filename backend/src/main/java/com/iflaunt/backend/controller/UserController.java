@@ -113,6 +113,16 @@ public class UserController {
         }
         return null;
     }
+	@RequestMapping(value="/getUserdetails", method=RequestMethod.POST)
+	public User getUser(@RequestBody Map<String, String> json) throws ServletException {
+		if (json.get("username") == null) {
+			throw new ServletException("Please fill in username and password");
+		}
+
+		String userName = json.get("username");
+		User user = userService.findByUserName(userName);
+		return user;
+	}
 	
     @RequestMapping(value = "/getProfilePicture/{userName:.+}",method = RequestMethod.GET)
     public HttpEntity<byte[]> getSingleProfilePicture(@PathVariable String userName, WebRequest request) throws IOException{
