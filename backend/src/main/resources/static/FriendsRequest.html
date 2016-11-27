@@ -22,7 +22,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 <link rel="stylesheet"
-	href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+	href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min
+">
 
 <script src="./js/angular-route.min.js"></script>
 
@@ -37,13 +38,57 @@ app.controller('Home', function ($scope, $http, sessionService, $window) {
 	}else{
 		$scope.user=sessionService.get('user')
 		$scope.Email=$scope.user;
+		
+		var req = {
+	             method : 'POST',
+	             url : 'http://localhost:8080/user/getUserdetails',
+	             headers : {
+	                 'Content-Type' : 'application/json'
+	             },
+	             data : {
+	                 username :sessionService.get('user')
+	                }
+	         };
+		
+	     $http(req)
+	     .then(function(response) {
+	    	 if (response.status == 200 && response.data!="") {
+                //alert("Photo Uploaded Successfully");
+                
+                
+                $scope.firstname=response.data.firstName;
+                $scope.lastname=response.data.lastName;
+                
+                $scope.myDate= response.data.birthDate
+                $scope.Bio= response.data.bio
+               
+             if( response.data.gender=="M")
+           	  { $scope.male=response.data.gender;
+           	  
+           	  }
+             else{$scope.male=response.data.gender;
+           	  
+             }
+            //    alert("Session Name"+sessionService.get('user'));
+                
+               // $scope.photoname=response.data.photoName;
+               // ./images/muraligowthamsb@gmail.com.jpg
+              //  alert($scope.photoname);
+                //$window.location.href = './profile-update.html';
+
+            }
+	    	 
+	    	 
+	    	 
+	     });
+		
+		
 	}
 	  $scope.Logout = function () {
 		  sessionService.destroy('user');
 		  $window.location.href = './index.html';
 	        	  
 	  }
-	  
 	  
 	  $scope.search = function($evt){
 	        var searchbar = document.getElementById('searchbar');
@@ -54,49 +99,33 @@ app.controller('Home', function ($scope, $http, sessionService, $window) {
 	            $http.get('user/search/'+searchbar.value).success(function(data){
 	                console.log(data);
 	                
-	            	$scope.searchdUsers=data;
+	            	
 	            	if(data != null){
-	                    var length = data.length;
-	                    var i;
-	                    var ul = document.getElementById('suggestions_ul');
-	                    ul.innerHTML = "";
-	                    var child = "";
-	                    
-	                   /*  for(i = 0; i < length; i++ ){
-	                    	console.log();
-	                    	console.log(data[i][9]);
-	                    	child += '<a href="#/profile/'+data[i].firstName+" "+data[i].lastName+'"><li><img ng-src="/user/getProfilePicture/'+data[i].userName+'" src="/user/getProfilePicture/'+data[i].userName+'" />'+data[i].firstName+ " "+ data[i].lastName+'</li></a>';
-	                    } */
-	                    ul.innerHTML = child;
-	                    document.getElementById('suggestions').style.display = "block";
+	            		$scope.searchdUsers=data;
 	                }
 	            });
 	        }
 	    };
-	  
-	  
 	
 });
-
-
 
       </script> 
 </head><body class="w3-theme-l5" ng-controller="Home">
 
 <!-- Navbar -->
-<div class="w3-top">
+<div class="w3-top" ng-cloak>
  <ul class="w3-navbar w3-theme-d2 w3-left-align w3-large">
   <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
     <a class="w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
   </li>
-  <li><a href="home.html" class="w3-padding-large w3-hover-white"><i class="fa fa-home w3-margin-right"></i>i Flaunt</a></li>
+  <li><a href="home.html" class=" w3-padding-large w3-hover-white"><i class="fa fa-home w3-margin-right"></i>i Flaunt</a></li>
   
   <li class="w3-hide-small"><a href="FriendsRequest.html" class="w3-padding-large w3-theme-d4"> Friends 
   <i class="fa fa-group"></i></a></li>
   <li class="w3-hide-small"><a href="ImageUpload.html" class="w3-padding-large w3-hover-white" >Flaunt Now 
   <i class="fa fa-camera-retro"></i></a></li>
   <li class="w3-hide-small w3-dropdown-hover">
-    <a href="TrendsNearby.html" class="w3-padding-large w3-hover-white" >Near By Trends
+    <a href="TrendsNearby.html" class="w3-padding-large w3-hover-white">Near By Trends
   <i class="	fa fa-street-view"></i></a>
   
   <li class="w3-hide-small w3-dropdown-hover">
@@ -104,7 +133,8 @@ app.controller('Home', function ($scope, $http, sessionService, $window) {
   <i class="fa fa-power-off"></i></a>
     
   </li>
-  <li class="w3-hide-small w3-right"><a href="profile-update.html" class="w3-padding-large w3-hover-white" title="My Account"> {{user}} <img src="./images/avatar.png" class="w3-circle" style="height:25px;width:25px" alt="Avatar"></a></li>
+ <li class="w3-hide-small w3-right"><a href="profile-update.html" class=" w3-hover-white" title="My Account"> {{firstname}} {{lastname}}
+  <img ng-src="/user/getProfilePicture/{{user}}" src="/user/getProfilePicture/{{user}}" class="w3-circle" style="height:30px;width:30px" alt="Avatar"></a></li>
  </ul>
 </div>
 
@@ -133,13 +163,10 @@ app.controller('Home', function ($scope, $http, sessionService, $window) {
                     </ul>
                 </div>
     </div>
-    
-   
   </div>
-  	
   	<div class='md-padding' layout="row" layout-wrap>
-        <md-card style="width: 300px;" ng-repeat="user in searchdUsers">
-          <img ng-src="/user/getProfilePicture/{{user.username}}" src="/user/getProfilePicture/{{user.userName}}" class="md-card-image" alt="user avatar" width="150" height="150"/>
+        <md-card style="width: 300px;" ng-repeat="user in searchdUsers" ng-cloak>
+          <img ng-src="/user/getProfilePicture/{{user.username}}" src="/user/getProfilePicture/{{user.userName}}" class="md-card-image"/>
           <md-card-content>
             <h2>{{user.firstName}} {{user.lastName}}</h2>
             <p> {{user.birthDate}} </p>
@@ -152,35 +179,6 @@ app.controller('Home', function ($scope, $http, sessionService, $window) {
           </div>
         </md-card>
    </div>
-  
-  
-  <!--  <table>
-    <tr ng-repeat="user in searchdUsers">
-	<td>
-		
-	
-	
-		<div class="friends-grids">
-			<div class="grids-left">
-				<img class="img-circle img-responsive" width="200" height="200" ng-src="/user/getProfilePicture/{{user.userName}}" src="/user/getProfilePicture/{{user.userName}}" />
-			</div>	
-			<div class="friend-grid"><p class="flowers">14k</p></div>
-			<div class="grids-right">
-				<h2>{{user.firstName}} {{user.lastName}}</h2>
-			<img src="images/heart.png" />
-					<ul class="grids-right-info">
-						<li class="user">107</li>
-						<li class="camera">23</li>
-						<li class="chat">6</li>
-							<div class="clear"> </div>
-					</ul>
-			</div>
-			<div class="clear"> </div>
-		</div>
-		</td>
-    </tr>
-    </table> -->
-  
 </div>
 <br>
 
