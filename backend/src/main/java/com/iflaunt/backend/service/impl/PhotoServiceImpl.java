@@ -31,4 +31,10 @@ public class PhotoServiceImpl implements PhotoService{
 	public List<Photo> findAll() {
 		return photoDao.findAll();
 	}
+
+	@Override
+	public List<Photo> countsBybrand() {
+		// TODO Auto-generated method stub
+		return photoDao.countsBybrand();
+	}
 }
