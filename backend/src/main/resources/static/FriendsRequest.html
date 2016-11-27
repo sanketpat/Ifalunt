@@ -4,6 +4,9 @@
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-blue-grey.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+<link rel="stylesheet" href="./css/friends.css">
+<link rel="stylesheet" href="./css/grid.css">
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 </style>
@@ -40,8 +43,42 @@ app.controller('Home', function ($scope, $http, sessionService, $window) {
 		  $window.location.href = './index.html';
 	        	  
 	  }
+	  
+	  
+	  $scope.search = function($evt){
+	        var searchbar = document.getElementById('searchbar');
+
+	        if(!searchbar.value)
+	            document.getElementById('suggestions').style.display = "none";
+	        else{
+	            $http.get('user/search/'+searchbar.value).success(function(data){
+	                console.log(data);
+	                
+	            	$scope.searchdUsers=data;
+	            	if(data != null){
+	                    var length = data.length;
+	                    var i;
+	                    var ul = document.getElementById('suggestions_ul');
+	                    ul.innerHTML = "";
+	                    var child = "";
+	                    
+	                   /*  for(i = 0; i < length; i++ ){
+	                    	console.log();
+	                    	console.log(data[i][9]);
+	                    	child += '<a href="#/profile/'+data[i].firstName+" "+data[i].lastName+'"><li><img ng-src="/user/getProfilePicture/'+data[i].userName+'" src="/user/getProfilePicture/'+data[i].userName+'" />'+data[i].firstName+ " "+ data[i].lastName+'</li></a>';
+	                    } */
+	                    ul.innerHTML = child;
+	                    document.getElementById('suggestions').style.display = "block";
+	                }
+	            });
+	        }
+	    };
+	  
+	  
 	
 });
+
+
 
       </script> 
 </head><body class="w3-theme-l5" ng-controller="Home">
@@ -87,37 +124,63 @@ app.controller('Home', function ($scope, $http, sessionService, $window) {
   <!-- The Grid -->
   <div class="w3-row">
     <!-- Left Column -->
-    <div class="w3-col m3">
-      <!-- Profile -->
-      
-      <br>
-      
-      <!-- Accordion -->
-      
-      <br>
-      
-      <!-- Interests -->
-      <div class="w3-card-2 w3-round w3-white w3-hide-small">
-        
-      </div>
-      <br>
-      
-      <!-- Alert Box -->
-      
     
-    <!-- End Left Column -->
+    <div class="w3-col m3">
+      <input class="searchbar" id="searchbar" ng-keyup="search($evt)" type="search" placeholder="search" "/>
+                <div id="suggestions" ng-cloak>
+                    <ul id="suggestions_ul">
+
+                    </ul>
+                </div>
     </div>
     
-    <!-- Middle Column -->
-    
-    
-    <!-- Right Column -->
-    
-    
-  <!-- End Grid -->
+   
   </div>
+  	
+  	<div class='md-padding' layout="row" layout-wrap>
+        <md-card style="width: 300px;" ng-repeat="user in searchdUsers">
+          <img ng-src="/user/getProfilePicture/{{user.username}}" src="/user/getProfilePicture/{{user.userName}}" class="md-card-image" alt="user avatar" width="150" height="150"/>
+          <md-card-content>
+            <h2>{{user.firstName}} {{user.lastName}}</h2>
+            <p> {{user.birthDate}} </p>
+            <p>{{user.bio}}</p>
+            
+          </md-card-content>
+          <div class="md-actions" layout="row" layout-align="end center">
+            <md-button>Save</md-button>
+            <md-button>View</md-button>
+          </div>
+        </md-card>
+   </div>
   
-<!-- End Page Container -->
+  
+  <!--  <table>
+    <tr ng-repeat="user in searchdUsers">
+	<td>
+		
+	
+	
+		<div class="friends-grids">
+			<div class="grids-left">
+				<img class="img-circle img-responsive" width="200" height="200" ng-src="/user/getProfilePicture/{{user.userName}}" src="/user/getProfilePicture/{{user.userName}}" />
+			</div>	
+			<div class="friend-grid"><p class="flowers">14k</p></div>
+			<div class="grids-right">
+				<h2>{{user.firstName}} {{user.lastName}}</h2>
+			<img src="images/heart.png" />
+					<ul class="grids-right-info">
+						<li class="user">107</li>
+						<li class="camera">23</li>
+						<li class="chat">6</li>
+							<div class="clear"> </div>
+					</ul>
+			</div>
+			<div class="clear"> </div>
+		</div>
+		</td>
+    </tr>
+    </table> -->
+  
 </div>
 <br>
 
