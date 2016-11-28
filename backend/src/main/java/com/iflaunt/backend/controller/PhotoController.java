@@ -39,7 +39,7 @@ public class PhotoController {
 	}
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String upload (HttpServletResponse reponse, HttpServletRequest request) {
+	public void upload (HttpServletResponse reponse, HttpServletRequest request) {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Iterator<String> it = multipartRequest.getFileNames();
 		MultipartFile multipartFile = multipartRequest.getFile(it.next());
@@ -54,7 +54,7 @@ public class PhotoController {
 			e.printStackTrace();
 		}
 		
-		return "Upload Image Success!";
+		
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
