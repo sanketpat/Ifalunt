@@ -27,49 +27,39 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 <script src="./controller/sessionService.js"></script>
 
 <script language="javascript">
-app.controller('Home', function ($scope, $http, sessionService, $window) {
+app.controller('Trends', function ($scope, $http, sessionService, $window) {
 	if(sessionService.get('user')==null){
 		$window.location.href = './index.html';
         
 	}else{
 		$scope.user=sessionService.get('user')
 		$scope.Email=$scope.user;
-		
+	}
 		var req = {
 	             method : 'POST',
-	             url : 'http://localhost:8080/user/getUserdetails',
-	             headers : {
-	                 'Content-Type' : 'application/json'
-	             },
-	             data : {
-	                 username :sessionService.get('user')
-	                }
+	             url : 'http://localhost:8080/photo/getBrands',
+	            
+	            
 	         };
 		
-	     $http(req)
+		$http(req)
 	     .then(function(response) {
 	    	 if (response.status == 200 && response.data!="") {
-               //alert("Photo Uploaded Successfully");
-               
-               
-               $scope.firstname=response.data.firstName;
-               $scope.lastname=response.data.lastName;
-               
-               $scope.myDate= response.data.birthDate
-               $scope.Bio= response.data.bio
+                //alert("Photo Uploaded Successfully");
+                
+                
+                $scope.trends=response.data;
               
-            if( response.data.gender=="M")
-          	  { $scope.male=response.data.gender;
-          	  
-          	  }
-            else{$scope.male=response.data.gender;
-          	  
+            
             }
-
-           }
+	    	 
+	    	 
+	    	 
 	     });
-	}
-	  $scope.Logout = function () {
+
+		
+		
+	   	  $scope.Logout = function () {
 		  sessionService.destroy('user');
 		  $window.location.href = './index.html';
 	        	  
@@ -78,7 +68,7 @@ app.controller('Home', function ($scope, $http, sessionService, $window) {
 });
 
       </script> 
-</head><body class="w3-theme-l5" ng-controller="Home">
+</head><body class="w3-theme-l5" ng-controller="Trends">
 
 <!-- Navbar -->
 <div class="w3-top" ng-cloak>
@@ -131,18 +121,16 @@ app.controller('Home', function ($scope, $http, sessionService, $window) {
       
       <br>
       
-      <!-- Interests -->
-      <div class="w3-card-2 w3-round w3-white w3-hide-small">
-        
-      </div>
+ 
       <br>
       
       <!-- Alert Box -->
       
     
-    <!-- End Left Column -->
-    </div>
+
+ 
     
+   
     <!-- Middle Column -->
     
     
@@ -151,6 +139,15 @@ app.controller('Home', function ($scope, $http, sessionService, $window) {
     
   <!-- End Grid -->
   </div>
+       <div class="w3-col m3">
+    <h4>The Highly used Brands are Below:</h4>
+    <ol class="list-group">
+                <li ng-repeat="t in trends" class="list-group-item">{{t}}</li>
+                
+                
+            </ol>
+      </div>
+      </div>
   
 <!-- End Page Container -->
 </div>
