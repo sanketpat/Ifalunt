@@ -91,14 +91,14 @@ public class PhotoController {
 		return photoService.findByPhotoId(photoId);
 	}
 
-
 	@RequestMapping(value = "/getBrands", method = RequestMethod.POST)
 	public List<Photo> getBrands() {
 		return photoService.countsBybrand();
 	}
-	
-	@RequestMapping(value="/photo/update", method=RequestMethod.POST)
-	public void updatePhoto (@RequestBody Photo photo) {
+
+	@RequestMapping(value = "/photo/update", method = RequestMethod.POST)
+	public void updatePhoto(@RequestBody Photo photo) {
 		Photo currentPhoto = photoService.findByPhotoId(photo.getPhotoId());
 		photoService.save(currentPhoto);
-	}}
+	}
+}
