@@ -152,6 +152,8 @@ app.controller('ImageUploadDetails', function ($scope, $http, sessionService, $w
 	  };
 	
 	  $scope.uploadFiles = function () {
+		  
+		 
 		  var request = {
 		            method: 'POST',
 		            url: '/photo/upload',
@@ -162,58 +164,68 @@ app.controller('ImageUploadDetails', function ($scope, $http, sessionService, $w
 		            }
 		        
 		        };
-		        var request1 = {
-			            method: 'POST',
-			            url: '/photo/add',
-			            headers : {
-	                        'Content-Type' : 'application/json'
-	                    },
-	                    data : {
-	                        description : '',
-	                        accessoryType :$scope.Accessory,
-	                        brand:$scope.BrandName1,
-	                        	user:{
-	                        		userName:sessionService.get('user')
-	                        	}
+		  
+		  $http(request)
+	        .success(function(){ 
+	        	
+	        	  $scope.addData();
+	        	
+	            // data should be text string here (only if the server response is text/plain)
+	        });
+		        
+			    // SEND THE FILES.
+		       
+  }
+	  
+	  
+	  $scope.addData=function(){
+		  
+		  var request1 = {
+		            method: 'POST',
+		            url: '/photo/add',
+		            headers : {
+                      'Content-Type' : 'application/json'
+                  },
+                  data : {
+                      description : '',
+                      accessoryType :$scope.Accessory,
+                      brand:$scope.BrandName1,
+                      	user:{
+                      		userName:sessionService.get('user')
+                      	}
+                  }
+		       
+	        
+	        
+	        
+	        };
+	           // alert("Acc"+$scope.Accessory);
+
+	     
+	      
+	        $http(request1)
+	        .then(function(response) {
+	                    // success callback
+	                    if (response.status == 200 && response.data!="") {
+	                        alert("Photo Uploaded Successfully");
+	                    //    alert("Session Name"+sessionService.get('user'));
+	                         $window.location.href = './ImageUpload.html'
+	                       // $scope.photoname=response.data.photoName;
+	                       // ./images/muraligowthamsb@gmail.com.jpg
+	                      //  alert($scope.photoname);
+	                        //$window.location.href = './profile-update.html';
+
 	                    }
-			       
-		        
-		        
-		        
-		        };
-		           // alert("Acc"+$scope.Accessory);
-
-		        // SEND THE FILES.
-		        $http(request)
-		        .success(function(data){ 
-		        	alert(data);
-		            // data should be text string here (only if the server response is text/plain)
-		        });
-		      
-		        $http(request1)
-		        .then(function(response) {
-		                    // success callback
-		                    if (response.status == 200 && response.data!="") {
-		                        alert("Photo Uploaded Successfully");
-		                    //    alert("Session Name"+sessionService.get('user'));
-		                         $window.location.href = './ImageUpload.html'
-		                       // $scope.photoname=response.data.photoName;
-		                       // ./images/muraligowthamsb@gmail.com.jpg
-		                      //  alert($scope.photoname);
-		                        //$window.location.href = './profile-update.html';
-
-		                    }
-		                    else if (response.data=="") {
-		                        alert("Incorrect Credentials ");
-		                       
-		                    }else {
-		                        alert("Error: "
-		                            + response.data.statusText);
-		                    }
-		                });
-		     
-
-		    }
+	                    else if (response.data=="") {
+	                        alert("Incorrect Credentials ");
+	                       
+	                    }else {
+	                        alert("Error: "
+	                            + response.data.statusText);
+	                    }
+	                });
+	  }
+		
 });
 
       </script> 
@@ -312,7 +324,7 @@ app.controller('ImageUploadDetails', function ($scope, $http, sessionService, $w
                <option>LP</option>
                <option>Levis</option>
                <option>Wrangler</option>
-                <option>Indian Terrain</option>
+                <option>Indian_Terrain</option>
                <option>Arrow</option>
                   <option>Zara</option>
                
