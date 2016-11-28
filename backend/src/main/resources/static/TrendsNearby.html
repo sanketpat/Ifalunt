@@ -92,7 +92,7 @@ app.controller('Trends', function ($scope, $http, sessionService, $window) {
     
   </li>
   <li class="w3-hide-small w3-right"><a href="profile-update.html" class=" w3-hover-white" title="My Account"> {{firstname}} {{lastname}}
-  <img ng-src="/user/getProfilePicture/{{user}}" src="/user/getProfilePicture/{{user}}" class="w3-circle" style="height:30px;width:30px" alt="Avatar"></a></li>
+  <img ng-src="/user/getProfilePicture/{{user}}"  class="w3-circle" style="height:30px;width:30px" alt="Avatar"></a></li>
  </ul>
 </div>
 
@@ -142,9 +142,10 @@ app.controller('Trends', function ($scope, $http, sessionService, $window) {
        <div class="w3-col m3">
     <h4>The Highly used Brands are Below:</h4>
     <ol class="list-group">
-                <li ng-repeat="t in trends" class="list-group-item">{{t}}</li>
+                <li ng-repeat="t in trends" class="list-group-item">          <img ng-src="images/{{t}}.png" alt="" /></li>
                 
-                
+  
+           
             </ol>
       </div>
       </div>
