@@ -65,6 +65,22 @@ public class PhotoController {
 	}
 	
 	
+	public PhotoService getPhotoService() {
+		return photoService;
+	}
+
+	public void setPhotoService(PhotoService photoService) {
+		this.photoService = photoService;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
 	@RequestMapping(value="/userPhotos", method=RequestMethod.POST)
 	public List<Photo> getPhotosByUser (@RequestBody User user) {
 		
