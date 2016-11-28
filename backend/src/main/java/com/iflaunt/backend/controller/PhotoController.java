@@ -26,45 +26,44 @@ import com.iflaunt.backend.model.User;
 public class PhotoController {
 
 	private String imageName;
-	
+
 	@Autowired
 	private PhotoService photoService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@RequestMapping("/allPhotos")
 	public List<Photo> getAllPhotos() {
 		return photoService.findAll();
 	}
-	
-	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String upload (HttpServletResponse reponse, HttpServletRequest request) {
+
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public String upload(HttpServletResponse reponse, HttpServletRequest request) {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Iterator<String> it = multipartRequest.getFileNames();
 		MultipartFile multipartFile = multipartRequest.getFile(it.next());
 		String fileName = multipartFile.getOriginalFilename();
 		imageName = fileName;
-		String path= new File("src/main/resources/static/images").getAbsolutePath()+"/"+fileName;
-		
+		String path = new File("src/main/resources/static/images").getAbsolutePath() + "/" + fileName;
+
 		try {
 			multipartFile.transferTo(new File(path));
 			System.out.println(path);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return "Upload Image Success!";
 	}
-	
-	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public Photo addPhoto (@RequestBody Photo photo) {
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public Photo addPhoto(@RequestBody Photo photo) {
 		photo.setUser(userService.findByUserName(photo.getUser().getUserName()));
 		photo.setImageName(imageName);
 		return photoService.save(photo);
 	}
-	
-	
+
 	public PhotoService getPhotoService() {
 		return photoService;
 	}
@@ -81,27 +80,25 @@ public class PhotoController {
 		this.userService = userService;
 	}
 
-	@RequestMapping(value="/userPhotos", method=RequestMethod.POST)
-	public List<Photo> getPhotosByUser (@RequestBody User user) {
-		
+	@RequestMapping(value = "/userPhotos", method = RequestMethod.POST)
+	public List<Photo> getPhotosByUser(@RequestBody User user) {
+
 		return photoService.findByUser(user);
 	}
-	
-	@RequestMapping(value="/photo/photoId", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/photo/photoId", method = RequestMethod.POST)
 	public Photo getPhotoByPhotoId(@RequestBody Long photoId) {
 		return photoService.findByPhotoId(photoId);
+	}
+
+
+	@RequestMapping(value = "/getBrands", method = RequestMethod.POST)
+	public List<Photo> getBrands() {
+		return photoService.countsBybrand();
 	}
 	
 	@RequestMapping(value="/photo/update", method=RequestMethod.POST)
 	public void updatePhoto (@RequestBody Photo photo) {
 		Photo currentPhoto = photoService.findByPhotoId(photo.getPhotoId());
 		photoService.save(currentPhoto);
-	}
-	
-	
-	@RequestMapping(value="/getBrands", method=RequestMethod.POST)
-	public List<Photo> getBrands () {
-				System.out.println(photoService.countsBybrand());
-	return photoService.countsBybrand();
-	}
-}
+	}}
