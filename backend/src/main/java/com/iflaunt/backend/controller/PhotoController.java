@@ -37,15 +37,11 @@ public class PhotoController {
 	public List<Photo> getAllPhotos() {
 		return photoService.findAll();
 	}
-<<<<<<< HEAD
-	
-	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public void upload (HttpServletResponse reponse, HttpServletRequest request) {
-=======
+
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public String upload(HttpServletResponse reponse, HttpServletRequest request) {
->>>>>>> a89cbcee4ffddedff3c01436a1b0a70788b2af60
+	public void upload(HttpServletResponse reponse, HttpServletRequest request) {
+
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Iterator<String> it = multipartRequest.getFileNames();
 		MultipartFile multipartFile = multipartRequest.getFile(it.next());
@@ -59,13 +55,7 @@ public class PhotoController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
-		
-		
-=======
 
-		return "Upload Image Success!";
->>>>>>> a89cbcee4ffddedff3c01436a1b0a70788b2af60
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
