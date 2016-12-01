@@ -20,8 +20,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 	src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-<script src="http://code.angularjs.org/1.2.0rc1/angular-touch.min.js"></script>
-	
+
 <script src="./js/angular-route.min.js"></script>
 
 <script src="./controller/app.js"></script>
@@ -143,7 +142,7 @@ app.controller('Trends', function ($scope, $http, sessionService, $window) {
        <div class="w3-col m3">
     <h4>The Highly used Brands are Below:</h4>
     <ol class="list-group">
-                <li ng-repeat="t in trends" class="list-group-item">   <br/><br/>       <img ng-src="images/{{t}}.png" alt="" /><br/></li>
+                <li ng-repeat="t in trends" class="list-group-item">          <img ng-src="images/{{t}}.png" alt="" /></li>
                 
   
            

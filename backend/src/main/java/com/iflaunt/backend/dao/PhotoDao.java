@@ -12,6 +12,7 @@ import com.iflaunt.backend.model.Photo;
 @Repository
 public interface PhotoDao extends CrudRepository<Photo, Long>{
 	
+	@SuppressWarnings("unchecked")
 	Photo save(Photo photo);
 	
 	List<Photo> findByUser(User user);

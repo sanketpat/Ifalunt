@@ -16,6 +16,14 @@ public class PhotoServiceImpl implements PhotoService{
 	@Autowired
 	private PhotoDao photoDao;
 	
+	public PhotoDao getPhotoDao() {
+		return photoDao;
+	}
+
+	public void setPhotoDao(PhotoDao photoDao) {
+		this.photoDao = photoDao;
+	}
+
 	public Photo save(Photo photo) {
 		return photoDao.save(photo);
 	}
@@ -34,7 +42,6 @@ public class PhotoServiceImpl implements PhotoService{
 
 	@Override
 	public List<Photo> countsBybrand() {
-		// TODO Auto-generated method stub
 		return photoDao.countsBybrand();
 	}
 }

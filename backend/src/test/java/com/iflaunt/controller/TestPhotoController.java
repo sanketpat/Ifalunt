@@ -1,10 +1,10 @@
 package com.iflaunt.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -72,19 +72,24 @@ public class TestPhotoController {
 	}
 
 	@Test
-	public void testUpload() throws IOException {
+	public void testUpload() {
 		@SuppressWarnings("unchecked")
 		Iterator<String> it = mock(Iterator.class);
 		when(it.next()).thenReturn("");
-		
+
 		MultipartFile file = mock(MultipartFile.class);
 		MultipartHttpServletRequest request = mock(MultipartHttpServletRequest.class);
 		HttpServletResponse response = mock(HttpServletResponse.class);
-		
+
 		when(request.getFile(it.next())).thenReturn(file);
 		when(request.getFileNames()).thenReturn(it);
 		when(file.getOriginalFilename()).thenReturn("");
-		//assertEquals("Upload Image Success!", controller.upload(response, request));
+
+		try {
+			controller.upload(response, request);
+		} catch (Exception ex) {
+			fail();
+		}
 	}
 
 	@Test

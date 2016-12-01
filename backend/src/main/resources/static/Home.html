@@ -7,119 +7,6 @@
 <link rel="stylesheet" href="./css/friends.css">
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
-.arrow {
-cursor: pointer;
-display: block;
-height: 64px;
-margin-top: -35px;
-outline: medium none;
-position: absolute;
-top: 50%;
-width: 64px;
-z-index: 5;
-}
-.arrow.prev {
-background-image: url("../images/prev.png");
-left: 20px;
-opacity: 0.2;
-transition: all 0.2s linear 0s;
-}
-.arrow.next {
-background-image: url("../images/next.png");
-opacity: 0.2;
-right: 20px;
-transition: all 0.2s linear 0s;
-}
-.arrow.prev:hover{
-opacity:1;
-}
-.arrow.next:hover{
-opacity:1;
-}
-.nav {
-bottom: -4px;
-display: block;
-height: 48px;
-left: 0;
-margin: 0 auto;
-padding: 1em 0 0.8em;
-position: absolute;
-right: 0;
-text-align: center;
-width: 100%;
-z-index: 5;
-}
-.nav li {
-border: 5px solid #AAAAAA;
-border-radius: 5px;
-cursor: pointer;
-display: inline-block;
-height: 30px;
-margin: 0 8px;
-position: relative;
-width: 50px;
-}
-.nav li.active {
-border: 5px solid #FFFFFF;
-}
-.nav li img {
-width: 100%;
-}
-.slider {
-border: 15px solid #FFFFFF;
-border-radius: 5px;
-height: 500px;
-margin: 20px auto;
-position: relative;
-width: 800px;
--webkit-perspective: 1000px;
--moz-perspective: 1000px;
--ms-perspective: 1000px;
--o-perspective: 1000px;
-perspective: 1000px;
--webkit-transform-style: preserve-3d;
--moz-transform-style: preserve-3d;
--ms-transform-style: preserve-3d;
--o-transform-style: preserve-3d;
-transform-style: preserve-3d;
-}
-.slide {
-position: absolute;
-top: 0;
-left: 0;
-}
-.slide.ng-hide-add {
-opacity:1;
--webkit-transition:1s linear all;
--moz-transition:1s linear all;
--o-transition:1s linear all;
-transition:1s linear all;
--webkit-transform: rotateX(50deg) rotateY(30deg);
--moz-transform: rotateX(50deg) rotateY(30deg);
--ms-transform: rotateX(50deg) rotateY(30deg);
--o-transform: rotateX(50deg) rotateY(30deg);
-transform: rotateX(50deg) rotateY(30deg);
--webkit-transform-origin: right top 0;
--moz-transform-origin: right top 0;
--ms-transform-origin: right top 0;
--o-transform-origin: right top 0;
-transform-origin: right top 0;
-}
-.slide.ng-hide-add.ng-hide-add-active {
-opacity:0;
-}
-.slide.ng-hide-remove {
--webkit-transition:1s linear all;
--moz-transition:1s linear all;
--o-transition:1s linear all;
-transition:1s linear all;
-display:block!important;
-opacity:0;
-}
-.slide, .slide.ng-hide-remove.ng-hide-remove-active {
-opacity:1;
-}
-
 </style>
 
 <script
@@ -130,8 +17,6 @@ opacity:1;
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-	<script src="http://code.angularjs.org/1.2.0rc1/angular-touch.min.js"></script>
-	
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 <link rel="stylesheet"
@@ -144,11 +29,7 @@ opacity:1;
 <script src="./controller/sessionService.js"></script>
 
 <script language="javascript">
-
-
-
-app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
-	// Set of Photos
+app.controller('Home', function ($scope, $http, sessionService, $window) {
 	if(sessionService.get('user')==null){
 		$window.location.href = './index.html';
         
@@ -167,44 +48,50 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
 	                }
 	         };
 		
-	$scope.photos = [
-	{src: 'http://farm9.staticflickr.com/8042/7918423710_e6dd168d7c_b.jpg', desc: 'Image 01'},
-	{src: 'http://farm9.staticflickr.com/8449/7918424278_4835c85e7a_b.jpg', desc: 'Image 02'},
-	{src: 'http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg', desc: 'Image 03'},
-	{src: 'http://farm9.staticflickr.com/8179/7918424842_c79f7e345c_b.jpg', desc: 'Image 04'},
-	{src: 'http://farm9.staticflickr.com/8315/7918425138_b739f0df53_b.jpg', desc: 'Image 05'},
-	{src: 'http://farm9.staticflickr.com/8461/7918425364_fe6753aa75_b.jpg', desc: 'Image 06'}
-	];
-	// initial image index
-	$scope._Index = 0;
-	// if a current image is the same as requested image
-	$scope.isActive = function (index) {
-	return $scope._Index === index;
-	};
-	// show prev image
-	$scope.showPrev = function () {
-	$scope._Index = ($scope._Index > 0) ? --$scope._Index : $scope.photos.length - 1;
-	};
-	// show next image
-	$scope.showNext = function () {
-	$scope._Index = ($scope._Index < $scope.photos.length - 1) ? ++$scope._Index : 0;
-	};
-	// show a certain image
-	$scope.showPhoto = function (index) {
-	$scope._Index = index;
-	};
+	     $http(req)
+	     .then(function(response) {
+	    	 if (response.status == 200 && response.data!="") {
+                //alert("Photo Uploaded Successfully");
+                
+                
+                $scope.firstname=response.data.firstName;
+                $scope.lastname=response.data.lastName;
+                
+                $scope.myDate= response.data.birthDate
+                $scope.Bio= response.data.bio
+               
+             if( response.data.gender=="M")
+           	  { $scope.male=response.data.gender;
+           	  
+           	  }
+             else{$scope.male=response.data.gender;
+           	  
+             }
+            //    alert("Session Name"+sessionService.get('user'));
+                
+               // $scope.photoname=response.data.photoName;
+               // ./images/muraligowthamsb@gmail.com.jpg
+              //  alert($scope.photoname);
+                //$window.location.href = './profile-update.html';
+
+            }
+	    	 
+	    	 
+	    	 
+	     });
+		
+		
 	}
-	
 	  $scope.Logout = function () {
 		  sessionService.destroy('user');
 		  $window.location.href = './index.html';
 	        	  
 	  }
 	
-	});
+});
 
       </script> 
-</head><body class="w3-theme-l5" ng-controller="MainCtrl">
+</head><body class="w3-theme-l5" ng-controller="Home">
 
 <!-- Navbar -->
 <div class="w3-top" ng-cloak>
@@ -250,7 +137,6 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
     <!-- Left Column -->
     <div class="w3-col m3">
       <!-- Profile -->
-     
       
       <br>
       
@@ -260,38 +146,8 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
       
       <!-- Interests -->
       <div class="w3-card-2 w3-round w3-white w3-hide-small">
-       
-<!-- enumerate all photos -->
-<div class="container slider">
-<!-- enumerate all photos -->
-<img ng-repeat="photo in photos" class="slide" ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="{{photo.src}}" />
-
-
-<!-- prev / next controls -->
-
-<a class="arrow prev" href="#" ng-click="showPrev()">
-</a>
-<a class="arrow next" href="#" ng-click="showNext()">
-<img alt="" src="/images/arrow.png"></a>
-
-<div>
-
-</div>
-<!-- extra navigation controls -->
-<ul class="nav">
-<li ng-repeat="photo in photos" ng-class="{'active':isActive($index)}">
-<img src="{{photo.src}}" alt="{{photo.desc}}" title="{{photo.desc}}" ng-click="showPhoto($index);" />
-</li>
-</ul>
-
-</div>
-
- <div ng-repeat="photo in photos"   ng-show="isActive($index)" >
-      {{photo.desc}}
+        
       </div>
-      
-      </div>
-     
       <br>
       
       <!-- Alert Box -->
@@ -314,6 +170,7 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
 <br>
 
 <!-- Footer -->
+
 
 
  
