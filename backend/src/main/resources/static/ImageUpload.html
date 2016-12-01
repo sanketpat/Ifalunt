@@ -155,6 +155,14 @@ app.controller('ImageUploadDetails', function ($scope, $http, sessionService, $w
 	
 	  $scope.uploadFiles = function () {
 		  
+		  if($scope.Accessory==""  ||$scope.Accessory==null){
+				 
+				 alert("invalid Details");
+			 }else if($scope.Accessory==""  ||$scope.Accessory==null){
+			 
+			 alert("invalid Details");
+		 }else{
+		  
 		 
 		  var request = {
 		            method: 'POST',
@@ -173,10 +181,13 @@ app.controller('ImageUploadDetails', function ($scope, $http, sessionService, $w
 	        	  $scope.addData();
 	        	
 	            // data should be text string here (only if the server response is text/plain)
+	        }).error(function(data, status) {
+	        	  console.error('Repos error', status, data);
+	        	  alert("Invalid Photo");
 	        });
 		        
 			    // SEND THE FILES.
-		       
+		 }       
   }
 	  
 	  
@@ -313,6 +324,8 @@ app.controller('ImageUploadDetails', function ($scope, $http, sessionService, $w
 							
 							
 							
+               <br>
+               <strong>Tag Brand Here:</strong>
                <br>
                Accessory: 
                <Select ng-model="Accessory" id="Accessory">
