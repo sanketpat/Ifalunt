@@ -41,7 +41,7 @@ public class User {
 
 	@OneToMany(mappedBy = "follower")
 	@JsonManagedReference
-	private Collection<Relationship> following;
+	
 
 	public String getUserName() {
 		return userName;
@@ -123,11 +123,5 @@ public class User {
 		this.photoList = photoList;
 	}
 
-	public Collection<Relationship> getFollowing() {
-		return following;
-	}
 
-	public void setFollowing(List<Relationship> following) {
-		this.following = following;
-	}
 }
