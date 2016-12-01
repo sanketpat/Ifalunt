@@ -1,6 +1,5 @@
 package com.iflaunt.backend.model;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -35,14 +34,11 @@ public class User {
 
 	private String bio;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference
 	private List<Photo> photoList;
-
-	@OneToMany(mappedBy = "follower")
-	@JsonManagedReference
 	
-
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -114,7 +110,7 @@ public class User {
 	public void setBio(String bio) {
 		this.bio = bio;
 	}
-
+	
 	public List<Photo> getPhotoList() {
 		return photoList;
 	}
@@ -122,6 +118,4 @@ public class User {
 	public void setPhotoList(List<Photo> photoList) {
 		this.photoList = photoList;
 	}
-
-
 }
