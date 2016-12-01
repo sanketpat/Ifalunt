@@ -194,16 +194,16 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
                     	 lastName:$scope.lastname,
                     		 photoName:$scope.Email,
                     			 birthDate:$scope.myDate,
-                    				 gender:$scope.gender,
+                    				 gender:$scope.male,
                     					 bio:$scope.Bio
                  }
              }
     	
     	
-if($scope.firstname==""||$scope.myDate==""||$scope.gender==""){
+if($scope.firstname==""||$scope.myDate==""||$scope.male==""){
 	alert("Enter Valid Details")
 }  
-else	 if($scope.firstname==null||$scope.myDate==null||$scope.gender==null){
+else	 if($scope.firstname==null||$scope.myDate==null||$scope.male==null){
     			alert("Enter Valid Details")
     		}  
 
