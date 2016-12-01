@@ -1,5 +1,5 @@
 'use strict';
-var app=angular.module('iflaunt',['ngRoute','ngMaterial','ngMessages','ngTouch']);
+var app=angular.module('iflaunt',['ngRoute','ngMaterial','ngMessages']);
 app.config(['$routeProvider',function($routeProvider){
 	
 	$routeProvider.when('/login', {templateUrl:'/index.html', controller:'LoginController'});
