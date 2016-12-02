@@ -36,9 +36,11 @@ app.controller('Trends', function ($scope, $http, sessionService, $window) {
 		$scope.user=sessionService.get('user')
 		$scope.Email=$scope.user;
 	}
+	
+	var urls='http://localhost:8080/photo/getBrands/'+$scope.Email;
 		var req = {
 	             method : 'POST',
-	             url : 'http://localhost:8080/photo/getBrands',
+	             url :urls,
 	            
 	            
 	         };

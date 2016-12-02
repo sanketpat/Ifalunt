@@ -142,12 +142,12 @@ app.controller('ImageUploadDetails', function ($scope, $http, sessionService, $w
 
                     }
                     else if (response.data=="") {
-                        alert("No photos in your album");
+                        //alert("No photos in your album");
                         $scope.loading=false;
                        
                     }else {
-                        alert("Error: "
-                            + response.data.statusText);
+                       // alert("Error: "
+                            //+ response.data.statusText);
                     }
                 });
   
@@ -168,7 +168,7 @@ app.controller('ImageUploadDetails', function ($scope, $http, sessionService, $w
 
                    }
                    else if (response.data=="") {
-                       alert("No photos in your album");
+                      // alert("No photos in your album");
                       
                    }else {
                        alert("Error: "
