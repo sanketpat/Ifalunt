@@ -31,6 +31,14 @@ public class User {
 	private String birthDate;
 
 	private String gender;
+	private String city;
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
 
 	private String bio;
 
