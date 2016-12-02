@@ -1,17 +1,24 @@
 package com.iflaunt.backend.model;
 
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.iflaunt.backend.model.Photo;
 
 @Entity
-public class User {
+public class User implements Serializable {
+
 	@Id
 	@Column(nullable = false)
 	private String userName;
@@ -34,11 +41,16 @@ public class User {
 
 	private String bio;
 
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference
 	private List<Photo> photoList;
+
+	@OneToMany(mappedBy = "follower")
+	private Collection<Relationship> following;
 	
-	
+	@OneToMany(mappedBy = "followed")
+	private Collection<Relationship> followed;
+
 	public String getUserName() {
 		return userName;
 	}
@@ -110,12 +122,20 @@ public class User {
 	public void setBio(String bio) {
 		this.bio = bio;
 	}
-	
+
 	public List<Photo> getPhotoList() {
 		return photoList;
 	}
 
 	public void setPhotoList(List<Photo> photoList) {
 		this.photoList = photoList;
+	}
+
+	public Collection<Relationship> getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(List<Relationship> following) {
+		this.following = following;
 	}
 }
