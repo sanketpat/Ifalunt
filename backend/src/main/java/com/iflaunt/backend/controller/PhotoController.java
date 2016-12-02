@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -140,9 +141,9 @@ public class PhotoController {
 		return photoService.findByPhotoId(photoId);
 	}
 
-	@RequestMapping(value = "/getBrands", method = RequestMethod.POST)
-	public List<Photo> getBrands() {
-		return photoService.countsBybrand();
+	@RequestMapping(value = "/getBrands/{keyword:.+}", method = RequestMethod.POST)
+	public List<Photo> getBrands(@PathVariable String keyword) {
+		return photoService.countsBybrand(keyword);
 	}
 
 	@RequestMapping(value = "/photo/update", method = RequestMethod.POST)
