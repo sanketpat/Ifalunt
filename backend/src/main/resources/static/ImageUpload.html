@@ -92,6 +92,7 @@ app.directive('ngFiles', ['$parse', function ($parse) {
 
 
 app.controller('ImageUploadDetails', function ($scope, $http, sessionService, $window) {
+	$scope.loading=true;
 	if(sessionService.get('user')==null){
 		$window.location.href = './index.html';
         
@@ -128,7 +129,10 @@ app.controller('ImageUploadDetails', function ($scope, $http, sessionService, $w
                     // success callback
                     if (response.status == 200 && response.data!="") {
                         //alert("Photo Uploaded Successfully");
+                        $scope.loading=true;
+                        
                         $scope.img=response.data;
+                        $scope.loading=false;
                     //    alert("Session Name"+sessionService.get('user'));
                         
                       //  $scope.photoname=response.data.photoName;
@@ -139,6 +143,7 @@ app.controller('ImageUploadDetails', function ($scope, $http, sessionService, $w
                     }
                     else if (response.data=="") {
                         alert("No photos in your album");
+                        $scope.loading=false;
                        
                     }else {
                         alert("Error: "
@@ -398,7 +403,7 @@ app.controller('ImageUploadDetails', function ($scope, $http, sessionService, $w
       <br/>
       
       
-        <img src=images/Loading_icon.gif/>
+        <img src=images/Loading_icon.gif ng-show="loading"/>
   
           
       
