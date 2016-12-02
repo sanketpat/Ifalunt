@@ -87,6 +87,15 @@ app.controller('Home', function ($scope, $http, sessionService, $window) {
 	        	  
 	  }
 	  
+	  $scope.followAction = function(){
+	        $http.get('/'+$rootScope.userId+'/followAction/'+$scope.id).success(function(data){
+	            var btn = document.getElementById('followBtn');
+	            $scope.followBtnTxt = data.label;
+	        }).error(function(data){
+	            console.log('hiba '+data);
+	        });
+	    };
+	  
 	  $scope.search = function($evt){
 	        var searchbar = document.getElementById('searchbar');
 
@@ -172,7 +181,7 @@ app.controller('Home', function ($scope, $http, sessionService, $window) {
         
           
           <div class="md-actions" layout="row" layout-align="end center">
-            <md-button>Follow</md-button>
+            <md-button id="followBtn" ng-click="followAction()">{{followBtnTxt}}</md-button>
           </div>
         </md-card>
    </div>
