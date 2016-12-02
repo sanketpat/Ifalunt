@@ -41,7 +41,7 @@ public class PhotoServiceImpl implements PhotoService{
 	}
 
 	@Override
-	public List<Photo> countsBybrand() {
-		return photoDao.countsBybrand();
+	public List<Photo> countsBybrand(String user) {
+		return photoDao.countsBybrand(user);
 	}
 }
