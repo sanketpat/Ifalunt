@@ -82,7 +82,7 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
                      
                      $scope.myDate= response.data.birthDate
                      $scope.Bio= response.data.bio
-                    
+                     $scope.city= response.data.city
                   if( response.data.gender=="M")
                 	  { $scope.male=response.data.gender;
                 	  
@@ -195,7 +195,8 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
                     		 photoName:$scope.Email,
                     			 birthDate:$scope.myDate,
                     				 gender:$scope.male,
-                    					 bio:$scope.Bio
+                    					 bio:$scope.Bio,
+                    					 city:$scope.city
                  }
              }
     	
