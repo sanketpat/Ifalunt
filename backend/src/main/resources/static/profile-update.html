@@ -142,18 +142,15 @@ body {
 				</div>
 				
 
-				<div class="form-group">
-					<label class="col-md-3 control-label">DOB:</label>
-					<div class="col-md-8">
-<p><input type="text" id="datepicker-13" placeholder="MM/DD/YYYY" ng-model="myDate"></p>
-
-						
-
-
-					</div>
-				</div>
-
-
+				 <div class="form-group">
+                    <label for="birthDate" class="col-sm-3 control-label">Date of Birth</label>
+                    <div class="col-sm-9">
+                        <input type="date" id="birthDate" class="form-control" ng-model="myDate">
+                    </div>
+                </div>
+                
+                
+       
 
 				<div class="form-group">
 					<label class="col-lg-3 control-label">Bio:</label>
@@ -198,7 +195,16 @@ body {
       <!-- Javascript -->
       <script>
          $(function() {
-            $( "#datepicker-13" ).datepicker();
+            $( "#datepicker-13" ).datepicker({
+            		dateFormat: 'mm/dd/yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    defaultDate: GetCurrentDate(),
+                    onSelect: function () {
+                        $(this).blur().change();
+                    }	}	
+            
+            );
             $( "#datepicker-13" ).datepicker("show");
          });
       </script>
