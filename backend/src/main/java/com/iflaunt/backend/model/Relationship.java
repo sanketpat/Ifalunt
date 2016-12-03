@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Relationship implements Serializable {
 	
@@ -16,10 +18,12 @@ public class Relationship implements Serializable {
 	    private  long Id;
 
 	    @ManyToOne
+	    @JsonBackReference
 	    @JoinColumn(name = "follower")
 	    private User follower;
 
 	    @ManyToOne
+	    @JsonBackReference
 	    @JoinColumn(name = "followed")
 	    private User followed;
 

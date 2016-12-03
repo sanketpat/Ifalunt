@@ -54,9 +54,11 @@ public class User implements Serializable {
 	private List<Photo> photoList;
 
 	@OneToMany(mappedBy = "follower")
+	@JsonManagedReference
 	private Collection<Relationship> following;
 	
 	@OneToMany(mappedBy = "followed")
+	@JsonManagedReference
 	private Collection<Relationship> followed;
 
 	public String getUserName() {
