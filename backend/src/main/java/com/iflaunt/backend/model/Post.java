@@ -2,13 +2,15 @@ package com.iflaunt.backend.model;
 
 import java.util.Date;
 
+import org.springframework.http.HttpEntity;
+
 public class Post implements Comparable<Post> {
 
 	private String userFullName;
 	private String gender;
 	private String accessoryType;
 	private String brand;
-	private String imageName;
+	private HttpEntity<byte[]> image;
 	private String time;
 	private Date dateCreated;
 
@@ -28,12 +30,12 @@ public class Post implements Comparable<Post> {
 		this.time = time;
 	}
 
-	public String getImageName() {
-		return imageName;
+	public HttpEntity<byte[]> getImage() {
+		return image;
 	}
 
-	public void setImageName(String imageName) {
-		this.imageName = imageName;
+	public void setImageName(HttpEntity<byte[]> image) {
+		this.image = image;
 	}
 
 	public String getUserFullName() {

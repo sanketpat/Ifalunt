@@ -213,7 +213,7 @@ public class UserController {
 				post.setUserFullName(user.getFirstName() + " " + user.getLastName());
 				post.setGender(user.getGender());
 				post.setBrand(photo.getBrand());
-				post.setImageName(photo.getImageName());
+				post.setImageName(trnasformToHttpEntity(photo.getImageName()));
 				post.setAccessoryType(photo.getAccessoryType());
 				post.setTime(p.format(photo.getCreated()));
 				post.setDateCreated(photo.getCreated());
@@ -224,6 +224,24 @@ public class UserController {
 
 		Collections.sort(posts);
 		return posts;
+	}
+
+	private HttpEntity<byte[]> trnasformToHttpEntity(String imageName2) {
+		try {
+			File photoImage = new File("src/main/resources/static/images/" + imageName2);
+			if (!photoImage.exists()) {
+				System.out.print("Photo not found");
+			}
+			byte[] photoFile = Files.readAllBytes(Paths.get(photoImage.getPath()));
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentLength(photoFile.length);
+			HttpEntity<byte[]> httpEntity = new HttpEntity<byte[]>(photoFile, headers);
+			return httpEntity;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 
 }
