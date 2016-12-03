@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService{
 		return userDao.findByUserName(userName);
 	}
 	
-	public List<HashMap<Long,String>> findUserByFirstNameLike(@Param("keyword") String keyword) {
+	public List<User> findUserByFirstNameLike(@Param("keyword") String keyword) {
 		return userDao.findUserByFirstNameLike( keyword);
 	}
 

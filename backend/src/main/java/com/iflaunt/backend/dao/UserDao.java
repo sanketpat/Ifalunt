@@ -15,5 +15,5 @@ public interface UserDao extends CrudRepository<User, Long>{
 	
 	User findByUserName (String userName);
 
-	List<HashMap<Long, String>> findUserByFirstNameLike(String keyword);
+	List<User> findUserByFirstNameLike(String keyword);
 }

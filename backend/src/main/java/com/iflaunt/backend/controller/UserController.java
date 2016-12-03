@@ -112,11 +112,14 @@ public class UserController {
 		return userService.save(user);
 	}
 	
-	@RequestMapping(value = "/search/{keyword}",method = RequestMethod.GET)
-    public Object search(@PathVariable String keyword){
+	@RequestMapping(value = "/search/{keyword}/{userName:.+}",method = RequestMethod.GET)
+    public Object search(@PathVariable String keyword, @PathVariable String userName){
 
         if(!keyword.isEmpty()) {
-           List<HashMap<Long,String>> obj = userService.findUserByFirstNameLike("%" + keyword + "%");
+           List<User> obj = userService.findUserByFirstNameLike("%" + keyword + "%");
+           
+           
+           
            return obj;
         }
         return null;

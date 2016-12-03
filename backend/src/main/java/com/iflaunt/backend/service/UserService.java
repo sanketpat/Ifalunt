@@ -12,7 +12,7 @@ public interface UserService {
 	
 	User findByUserName(String userName);
 	
-	List<HashMap<Long,String>> findUserByFirstNameLike(@Param("keyword") String keyword);
+	List<User> findUserByFirstNameLike(@Param("keyword") String keyword);
 
 
 }

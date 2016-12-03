@@ -124,7 +124,7 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
 	        if(!searchbar.value)
 	            document.getElementById('suggestions').style.display = "none";
 	        else{
-	            $http.get('user/search/'+searchbar.value).success(function(data){
+	            $http.get('user/search/'+searchbar.value+'/'+$scope.Email).success(function(data){
 	                console.log(data);
 	                
 	            	
