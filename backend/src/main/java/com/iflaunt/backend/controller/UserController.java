@@ -115,10 +115,16 @@ public class UserController {
 	@RequestMapping(value = "/search/{keyword}/{userName:.+}",method = RequestMethod.GET)
     public Object search(@PathVariable String keyword, @PathVariable String userName){
 
+		User currentUser = userService.findByUserName(userName);
         if(!keyword.isEmpty()) {
            List<User> obj = userService.findUserByFirstNameLike("%" + keyword + "%");
            
-           
+           for(User user : obj )
+           {
+        	   if(currentUser.equals(user))
+        	   {
+        	   obj.remove(user);}
+           }
            
            return obj;
         }
