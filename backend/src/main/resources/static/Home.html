@@ -25,7 +25,7 @@ opacity: 0.2;
 transition: all 0.2s linear 0s;
 }
 .arrow.next {
-background-image: url("../images/next.png");
+background-image: url("../images/arrow.png");
 opacity: 0.2;
 right: 20px;
 transition: all 0.2s linear 0s;
@@ -37,7 +37,7 @@ opacity:1;
 opacity:1;
 }
 .nav {
-bottom: -4px;
+bottom: -380px;
 display: block;
 height: 48px;
 left: 0;
@@ -68,15 +68,21 @@ width: 100%;
 .slider {
 border: 15px solid #FFFFFF;
 border-radius: 5px;
-height: 500px;
+
+ 
+display:block; 
+height: auto;
+
+
+
 margin: 20px auto;
 position: relative;
-width: 800px;
--webkit-perspective: 1000px;
--moz-perspective: 1000px;
--ms-perspective: 1000px;
--o-perspective: 1000px;
-perspective: 1000px;
+width: auto;
+-webkit-perspective: auto;
+-moz-perspective: auto;
+-ms-perspective: auto;
+-o-perspective: auto;
+perspective: auto;
 -webkit-transform-style: preserve-3d;
 -moz-transform-style: preserve-3d;
 -ms-transform-style: preserve-3d;
@@ -87,6 +93,7 @@ transform-style: preserve-3d;
 position: absolute;
 top: 0;
 left: 0;
+
 }
 .slide.ng-hide-add {
 opacity:1;
@@ -220,7 +227,7 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
   <i class="fa fa-camera-retro"></i></a></li>
   <li class="w3-hide-small w3-dropdown-hover">
     <a href="TrendsNearby.html" class="w3-padding-large w3-hover-white">Near By Trends
-  <i class="	fa fa-street-view"></i></a>
+  <i class="fa fa-street-view"></i></a>
   
   <li class="w3-hide-small w3-dropdown-hover">
     <a class="w3-padding-large w3-hover-white" ng-click="Logout()">Log Out
@@ -234,35 +241,39 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
 </div>
 
 <!-- Navbar on small screens -->
-<div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top w3-show" style="margin-top:51px">
+
+
+<div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:51px">
   <ul class="w3-navbar w3-left-align w3-large w3-theme">
-    <li><a class="w3-padding-large" href="FriendsRequest.html"> Friends <i class="fa fa-group"></i></a></li>
-    <li><a class="w3-padding-large" href="ImageUpload.html">Flaunt Now <i class="fa fa-camera-retro"></i></a></li>
-    <li><a class="w3-padding-large" href="TrendsNearby.html">Near By Trends <i class="	fa fa-street-view"></i></a></li>
-    <li><a class="w3-padding-large" href="profile-update.html">My Profile <i class="fa fa-cog"></i></a></li>
-    <li><a class="w3-padding-large" ng-click="Logout()">Log Out <i class="fa fa-power-off"></i></a></li>
+    <li><a class="w3-padding-large" href="FriendsRequest.html">Friends 
+  <i class="fa fa-group"></i></a></li>
+    <li><a class="w3-padding-large" href="ImageUpload.html">Flaunt Now 
+  <i class="fa fa-camera-retro"></i></a></li>
+    <li><a class="w3-padding-large" href="TrendsNearby.html">Near By Trends
+  <i class="fa fa-street-view"></i></a></li>
+  <li><a class="w3-padding-large" href="profile-update.html">Update Profile <i class="fa fa-cog"></i></a></li>
+    <li><a class="w3-padding-large" ng-click="Logout()">Log Out </a></li>
   </ul>
 </div>
 
 <!-- Page Container -->
 <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
   <!-- The Grid -->
+  
+  
+  <div class="w3-row">
+     <div class="w3-col m3">
+ <div ng-repeat="photo in photos"   ng-show="isActive($index)" >
+      {{photo.desc}}
+      </div></div>
+
+      
+      </div>
   <div class="w3-row">
     <!-- Left Column -->
-    <div class="w3-col m3">
-      <!-- Profile -->
-     
-      
-      <br>
-      
-      <!-- Accordion -->
-      
-      <br>
-      
-      <!-- Interests -->
-      <div class="w3-card-2 w3-round w3-white w3-hide-small">
-       
-<!-- enumerate all photos -->
+    <div class="w3-col m6">
+    <span ></span>
+    
 <div class="container slider">
 <!-- enumerate all photos -->
 <img ng-repeat="photo in photos" class="slide" ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="{{photo.src}}" />
@@ -287,20 +298,23 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
 
 </div>
 
- <div ng-repeat="photo in photos"   ng-show="isActive($index)" >
-      {{photo.desc}}
-      </div>
-      
-      </div>
      
+    
       <br>
+     
+      </div>
       
-      <!-- Alert Box -->
+      <div class="w3-col m6">
       
-    
-    <!-- End Left Column -->
-    </div>
-    
+      <img alt="" src="/images/Levis.png">
+      <img alt="" src="/images/Levis.png">
+     
+      </div>
+      
+      
+      </div>
+      
+  
     <!-- Middle Column -->
     
     
@@ -309,8 +323,7 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
     
   <!-- End Grid -->
   </div>
-  
-<!-- End Page Container -->
+   
 </div>
 <br>
 
@@ -342,7 +355,6 @@ function openNav() {
     }
 }
 </script>
-
 
 
 
