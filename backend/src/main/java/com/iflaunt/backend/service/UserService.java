@@ -14,5 +14,6 @@ public interface UserService {
 	
 	List<User> findUserByFirstNameLike(@Param("keyword") String keyword);
 
+	List<User> getFollowed(String userName);
 
 }

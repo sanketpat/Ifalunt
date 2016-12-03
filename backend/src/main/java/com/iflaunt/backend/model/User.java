@@ -13,10 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.NamedNativeQueries;
+import org.hibernate.annotations.NamedNativeQuery;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@NamedNativeQuery(name = "User.getFollowed",resultClass = User.class, query = "SELECT * FROM user LEFT JOIN relationship on relationship.follower = :username WHERE relationship.followed = user.user_name")
 public class User implements Serializable {
 
 	@Id

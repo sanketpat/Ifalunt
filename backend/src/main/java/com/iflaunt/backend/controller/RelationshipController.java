@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.iflaunt.backend.model.Relationship;
 import com.iflaunt.backend.model.User;
+import com.iflaunt.backend.service.PhotoService;
 import com.iflaunt.backend.service.RelationshipService;
 import com.iflaunt.backend.service.UserService;
 
@@ -22,6 +23,8 @@ public class RelationshipController {
 	private final UserService userService;
 	
 	private final RelationshipService relationshipService;
+	
+	private final PhotoService photoService;
 	
 	@RequestMapping(value = "/isfollowing/{profileUserName:.+}",method = RequestMethod.GET)
     public HashMap<String,Boolean> isFollowing(@PathVariable String username,@PathVariable String profileUserName){
@@ -59,10 +62,12 @@ public class RelationshipController {
         return map;
     }
 	
+	
 	 	@Autowired
-	    public RelationshipController(UserService userService, RelationshipService relationshipService){
+	    public RelationshipController(UserService userService, RelationshipService relationshipService, PhotoService photoService){
 	        this.relationshipService = relationshipService;
 	        this.userService = userService;
+	        this.photoService=photoService;
 	    }
 	
 }

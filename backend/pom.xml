@@ -18,6 +18,12 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
+	<repositories>
+		<repository>
+  			 <id>sonatype-snapshots</id>
+   			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -71,6 +77,14 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.6.0</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.ocpsoft/ocpsoft-pretty-time -->
+<dependency>
+    <groupId>com.ocpsoft</groupId>
+    <artifactId>ocpsoft-pretty-time</artifactId>
+    <version>1.0.7</version>
+</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

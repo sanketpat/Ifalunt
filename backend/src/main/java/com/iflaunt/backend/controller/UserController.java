@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -25,10 +26,14 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.iflaunt.backend.model.Photo;
+import com.iflaunt.backend.model.Post;
 import com.iflaunt.backend.model.Relationship;
 import com.iflaunt.backend.model.User;
+import com.iflaunt.backend.service.PhotoService;
 import com.iflaunt.backend.service.RelationshipService;
 import com.iflaunt.backend.service.UserService;
+import com.ocpsoft.pretty.time.PrettyTime;
 
 @RestController
 @RequestMapping ("/user")
@@ -38,7 +43,10 @@ public class UserController {
 	private UserService userService;
 	
 	@Autowired
-	private RelationshipService relationShipService;
+	private RelationshipService relationshipService;
+	
+	@Autowired
+	private PhotoService photoService;
 	
 	public UserService getUserService() {
 		return userService;
@@ -133,7 +141,7 @@ public class UserController {
 				if (currentUser.equals(user)) {
 					iter.remove();
 				}
-				Relationship relationship = relationShipService.isFollowingId(currentUser, user);
+				Relationship relationship = relationshipService.isFollowingId(currentUser, user);
 				if (relationship != null) {
 					iter.remove();
 					relationship= null;
@@ -192,6 +200,36 @@ public class UserController {
         headers.setLastModified(photo.lastModified());
         return new HttpEntity<byte[]>(photoFile,headers);
 
+    }
+    
+    @RequestMapping(value = "/getPosts/{username:.+}",method = RequestMethod.GET)
+    public List<Post> getPosts(@PathVariable String username){
+		List<User> followed = userService.getFollowed(username);
+		List<Post> posts = new ArrayList<Post>();
+		PrettyTime p = new PrettyTime();
+		
+		
+		for(User user: followed)
+		{
+			List <Photo> photos = photoService.findByUser(user);
+			
+			for(Photo photo : photos)
+			{
+				Post post = new Post();
+				post.setUserFullName(user.getFirstName()+" "+ user.getLastName());
+				post.setGender(user.getGender());
+				post.setBrand(photo.getBrand());
+				post.setImageName(photo.getImageName());
+				post.setAccessoryType(photo.getAccessoryType());
+				post.setTime(p.format(photo.getCreated()));
+				post.setDateCreated(photo.getCreated());
+				posts.add(post);
+				
+			}
+		}
+		
+		Collections.sort(posts);
+        return posts;
     }
 	
 }

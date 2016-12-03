@@ -37,5 +37,11 @@ public class UserServiceImpl implements UserService{
 		return userDao.findUserByFirstNameLike( keyword);
 	}
 
+	@Override
+	public List<User> getFollowed(String userName) {
+	
+		return userDao.getFollowed(userName);
+	}
+
 
 }
