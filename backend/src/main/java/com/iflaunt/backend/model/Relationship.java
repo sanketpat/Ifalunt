@@ -12,46 +12,47 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Relationship implements Serializable {
-	
-		@Id
-	    @GeneratedValue
-	    private  long Id;
+	private static final long serialVersionUID = 1L;
 
-	    @ManyToOne
-	    @JsonBackReference(value="user-follower")
-	    @JoinColumn(name = "follower")
-	    private User follower;
+	@Id
+	@GeneratedValue
+	private long Id;
 
-	    @ManyToOne
-	    @JsonBackReference(value="user-follwed")
-	    @JoinColumn(name = "followed")
-	    private User followed;
+	@ManyToOne
+	@JsonBackReference(value = "user-follower")
+	@JoinColumn(name = "follower")
+	private User follower;
 
-	    public long getId() {
-	        return Id;
-	    }
+	@ManyToOne
+	@JsonBackReference(value = "user-follwed")
+	@JoinColumn(name = "followed")
+	private User followed;
 
-	    public void setId(long id) {
-	        Id = id;
-	    }
+	public long getId() {
+		return Id;
+	}
 
-	    public User getFollower() {
-	        return follower;
-	    }
+	public void setId(long id) {
+		Id = id;
+	}
 
-	    public void setFollower(User follower) {
-	        this.follower = follower;
-	    }
+	public User getFollower() {
+		return follower;
+	}
 
-	    public User getFollowed() {
-	        return followed;
-	    }
+	public void setFollower(User follower) {
+		this.follower = follower;
+	}
 
-	    public void setFollowed(User followed) {
-	        this.followed = followed;
-	    }
+	public User getFollowed() {
+		return followed;
+	}
 
-	    public Relationship(){
-	    }
+	public void setFollowed(User followed) {
+		this.followed = followed;
+	}
+
+	public Relationship() {
+	}
 
 }

@@ -13,14 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.NamedNativeQueries;
 import org.hibernate.annotations.NamedNativeQuery;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@NamedNativeQuery(name = "User.getFollowed",resultClass = User.class, query = "SELECT * FROM user LEFT JOIN relationship on relationship.follower = :username WHERE relationship.followed = user.user_name")
+@NamedNativeQuery(name = "User.getFollowed", resultClass = User.class, query = "SELECT * FROM user LEFT JOIN relationship on relationship.follower = :username WHERE relationship.followed = user.user_name")
 public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(nullable = false)
@@ -42,6 +43,7 @@ public class User implements Serializable {
 
 	private String gender;
 	private String city;
+
 	public String getCity() {
 		return city;
 	}
@@ -57,11 +59,11 @@ public class User implements Serializable {
 	private List<Photo> photoList;
 
 	@OneToMany(mappedBy = "follower")
-	@JsonManagedReference(value="user-follower")
+	@JsonManagedReference(value = "user-follower")
 	private Collection<Relationship> following;
-	
+
 	@OneToMany(mappedBy = "followed")
-	@JsonManagedReference(value="user-follwed")
+	@JsonManagedReference(value = "user-follwed")
 	private Collection<Relationship> followed;
 
 	public String getUserName() {
