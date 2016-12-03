@@ -37,8 +37,8 @@ public class RelationshipController {
 	@RequestMapping(value = "/followAction/{profileUserName:.+}", method = RequestMethod.GET)
 	public Map<String, String> followAction(@PathVariable String username, @PathVariable String profileUserName) {
 		HashMap<String, String> map = new LinkedHashMap<>();
-		User followed = userService.findByUserName(username);
-		User following = userService.findByUserName(profileUserName);
+		User followed = userService.findByUserName(profileUserName);
+		User following = userService.findByUserName(username);
 
 		Relationship rel = relationshipService.isFollowingId(followed, following);
 
