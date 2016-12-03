@@ -18,12 +18,12 @@ public class Relationship implements Serializable {
 	    private  long Id;
 
 	    @ManyToOne
-	    @JsonBackReference
+	    @JsonBackReference(value="user-follower")
 	    @JoinColumn(name = "follower")
 	    private User follower;
 
 	    @ManyToOne
-	    @JsonBackReference
+	    @JsonBackReference(value="user-follwed")
 	    @JoinColumn(name = "followed")
 	    private User followed;
 

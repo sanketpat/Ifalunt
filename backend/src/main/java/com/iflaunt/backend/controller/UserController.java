@@ -25,7 +25,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.iflaunt.backend.model.Relationship;
 import com.iflaunt.backend.model.User;
+import com.iflaunt.backend.service.RelationshipService;
 import com.iflaunt.backend.service.UserService;
 
 @RestController
@@ -34,6 +36,10 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RelationshipService relationShipService;
+	
 	public UserService getUserService() {
 		return userService;
 	}
@@ -119,12 +125,33 @@ public class UserController {
         if(!keyword.isEmpty()) {
            List<User> obj = userService.findUserByFirstNameLike("%" + keyword + "%");
            
-           for(User user : obj )
-           {
-        	   if(currentUser.equals(user))
-        	   {
-        	   obj.remove(user);}
-           }
+           Iterator<User> iter = obj.iterator();
+           
+			while (iter.hasNext()) {
+				User user = iter.next();
+
+				if (currentUser.equals(user)) {
+					iter.remove();
+				}
+				Relationship relationship = relationShipService.isFollowingId(currentUser, user);
+				if (relationship != null) {
+					iter.remove();
+					relationship= null;
+				}
+			}
+           
+           /*for(User user : obj )
+			{
+				if (currentUser.equals(user)) {
+					obj.remove(user);
+				}
+				
+				Relationship relationship = relationShipService.isFollowingId(currentUser, user);
+				if(relationship != null)
+				{
+					obj.remove(user);
+				}
+			}*/
            
            return obj;
         }
