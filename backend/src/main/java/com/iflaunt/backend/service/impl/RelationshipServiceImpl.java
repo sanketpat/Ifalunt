@@ -9,20 +9,18 @@ import com.iflaunt.backend.model.User;
 import com.iflaunt.backend.service.RelationshipService;
 
 @Service
-public class RelationshipServiceImpl implements RelationshipService{
+public class RelationshipServiceImpl implements RelationshipService {
 
 	@Autowired
 	private RelationshipDao relationshipDao;
-	
-	
+
 	@Override
 	public Relationship isFollowingId(User userName, User profileUserName) {
 		return relationshipDao.isFollowingId(userName, profileUserName);
 	}
-	
+
 	@Override
-	public Relationship save(Relationship relationship)
-	{
+	public Relationship save(Relationship relationship) {
 		return relationshipDao.save(relationship);
 	}
 
