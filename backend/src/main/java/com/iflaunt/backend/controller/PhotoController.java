@@ -45,7 +45,6 @@ public class PhotoController {
 		return photoService.findAll();
 	}
 
-
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public void upload(HttpServletResponse reponse, HttpServletRequest request) {
 
@@ -93,48 +92,43 @@ public class PhotoController {
 
 		return photoService.findByUser(user);
 	}
-	
-	
+
 	@RequestMapping(value = "/getPhotos", method = RequestMethod.POST)
 	public List<HttpEntity<byte[]>> getPhotoFilesByUser(@RequestBody User user, WebRequest request) throws IOException {
-		List<Photo> Photo=photoService.findByUser(user);
-		List<Photo> PhotoBrand=photoService.findByUser(user);
-		
-		int a=Photo.size();
+		List<Photo> Photo = photoService.findByUser(user);
+
+		int a = Photo.size();
 		List<HttpEntity<byte[]>> entities = new ArrayList<HttpEntity<byte[]>>();
-		if(a==0){
-			
+		if (a == 0) {
+
 			System.out.println("No images");
-		}else{
-			
-			for(int i=0;i<a;i++){
-			
-        File photo = new File("src/main/resources/static/images/"+Photo.get(i).getImageName());
-        if (!photo.exists()){
-            System.out.print("Photo not found");
-        }
+		} else {
 
-        if (request.checkNotModified(photo.lastModified()))
-            return null;
+			for (int i = 0; i < a; i++) {
 
-        byte[] photoFile = Files.readAllBytes(Paths.get(photo.getPath()));
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentLength(photoFile.length);
-        headers.setLastModified(photo.lastModified());
-        headers.set("Brand",Photo.get(i).getBrand() );
+				File photo = new File("src/main/resources/static/images/" + Photo.get(i).getImageName());
+				if (!photo.exists()) {
+					System.out.print("Photo not found");
+				}
 
-        headers.set("Accessory",Photo.get(i).getAccessoryType() );
-        HttpEntity<byte[]> httpEntity = new HttpEntity<byte[]>(photoFile,headers);
-        entities.add(httpEntity);
-        
+				if (request.checkNotModified(photo.lastModified()))
+					return null;
+
+				byte[] photoFile = Files.readAllBytes(Paths.get(photo.getPath()));
+				HttpHeaders headers = new HttpHeaders();
+				headers.setContentLength(photoFile.length);
+				headers.setLastModified(photo.lastModified());
+				headers.set("Brand", Photo.get(i).getBrand());
+
+				headers.set("Accessory", Photo.get(i).getAccessoryType());
+				HttpEntity<byte[]> httpEntity = new HttpEntity<byte[]>(photoFile, headers);
+				entities.add(httpEntity);
+
 			}
-			}
+		}
 		return entities;
-		
+
 	}
-	
-	
-	
 
 	@RequestMapping(value = "/photo/photoId", method = RequestMethod.POST)
 	public Photo getPhotoByPhotoId(@RequestBody Long photoId) {

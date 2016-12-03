@@ -36,18 +36,18 @@ import com.iflaunt.backend.service.UserService;
 import com.ocpsoft.pretty.time.PrettyTime;
 
 @RestController
-@RequestMapping ("/user")
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private RelationshipService relationshipService;
-	
+
 	@Autowired
 	private PhotoService photoService;
-	
+
 	public UserService getUserService() {
 		return userService;
 	}
@@ -62,8 +62,7 @@ public class UserController {
 	public User registerUser(@RequestBody User user) {
 		if ((userService.findByUserName(user.getUserName())) == null) {
 			return userService.save(user);
-		}
-		else{
+		} else {
 			return null;
 		}
 
@@ -94,22 +93,22 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public User upload (HttpServletRequest request) {
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public User upload(HttpServletRequest request) {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Iterator<String> it = multipartRequest.getFileNames();
-		String userDisplaypicName=multipartRequest.getParameter("username");
+		String userDisplaypicName = multipartRequest.getParameter("username");
 		MultipartFile multipartFile = multipartRequest.getFile(it.next());
 		String fileNameExt = multipartFile.getOriginalFilename();
-		String fileExtention=FilenameUtils.getExtension(fileNameExt);
-		String newFileName= userDisplaypicName.trim()+"."+fileExtention.trim();
-		String path= new File("src/main/resources/static/images").getAbsolutePath()+"/"+newFileName;
+		String fileExtention = FilenameUtils.getExtension(fileNameExt);
+		String newFileName = userDisplaypicName.trim() + "." + fileExtention.trim();
+		String path = new File("src/main/resources/static/images").getAbsolutePath() + "/" + newFileName;
 		try {
 			multipartFile.transferTo(new File(path));
 			System.out.println(path);
 			User user = userService.findByUserName(multipartRequest.getParameter("username"));
 			user.setPhotoName(newFileName);
-			imageName=newFileName;
+			imageName = newFileName;
 			return user;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -117,24 +116,24 @@ public class UserController {
 		return null;
 	}
 
-	@RequestMapping(value="/update", method=RequestMethod.POST)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public User updateUser(@RequestBody User user) {
-		User userTemp=userService.findByUserName(user.getUserName());
+		User userTemp = userService.findByUserName(user.getUserName());
 		user.setPassword(userTemp.getPassword());
 		user.setCreated(userTemp.getCreated());
 		user.setPhotoName(imageName);
 		return userService.save(user);
 	}
-	
-	@RequestMapping(value = "/search/{keyword}/{userName:.+}",method = RequestMethod.GET)
-    public Object search(@PathVariable String keyword, @PathVariable String userName){
+
+	@RequestMapping(value = "/search/{keyword}/{userName:.+}", method = RequestMethod.GET)
+	public Object search(@PathVariable String keyword, @PathVariable String userName) {
 
 		User currentUser = userService.findByUserName(userName);
-        if(!keyword.isEmpty()) {
-           List<User> obj = userService.findUserByFirstNameLike("%" + keyword + "%");
-           
-           Iterator<User> iter = obj.iterator();
-           
+		if (!keyword.isEmpty()) {
+			List<User> obj = userService.findUserByFirstNameLike("%" + keyword + "%");
+
+			Iterator<User> iter = obj.iterator();
+
 			while (iter.hasNext()) {
 				User user = iter.next();
 
@@ -144,28 +143,25 @@ public class UserController {
 				Relationship relationship = relationshipService.isFollowingId(currentUser, user);
 				if (relationship != null) {
 					iter.remove();
-					relationship= null;
+					relationship = null;
 				}
 			}
-           
-           /*for(User user : obj )
-			{
-				if (currentUser.equals(user)) {
-					obj.remove(user);
-				}
-				
-				Relationship relationship = relationShipService.isFollowingId(currentUser, user);
-				if(relationship != null)
-				{
-					obj.remove(user);
-				}
-			}*/
-           
-           return obj;
-        }
-        return null;
-    }
-	@RequestMapping(value="/getUserdetails", method=RequestMethod.POST)
+
+			/*
+			 * for(User user : obj ) { if (currentUser.equals(user)) {
+			 * obj.remove(user); }
+			 * 
+			 * Relationship relationship =
+			 * relationShipService.isFollowingId(currentUser, user);
+			 * if(relationship != null) { obj.remove(user); } }
+			 */
+
+			return obj;
+		}
+		return null;
+	}
+
+	@RequestMapping(value = "/getUserdetails", method = RequestMethod.POST)
 	public User getUser(@RequestBody Map<String, String> json) throws ServletException {
 		if (json.get("username") == null) {
 			throw new ServletException("Please fill in username and password");
@@ -175,48 +171,46 @@ public class UserController {
 		User user = userService.findByUserName(userName);
 		return user;
 	}
-	
-    @RequestMapping(value = "/getProfilePicture/{userName:.+}",method = RequestMethod.GET)
-    public HttpEntity<byte[]> getSingleProfilePicture(@PathVariable String userName, WebRequest request) throws IOException{
-        User usr = userService.findByUserName(userName);
-        String name = null;
-        try{
-             name = usr.getPhotoName();
 
-        }catch (Exception e){
-            name = "default.png";
-        }
-        File photo = new File("src/main/resources/static/images",name);
-        if (!photo.exists()){
-            System.out.print("Photo not found");
-        }
+	@RequestMapping(value = "/getProfilePicture/{userName:.+}", method = RequestMethod.GET)
+	public HttpEntity<byte[]> getSingleProfilePicture(@PathVariable String userName, WebRequest request)
+			throws IOException {
+		User usr = userService.findByUserName(userName);
+		String name = null;
+		try {
+			name = usr.getPhotoName();
 
-        if (request.checkNotModified(photo.lastModified()))
-            return null;
+		} catch (Exception e) {
+			name = "default.png";
+		}
+		File photo = new File("src/main/resources/static/images", name);
+		if (!photo.exists()) {
+			System.out.print("Photo not found");
+		}
 
-        byte[] photoFile = Files.readAllBytes(Paths.get(photo.getPath()));
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentLength(photoFile.length);
-        headers.setLastModified(photo.lastModified());
-        return new HttpEntity<byte[]>(photoFile,headers);
+		if (request.checkNotModified(photo.lastModified()))
+			return null;
 
-    }
-    
-    @RequestMapping(value = "/getPosts/{username:.+}",method = RequestMethod.GET)
-    public List<Post> getPosts(@PathVariable String username){
+		byte[] photoFile = Files.readAllBytes(Paths.get(photo.getPath()));
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentLength(photoFile.length);
+		headers.setLastModified(photo.lastModified());
+		return new HttpEntity<byte[]>(photoFile, headers);
+
+	}
+
+	@RequestMapping(value = "/getPosts/{username:.+}", method = RequestMethod.GET)
+	public List<Post> getPosts(@PathVariable String username) {
 		List<User> followed = userService.getFollowed(username);
 		List<Post> posts = new ArrayList<Post>();
 		PrettyTime p = new PrettyTime();
-		
-		
-		for(User user: followed)
-		{
-			List <Photo> photos = photoService.findByUser(user);
-			
-			for(Photo photo : photos)
-			{
+
+		for (User user : followed) {
+			List<Photo> photos = photoService.findByUser(user);
+
+			for (Photo photo : photos) {
 				Post post = new Post();
-				post.setUserFullName(user.getFirstName()+" "+ user.getLastName());
+				post.setUserFullName(user.getFirstName() + " " + user.getLastName());
 				post.setGender(user.getGender());
 				post.setBrand(photo.getBrand());
 				post.setImageName(photo.getImageName());
@@ -224,12 +218,12 @@ public class UserController {
 				post.setTime(p.format(photo.getCreated()));
 				post.setDateCreated(photo.getCreated());
 				posts.add(post);
-				
+
 			}
 		}
-		
+
 		Collections.sort(posts);
-        return posts;
-    }
-	
+		return posts;
+	}
+
 }
