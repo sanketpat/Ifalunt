@@ -71,8 +71,8 @@ public class TestPhotoService {
 	@Test
 	public void testCountsBybrand()
 	{
-		when(photoDao.countsBybrand()).thenReturn(photos);
-		assertEquals(photos, photoService.countsBybrand());
+		when(photoDao.countsBybrand(user.getUserName())).thenReturn(photos);
+		assertEquals(photos, photoService.countsBybrand(user.getUserName()));
 	}
 	
 	

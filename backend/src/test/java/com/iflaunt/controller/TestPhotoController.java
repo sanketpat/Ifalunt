@@ -106,8 +106,8 @@ public class TestPhotoController {
 	
 	@Test
 	public void testGetBrands() {
-		when(photoservice.countsBybrand()).thenReturn(photos);
-		assertEquals(photos, controller.getBrands());
+		when(photoservice.countsBybrand(user.getUserName())).thenReturn(photos);
+		assertEquals(photos, controller.getBrands(user.getUserName()));
 	}
 	
 	@Test

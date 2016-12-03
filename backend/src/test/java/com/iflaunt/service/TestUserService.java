@@ -28,12 +28,12 @@ public class TestUserService {
 	
 	private User user;
 	
-	private List<HashMap<Long,String>> userDetails;;
+	private List<User> userDetails;;
 	
 	@Before
 	public void setup() throws Exception {
 		
-		userDetails = new ArrayList<HashMap<Long, String>>();
+		userDetails = new ArrayList<User>();
 		user = new User();
 		userDao=  mock(UserDao.class);
 		user.setUserName("test@test.com");
@@ -60,7 +60,7 @@ public class TestUserService {
 	public void testFindUserByFirstNameLike()
 	{
 		when(userDao.findUserByFirstNameLike("aa")).thenReturn(userDetails);
-		assertEquals(user, userService.findUserByFirstNameLike(user.getUserName()));
+		assertEquals(userDetails, userService.findUserByFirstNameLike(user.getUserName()));
 	}
 	
 	

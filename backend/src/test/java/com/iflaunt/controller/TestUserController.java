@@ -108,9 +108,9 @@ public class TestUserController {
 	
 	@Test
 	public void testSearch(){
-		List<HashMap<Long,String>> obj = new ArrayList<HashMap<Long,String>>();
+		List<User> obj = new ArrayList<User>();
 		when(userService.findUserByFirstNameLike("ab")).thenReturn(obj);
-		assertEquals(obj, controller.search("ab"));
+		assertEquals(obj, controller.search("ab", user.getUserName()));
 	}
 	
 	@Test
