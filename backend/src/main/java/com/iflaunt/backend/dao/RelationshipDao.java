@@ -9,9 +9,9 @@ import com.iflaunt.backend.model.Relationship;
 import com.iflaunt.backend.model.User;
 
 @Repository
-public interface RelationshipDao extends CrudRepository<Relationship, Long>{
+public interface RelationshipDao extends CrudRepository<Relationship, Long> {
 
 	@Query("SELECT DISTINCT r FROM Relationship r WHERE follower = :username AND followed = :profile")
 	Relationship isFollowingId(@Param("username") User userName, @Param("profile") User profileUserName);
-	
+
 }

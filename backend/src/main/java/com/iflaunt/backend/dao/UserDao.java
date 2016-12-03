@@ -9,13 +9,13 @@ import org.springframework.stereotype.Repository;
 import com.iflaunt.backend.model.User;
 
 @Repository
-public interface UserDao extends CrudRepository<User, Long>{
+public interface UserDao extends CrudRepository<User, Long> {
 	@SuppressWarnings("unchecked")
 	User save(User user);
-	
-	User findByUserName (String userName);
+
+	User findByUserName(String userName);
 
 	List<User> findUserByFirstNameLike(String keyword);
-	
-	List<User> getFollowed(@Param("username") String userName );
+
+	List<User> getFollowed(@Param("username") String userName);
 }
