@@ -56,7 +56,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
     
   </li>
 <li class="w3-hide-small w3-right"><a href="profile-update.html" class=" w3-hover-white" title="My Account"> {{firstname}} {{lastname}}
-  <img ng-src="/user/getProfilePicture/{{user}}" src="/user/getProfilePicture/{{user}}" class="w3-circle" style="height:30px;width:30px" alt="Avatar"></a></li>
+  <img ng-src="/user/getProfilePicture/{{user}}" class="w3-circle" style="height:30px;width:30px" alt="Avatar"></a></li>
 
  </ul>
 </div>
@@ -109,7 +109,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
         <div class="w3-col m12">
           <div class="w3-card-2 w3-round w3-white">
             <div class="w3-container w3-padding">
-              <h6 class="w3-opacity">Upload your Flaunt image</h6>
+              <h6 class="w3-opacity"><font face="Tahoma" color="#292f33">Upload your Flaunt image</font></h6>
             
 								<img ng-repeat="image in dummy.images | limitTo: 1" ng-src="{{dummy.images}}" class="img-responsive" alt="Cinque Terre" width="304" height="236" >
             
@@ -119,9 +119,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 							
 							
                <br>
-               <strong>Tag Brand Here:</strong>
+               <font face="Tahoma" color="#66757f">  <strong>Tag Brand Here:</strong></font>
                <br>
-               Accessory: 
+               <font face="Tahoma" color="#66757f"><strong>Accessory: </strong></font>
                <Select ng-model="Accessory" id="Accessory">
                <option>Shirt</option>
                <option>Trouser</option>
@@ -129,7 +129,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
                </Select>
         
                
-               Brand: <Select ng-model="BrandName1" id="Brand">
+               <font face="Tahoma" color="#66757f"><strong> Brand: </strong></font>
+                <Select ng-model="BrandName1" id="Brand">
            
                <option>Levis</option>
                <option>Wrangler</option>
@@ -178,8 +179,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 <div ng-repeat="x in img1" class="w3-col m3">
     
     <img   ng-src="data:image/JPEG;base64,{{x.body}}" class="img-responsive"  width="304" height="236">
-<div >Brand: {{x.headers.Brand.join()}}</div>
-<div>Accessory: {{x.headers.Accessory.join()}}</div>
+<font face="Tahoma" color="#66757f"><strong><br/><div >Brand: {{x.headers.Brand.join()}}</div>
+<div>Accessory: {{x.headers.Accessory.join()}}</div></strong></font>
 
 </div>
 

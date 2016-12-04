@@ -166,7 +166,7 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
     
   </li>
  <li class="w3-hide-small w3-right"><a href="profile-update.html" class=" w3-hover-white" title="My Account" style="color:white"> {{firstname}} {{lastname}}
-  <img ng-src="/user/getProfilePicture/{{user}}" src="/user/getProfilePicture/{{user}}" class="w3-circle" style="height:30px;width:30px" alt="Avatar"></a></li>
+  <img ng-src="/user/getProfilePicture/{{user}}"  class="w3-circle" style="height:30px;width:30px" alt="Avatar"></a></li>
  </ul>
 </div>
 
@@ -188,7 +188,7 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
     <div class="col-sm-6">
       	
       	<div>
-      		<h6>Friedns</h6>
+      		<h6>Friends</h6>
       	</div>
       	<div class='md-padding' layout="row" layout-wrap>
         <md-card style="width: 150px;" ng-repeat="followedUser in follwedUsers track by $index" ng-cloak>
