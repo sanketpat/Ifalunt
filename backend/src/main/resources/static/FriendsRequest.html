@@ -23,6 +23,14 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 ._o0442 {
     cursor: pointer;
 }
+
+.friend-list {
+	max-width: auto;
+    background: #dddddd;
+    border-radius: 3px;
+    height: auto
+}
+
 </style>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -200,9 +208,11 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
   <div class="row">
     <div class="col-sm-6">
       	
-      	<div>
-      		<h6>Friends</h6>
-      	</div>
+      <div class="friend-list" style="text-align: center; color:#4d636f;">
+      		<p style="font-size:200%"><b>Friend List</b></p>
+      </div>
+      	
+      	
       	<div class='md-padding' layout="row" layout-wrap>
         <md-card style="width: 150px; background-color:#fff;" ng-repeat="followedUser in follwedUsers track by $index" ng-cloak>
           <img ng-src="/user/getProfilePicture/{{followedUser.username}}" src="/user/getProfilePicture/{{followedUser.userName}}"  style="height:150px;width:150px" />
@@ -223,7 +233,7 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
         
           
           <div  layout="row" layout-align="center end">
-          	<md-button style="background-color:#4d636f;" class="_aj7mu _2hpcs _95tat _o0442 "> unfollow  <p class="fa fa-plus-square"> </p> </md-button>
+          	<md-button style="background-color:#4d636f;" class="_aj7mu _2hpcs _95tat _o0442 " id="unfollowBtn" ng-click="unfollowAction(followedUser.userName)" > unfollow  <p class="fa fa-plus-square"> </p> </md-button>
             <!-- <md-button id="unfollowBtn" ng-click="unfollowAction(followedUser.userName)">Unfollow</md-button> -->
           </div>
         </md-card>
@@ -231,18 +241,7 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
       	
     </div>
     <div class="col-sm-6" >
-    	
-    	
-    	
-		<div>
-     		 
-     		 <input class="searchbar input-group stylish-input-group" id="searchbar" ng-keyup="search($evt)" type="search" placeholder="search" "/>
-                <div id="suggestions" ng-cloak>
-                    <ul id="suggestions_ul">
-                    </ul>
-                </div>
-    	
-    	
+        <input class="input-group col-md-12 custom-search-input" style="font-size:170%" type="text" id="searchbar"  type="search" class="search-query form-control" ng-keyup="search($evt)" placeholder="Search" />
     	<div class='md-padding' layout="row" layout-wrap>
         <md-card style="width: 150px;" ng-repeat="users in searchdUsers track by $index" ng-cloak>
           <img ng-src="/user/getProfilePicture/{{users.username}}" src="/user/getProfilePicture/{{users.userName}}"  style="height:150px;width:150px" />
@@ -257,11 +256,10 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
            </div>
 
          <div  layout="row" layout-align="center">
-          	<md-button style="border-color: #3897f0;" class="_aj7mu _2hpcs _95tat _o0442 " id="followBtn" ng-click="followAction(users.userName)"> follow  <p class="fa fa-plus-square"> </p> </md-button>
+          	<md-button style="background-color:#4d636f;" style="border-color: #3897f0;" class="_aj7mu _2hpcs _95tat _o0442 " id="followBtn" ng-click="followAction(users.userName)"> follow  <p class="fa fa-plus-square-o"> </p> </md-button>
             <!-- <md-button id="unfollowBtn" ng-click="unfollowAction(followedUser.userName)">Unfollow</md-button> -->
           </div>
         </md-card>
-   		</div>
    		</div>
     </div>
   </div>
