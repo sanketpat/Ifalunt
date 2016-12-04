@@ -171,6 +171,21 @@ public class UserController {
 		User user = userService.findByUserName(userName);
 		return user;
 	}
+	
+	@RequestMapping(value = "/isProfileImageAvailable/{userName:.+}", method = RequestMethod.POST)
+	public boolean isProfileImageAvailable(@PathVariable String userName) {
+		
+		User user = userService.findByUserName(userName);
+		String name=user.getPhotoName();
+		
+		if(name != null)
+		{
+			return true;
+		}else
+		{
+			return false;
+		}
+	}
 
 	@RequestMapping(value = "/getProfilePicture/{userName:.+}", method = RequestMethod.GET)
 	public HttpEntity<byte[]> getSingleProfilePicture(@PathVariable String userName, WebRequest request)
