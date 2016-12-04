@@ -4,6 +4,7 @@
 app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
 	$scope.myVar=false;
 	$scope.hideflag=false;
+	
 	// Set of Photos
 	if(sessionService.get('user')==null){
 		$window.location.href = './index.html';
@@ -35,7 +36,7 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
                 
                 $scope.myDate= response.data.birthDate
                 $scope.Bio= response.data.bio
-               
+         
            
             }
 	    	 
@@ -44,9 +45,29 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
 	     });
 		
 		
-		
-		
-		
+		 var requestcheck = {
+		            method: 'GET',
+		            url: '/user/isFollowed/'+sessionService.get('user'),
+		         
+		            headers: {
+		                'Content-Type': undefined
+		            }
+		        };
+		 
+		 $http(requestcheck).then(
+	             function(response) {
+	            	  // success callback
+	                if (response.status == 200 ) {
+	               	 $scope.flag=response.data;
+	                }
+	                                         
+	                else {
+	                }
+	            });
+		 
+		 
+		 
+		 
 		
 		var req = {
 	             method : 'GET',
@@ -71,7 +92,14 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
 
 	                    }
 	                    else if (response.data=="") {
+	                    	
+	                    	if( $scope.flag){
+	                    	
 	                        alert("Start Following your Friends to See their Posts ");
+	                    	}else{
+	                    		 alert("Your Friend have not yet uploaded any picture ");
+	                    		
+	                    	}
 	                       
 	                    }else {
 	                        alert("Error: "
