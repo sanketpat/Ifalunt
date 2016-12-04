@@ -134,7 +134,7 @@ app.controller('RegisterController',
                                 alert("Sign Up Successful!"+ json.userName);
                                 
                                 sessionService.set('user',$scope.email);
-                                alert("Session Created"+ sessionService.get('user'));
+                                //alert("Session Created"+ sessionService.get('user'));
                                 
                                 $window.location.href = './profile-update.html';
 

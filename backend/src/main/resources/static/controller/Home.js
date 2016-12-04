@@ -2,7 +2,8 @@
 
 
 app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
-	
+	$scope.myVar=false;
+	$scope.hideflag=false;
 	// Set of Photos
 	if(sessionService.get('user')==null){
 		$window.location.href = './index.html';
@@ -10,6 +11,42 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
 	}else{
 		$scope.user=sessionService.get('user')
 		$scope.Email=$scope.user;
+		
+		
+		var requserDetails = {
+	             method : 'POST',
+	             url : 'http://localhost:8080/user/getUserdetails',
+	             headers : {
+	                 'Content-Type' : 'application/json'
+	             },
+	             data : {
+	                 username :sessionService.get('user')
+	                }
+	         };
+		
+		 $http(requserDetails)
+	     .then(function(response) {
+	    	 if (response.status == 200 && response.data!="") {
+                //alert("Photo Uploaded Successfully");
+                
+                
+                $scope.firstname=response.data.firstName;
+                $scope.lastname=response.data.lastName;
+                
+                $scope.myDate= response.data.birthDate
+                $scope.Bio= response.data.bio
+               
+           
+            }
+	    	 
+	    	
+	    	 
+	     });
+		
+		
+		
+		
+		
 		
 		var req = {
 	             method : 'GET',
@@ -28,12 +65,13 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
 	                       
 	                        $scope.displayDetails=response.data;
 	                        
-	                        
+	                    	$scope.myVar=true;
+	                    	$scope.hideflag=true;
 	                    
 
 	                    }
 	                    else if (response.data=="") {
-	                        alert("Incorrect Credentials ");
+	                        alert("Start Following your Friends to See their Posts ");
 	                       
 	                    }else {
 	                        alert("Error: "
