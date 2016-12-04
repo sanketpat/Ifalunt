@@ -53,12 +53,12 @@ body {
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description"
 	content="User information form snippet with timezones">
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/font-awesome.min.css" type="text/css"
+<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/font-awesome.min.css" type="text/css"
 	rel="stylesheet">
-<link href="../css/profile-update.css" type="text/css" rel="stylesheet">
+<link href="./css/profile-update.css" type="text/css" rel="stylesheet">
 
-<link rel="stylesheet" href="../css/form-elements.css">
+<link rel="stylesheet" href="./css/form-elements.css">
 
 
 <!--[if lt IE 9]>
@@ -154,12 +154,19 @@ body {
 				</div>
 
 				 <div class="form-group">
-                    <label for="birthDate" class="col-sm-3 control-label">Date of Birth</label>
+                    <label  class="col-sm-3 control-label">Date of Birth</label>
                     <div class="col-sm-9">
-                        <input type="date" id="birthDate" class="form-control" ng-model="myDate">
+                       <input id='date' ng-model="myDate" type='date' >
                     </div>
                 </div>
+               
+                <script>
                 
+                var date = new Date().toISOString().substring(0, 10),
+                field = document.querySelector('#date');
+            field.value = date;
+            console.log(field.value);
+                </script>
                 
        
 
@@ -197,8 +204,8 @@ body {
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
 
-<script src="../js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script src="./js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="./js/bootstrap.min.js"></script>
 
 <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
       <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -206,7 +213,11 @@ body {
       <!-- Javascript -->
       <script>
          $(function() {
-            $( "#datepicker-13" ).datepicker(        
+            $( "#datepicker-13" ).datepicker( 
+            		{
+                        viewMode: 'years',
+                        format: 'MM/YYYY'
+                    }
             );
             $( "#datepicker-13" ).datepicker("show");
          });

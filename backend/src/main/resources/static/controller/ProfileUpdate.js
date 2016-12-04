@@ -58,7 +58,47 @@ app.directive('ngFiles', ['$parse', function ($parse) {
 
 
 app.controller('fupController', function ($scope, $http, sessionService, $window) {
-
+	 $scope.photoFlag=false;
+	
+	var requestcheck = {
+	            method: 'GET',
+	            url: '/user/isProfileImageAvailable/'+sessionService.get('user'),
+	            data: formdata,
+	            headers: {
+	                'Content-Type': undefined
+	            }
+	        };
+	 
+	 $http(requestcheck).then(
+             function(response) {
+            	  // success callback
+                if (response.status == 200 && response.data!="") {
+               	 $scope.photoFlag=response.data;
+                }
+                                         
+                else {
+                }
+            });
+	 
+	 
+	 
+	 
+//	 .success(function (data) { $scope.photoFlag=data;}).error(function(error, status) {
+//		 $scope.photoFlag=false;
+//         console.log(error);         
+//     });
+//	 
+	 
+	 
+	 
+	
+	
+	
+	
+	
+	
+	
+	
 	
 		  var req = {
 		             method : 'POST',
@@ -80,9 +120,20 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
                      $scope.firstname=response.data.firstName;
                      $scope.lastname=response.data.lastName;
                      
-                     $scope.myDate= response.data.birthDate
+                     $scope.myDate= response.data.birthDate ; 
+                    
+                     $scope.myDate=new Date($scope.myDate)
+                
                      $scope.Bio= response.data.bio
                      $scope.city= response.data.city
+                     
+                     
+                     var date = new Date($scope.myDate)
+
+                  date.setDate(date.getDate() + 1)
+               //   alert(date);
+                  
+                     $scope.myDate=date;
                   if( response.data.gender=="M")
                 	  { $scope.male=response.data.gender;
                 	  
@@ -126,13 +177,14 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
         
         
     };
+   
     $scope.setGender = function (value) {
         //If DIV is visible it will be hidden and vice versa.
         $scope.gender = value;
     }
 
     $scope.uploadFiles = function () {
-
+    	
         var request = {
             method: 'POST',
             url: 'user/upload',
@@ -155,7 +207,7 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
                     if (response.status == 200 && response.data!="") {
                         alert("Photo Uploaded Successfully");
                     //    alert("Session Name"+sessionService.get('user'));
-                        
+                        $scope.photoFlag=true;
                         $scope.photoname=response.data.photoName;
                        // ./images/muraligowthamsb@gmail.com.jpg
                       //  alert($scope.photoname);
@@ -178,6 +230,9 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
     
 
     $scope.uploadDetails = function () {
+    	if($scope.photoFlag==true){
+    	
+    	
     	
     //	alert("You are herte");
     	
@@ -193,7 +248,7 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
                      firstName:$scope.firstname,
                     	 lastName:$scope.lastname,
                     		 photoName:$scope.Email,
-                    			 birthDate:$scope.myDate,
+                    			 birthDate:$scope.myDate.toISOString().substring(0,10),
                     				 gender:$scope.male,
                     					 bio:$scope.Bio,
                     					 city:$scope.city
@@ -228,7 +283,12 @@ else{
                   });
 
     	 }
-    }
+    	}
+    	else{
+    		
+    		alert("Upload your Image");
+    		 
+    	}}
     
     function dateController ($scope) {
         $scope.myDate = new Date();
