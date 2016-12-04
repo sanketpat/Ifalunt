@@ -14,6 +14,14 @@ public class RelationshipServiceImpl implements RelationshipService {
 	@Autowired
 	private RelationshipDao relationshipDao;
 
+	public RelationshipDao getRelationshipDao() {
+		return relationshipDao;
+	}
+
+	public void setRelationshipDao(RelationshipDao relationshipDao) {
+		this.relationshipDao = relationshipDao;
+	}
+
 	@Override
 	public Relationship isFollowingId(User userName, User profileUserName) {
 		return relationshipDao.isFollowingId(userName, profileUserName);
