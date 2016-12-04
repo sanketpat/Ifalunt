@@ -33,7 +33,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 
 
 <script language="javascript">
-app.controller('Home', function ($scope, $http, sessionService, $window, $mdToast) {
+app.controller('Home', function ($scope, $http, sessionService, $window, $mdToast,  $route) {
 	if(sessionService.get('user')==null){
 		$window.location.href = './index.html';
         
@@ -99,7 +99,7 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
 	                        .textContent('Followed')                       
 	                        .hideDelay(500)
 	                  );
-	            
+	            $window.location.reload();
 	        }).error(function(data){
 	            console.log('hiba '+data);
 	        });
@@ -113,6 +113,8 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
 	                        .textContent('Unfollowed')                       
 	                        .hideDelay(500)
 	                  );
+	            
+	            $window.location.reload();
 	            
 	        }).error(function(data){
 	            console.log('hiba '+data);
@@ -185,12 +187,25 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
   <div class="row">
     <div class="col-sm-6">
       	
+      	<div>
+      		<h6>Friedns</h6>
+      	</div>
       	<div class='md-padding' layout="row" layout-wrap>
         <md-card style="width: 150px;" ng-repeat="followedUser in follwedUsers track by $index" ng-cloak>
           <img ng-src="/user/getProfilePicture/{{followedUser.username}}" src="/user/getProfilePicture/{{followedUser.userName}}"  style="height:150px;width:150px" />
             <h2 style="font-size: 200%;text-align: center;">{{followedUser.firstName}} {{followedUser.lastName}}</h2>
-            <p> {{followedUser.gender}} {{followedUser.birthDate}}</p>
-            <p>{{followedUser.bio}}</p>
+           
+           	<div style="text-align: center;"> <p ng-show="followedUser.gender == 'M'">
+            	<i class ="fa fa-mars"></i>
+            	 {{followedUser.birthDate | date:'dd MMM'}}
+            </p>
+             <p ng-show="followedUser.gender == 'F'">
+            	<i class ="fa fa-mars"></i>
+            	{{followedUser.birthDate | date:'dd MMM'}}
+            </p>
+            
+           </div>
+            	<div style="text-align: center;"> {{followedUser.bio}}</div>
         
           
           <div class="md-actions" layout="row" layout-align="end center">
@@ -217,7 +232,15 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
         <md-card style="width: 150px;" ng-repeat="users in searchdUsers track by $index" ng-cloak>
           <img ng-src="/user/getProfilePicture/{{users.username}}" src="/user/getProfilePicture/{{users.userName}}"  style="height:150px;width:150px" />
             <h2 style="font-size: 200%;text-align: center;">{{users.firstName}} {{users.lastName}}</h2>
-            <p> {{users.gender}} {{users.birthDate}}</p>
+           <p ng-show="users.gender == 'M'">
+            	<i class ="fa fa-mars"></i>
+            	 
+            </p>
+             <p ng-show="users.gender == 'F'">
+            	<i class ="fa fa-mars"></i>
+            </p>
+            
+           <p>{{users.birthDate | date:'dd MMM'}}</p>
             <p>{{users.bio}}</p>
         
           

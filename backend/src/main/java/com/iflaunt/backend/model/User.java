@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @NamedNativeQuery(name = "User.getFollowed", resultClass = User.class, query = "SELECT * FROM user LEFT JOIN relationship on relationship.follower = :username WHERE relationship.followed = user.user_name")
-public class User implements Serializable {
+public class User implements Serializable, Comparable<User>{
 
 	private static final long serialVersionUID = 1L;
 
@@ -152,5 +152,10 @@ public class User implements Serializable {
 
 	public void setFollowing(List<Relationship> following) {
 		this.following = following;
+	}
+
+	@Override
+	public int compareTo(User o) {
+		return getFirstName().compareTo(o.getFirstName());
 	}
 }

@@ -244,6 +244,14 @@ public class UserController {
 		Collections.sort(posts);
 		return posts;
 	}
+	
+	@RequestMapping(value = "/getFollowedUser/{username:.+}", method = RequestMethod.GET)
+	public List<User> getFollowedUser(@PathVariable String username) {
+		List<User> followed = userService.getFollowed(username);
+		Collections.sort(followed);
+		return followed;
+	}
+	
 
 	private HttpEntity<byte[]> trnasformToHttpEntity(String imageName2) {
 		try {
