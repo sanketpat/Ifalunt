@@ -21,6 +21,7 @@ import com.iflaunt.backend.service.RelationshipService;
 import com.iflaunt.backend.service.UserService;
 
 
+
 @RunWith(JUnit4.class)
 public class TestRelationshipController {
 	
@@ -94,6 +95,16 @@ public class TestRelationshipController {
 		when(relationshipService.isFollowingId(user1, user2)).thenReturn(rel);
 		assertEquals(hashmap, controller.isFollowing(user1.getUserName(), user2.getUserName()));
 		
+	}
+	
+	@Test
+	public void testUnfollow()
+	{
+		HashMap<String, Boolean> hashmap= new HashMap<String, Boolean>();
+		hashmap.put("following", false);
+		when(relationshipService.isFollowingId(user1, user2)).thenReturn(rel);
+		
+		assertEquals(true, controller.unfollowAction(user1.getUserName(), user2.getUserName()));
 	}
 
 }

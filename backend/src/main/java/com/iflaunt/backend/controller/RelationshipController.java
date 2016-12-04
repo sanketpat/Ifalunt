@@ -60,7 +60,7 @@ public class RelationshipController {
 	}
 	
 	@RequestMapping(value = "/unfollowAction/{profileUserName:.+}", method = RequestMethod.GET)
-	public void unfollowAction(@PathVariable String username, @PathVariable String profileUserName) {
+	public boolean unfollowAction(@PathVariable String username, @PathVariable String profileUserName) {
 		User followed = userService.findByUserName(profileUserName);
 		User following = userService.findByUserName(username);
 
@@ -68,6 +68,10 @@ public class RelationshipController {
 		if(rel!=null)
 		{
 			relationshipService.delete(rel);
+			return true;
+		}else
+		{
+			return false;
 		}
 		
 	}
