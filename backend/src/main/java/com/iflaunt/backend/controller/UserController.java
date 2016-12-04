@@ -178,12 +178,12 @@ public class UserController {
 		User user = userService.findByUserName(userName);
 		String name=user.getPhotoName();
 		
-		if(name != null)
-		{
-			return true;
-		}else
+		if( name == null || name.equals(""))
 		{
 			return false;
+		}else
+		{
+			return true;
 		}
 	}
 
