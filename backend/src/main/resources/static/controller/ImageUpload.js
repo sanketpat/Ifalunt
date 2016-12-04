@@ -67,6 +67,38 @@ app.controller('ImageUploadDetails', function ($scope, $http, sessionService, $w
 	}else{
 		$scope.user=sessionService.get('user')
 		$scope.Email=$scope.user;
+
+		var requserDetails = {
+	             method : 'POST',
+	             url : 'http://localhost:8080/user/getUserdetails',
+	             headers : {
+	                 'Content-Type' : 'application/json'
+	             },
+	             data : {
+	                 username :sessionService.get('user')
+	                }
+	         };
+		
+		 $http(requserDetails)
+	     .then(function(response) {
+	    	 if (response.status == 200 && response.data!="") {
+                //alert("Photo Uploaded Successfully");
+                
+                
+                $scope.firstname=response.data.firstName;
+                $scope.lastname=response.data.lastName;
+                
+                $scope.myDate= response.data.birthDate
+                $scope.Bio= response.data.bio
+               
+           
+            }
+	    	 
+	    	
+	    	 
+	     });
+		
+		
 		
 	}
 	
