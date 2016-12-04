@@ -191,7 +191,7 @@ position: absolute;
     width: 100%;
 }
 .searchbar{
-    width: 400px;
+    width: 250px;
     border-radius: 15px;
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px;
@@ -203,6 +203,18 @@ position: absolute;
     margin-top: 17px;
     font-weight: 200;
     color: #b2b2b2;
+}
+.stylish-input-group .input-group-addon{
+    background: white !important; 
+}
+.stylish-input-group .form-control{
+	border-right:0; 
+	box-shadow:0 0 0; 
+	border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
 }
 .wrapper-dropdown-2 .dropdown  li:last-child{
 	border-bottom-left-radius:5px;

@@ -5,12 +5,14 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="./css/friends.css">
 <link rel="stylesheet" href="./css/grid.css">
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 </style>
-
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script
@@ -69,16 +71,14 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
              else{$scope.male=response.data.gender;
            	  
              }
-            //    alert("Session Name"+sessionService.get('user'));
-                
-               // $scope.photoname=response.data.photoName;
-               // ./images/muraligowthamsb@gmail.com.jpg
-              //  alert($scope.photoname);
-                //$window.location.href = './profile-update.html';
-
             }
 	    	 
-	    	 
+	    	 $http.get('user/getFollowedUser/'+$scope.Email).success(function(data){
+	                console.log(data);
+	            	if(data != null){
+	            		$scope.follwedUsers=data;
+	                }
+	            });
 	    	 
 	     });
 		
@@ -104,20 +104,22 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
 	            console.log('hiba '+data);
 	        });
 	    };
-	  
-	/*   $scope.isFollowing = function(users){
-	        $http.get('/relationship/'+$scope.user+'/isfollowing/'+users).success(function(data){
-	        	var btn = document.getElementById('followBtn');
-                if(data.following == true){
-                    $scope.followBtnTxt = 'FOLLOW';
-                }else{
-                    $scope.followBtnTxt = 'UNFOLLOW';
-                }
+	    
+	    $scope.unfollowAction = function(users){
+	        $http.get('/relationship/'+$scope.user+'/unfollowAction/'+users).success(function(data){
+	            var btn = document.getElementById('followBtn');
+	            $mdToast.show(
+	                     $mdToast.simple()
+	                        .textContent('Unfollowed')                       
+	                        .hideDelay(500)
+	                  );
+	            
 	        }).error(function(data){
 	            console.log('hiba '+data);
 	        });
 	    };
-	   */
+	  
+
 	  $scope.search = function($evt){
 	        var searchbar = document.getElementById('searchbar');
 
@@ -146,22 +148,22 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
   <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
     <a class="w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
   </li>
-  <li><a href="home.html" class=" w3-padding-large w3-hover-white"><i class="fa fa-home w3-margin-right"></i>i Flaunt</a></li>
+  <li><a href="home.html" class=" w3-padding-large w3-hover-white" style="color:white"><i class="fa fa-home w3-margin-right"></i>i Flaunt</a></li>
   
-  <li class="w3-hide-small"><a href="FriendsRequest.html" class="w3-padding-large w3-theme-d4"> Friends 
+  <li class="w3-hide-small"><a href="FriendsRequest.html" class="w3-padding-large w3-theme-d4" style="color:white"> Friends 
   <i class="fa fa-group"></i></a></li>
-  <li class="w3-hide-small"><a href="ImageUpload.html" class="w3-padding-large w3-hover-white" >Flaunt Now 
+  <li class="w3-hide-small"><a href="ImageUpload.html" class="w3-padding-large w3-hover-white" style="color:white">Flaunt Now 
   <i class="fa fa-camera-retro"></i></a></li>
   <li class="w3-hide-small w3-dropdown-hover">
-    <a href="TrendsNearby.html" class="w3-padding-large w3-hover-white">Near By Trends
+    <a href="TrendsNearby.html" class="w3-padding-large w3-hover-white" style="color:white">Near By Trends
   <i class="	fa fa-street-view"></i></a>
   
   <li class="w3-hide-small w3-dropdown-hover">
-    <a class="w3-padding-large w3-hover-white" ng-click="Logout()">Log Out
+    <a class="w3-padding-large w3-hover-white" ng-click="Logout()" style="color:white">Log Out
   <i class="fa fa-power-off"></i></a>
     
   </li>
- <li class="w3-hide-small w3-right"><a href="profile-update.html" class=" w3-hover-white" title="My Account"> {{firstname}} {{lastname}}
+ <li class="w3-hide-small w3-right"><a href="profile-update.html" class=" w3-hover-white" title="My Account" style="color:white"> {{firstname}} {{lastname}}
   <img ng-src="/user/getProfilePicture/{{user}}" src="/user/getProfilePicture/{{user}}" class="w3-circle" style="height:30px;width:30px" alt="Avatar"></a></li>
  </ul>
 </div>
@@ -169,32 +171,51 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
 <!-- Navbar on small screens -->
 <div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top w3-show" style="margin-top:51px">
   <ul class="w3-navbar w3-left-align w3-large w3-theme">
-    <li><a class="w3-padding-large" href="FriendsRequest.html"> Friends <i class="fa fa-group"></i></a></li>
-    <li><a class="w3-padding-large" href="ImageUpload.html">Flaunt Now <i class="fa fa-camera-retro"></i></a></li>
-    <li><a class="w3-padding-large" href="TrendsNearby.html">Near By Trends <i class="	fa fa-street-view"></i></a></li>
-    <li><a class="w3-padding-large" href="profile-update.html">My Profile <i class="fa fa-cog"></i></a></li>
-    <li><a class="w3-padding-large" ng-click="Logout()">Log Out <i class="fa fa-power-off"></i></a></li>
+    <li><a class="w3-padding-large" href="FriendsRequest.html" style="color:white"> Friends <i class="fa fa-group"></i></a></li>
+    <li><a class="w3-padding-large" href="ImageUpload.html" style="color:white">Flaunt Now <i class="fa fa-camera-retro"></i></a></li>
+    <li><a class="w3-padding-large" href="TrendsNearby.html" style="color:white">Near By Trends <i class="	fa fa-street-view"></i></a></li>
+    <li><a class="w3-padding-large" href="profile-update.html" style="color:white">My Profile <i class="fa fa-cog"></i></a></li>
+    <li><a class="w3-padding-large" ng-click="Logout()" style="color:white">Log Out <i class="fa fa-power-off"></i></a></li>
   </ul>
 </div>
 
 <!-- Page Container -->
 <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
-  <!-- The Grid -->
-  <div class="w3-row">
-    <!-- Left Column -->
-    
-    <div class="w3-col m3">
-      <input class="searchbar" id="searchbar" ng-keyup="search($evt)" type="search" placeholder="search" "/>
+  <div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-6">
+      	
+      	<div class='md-padding' layout="row" layout-wrap>
+        <md-card style="width: 150px;" ng-repeat="followedUser in follwedUsers track by $index" ng-cloak>
+          <img ng-src="/user/getProfilePicture/{{followedUser.username}}" src="/user/getProfilePicture/{{followedUser.userName}}"  style="height:150px;width:150px" />
+            <h2 style="font-size: 200%;text-align: center;">{{followedUser.firstName}} {{followedUser.lastName}}</h2>
+            <p> {{followedUser.gender}} {{followedUser.birthDate}}</p>
+            <p>{{followedUser.bio}}</p>
+        
+          
+          <div class="md-actions" layout="row" layout-align="end center">
+            <md-button id="unfollowBtn" ng-click="unfollowAction(followedUser.userName)">Unfollow</md-button>
+          </div>
+        </md-card>
+   		</div>
+      	
+    </div>
+    <div class="col-sm-6" >
+    	
+    	
+    	
+		<div>
+     		 
+     		 <input class="searchbar input-group stylish-input-group" id="searchbar" ng-keyup="search($evt)" type="search" placeholder="search" "/>
                 <div id="suggestions" ng-cloak>
                     <ul id="suggestions_ul">
-
                     </ul>
                 </div>
-    </div>
-  </div>
-  	<div class='md-padding' layout="row" layout-wrap>
-        <md-card style="width: 200px;" ng-repeat="users in searchdUsers track by $index" ng-cloak>
-          <img ng-src="/user/getProfilePicture/{{users.username}}" src="/user/getProfilePicture/{{users.userName}}"  style="height:200px;width:200px" />
+    	
+    	
+    	<div class='md-padding' layout="row" layout-wrap>
+        <md-card style="width: 150px;" ng-repeat="users in searchdUsers track by $index" ng-cloak>
+          <img ng-src="/user/getProfilePicture/{{users.username}}" src="/user/getProfilePicture/{{users.userName}}"  style="height:150px;width:150px" />
             <h2 style="font-size: 200%;text-align: center;">{{users.firstName}} {{users.lastName}}</h2>
             <p> {{users.gender}} {{users.birthDate}}</p>
             <p>{{users.bio}}</p>
@@ -204,7 +225,11 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
             <md-button id="followBtn" ng-click="followAction(users.userName)">Follow</md-button>
           </div>
         </md-card>
-   </div>
+   		</div>
+   		</div>
+    </div>
+  </div>
+</div>
 </div>
 <br>
 
