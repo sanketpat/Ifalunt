@@ -209,7 +209,7 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
     <div class="col-sm-6">
       	
       <div class="friend-list" style="text-align: center; color:#4d636f;">
-      		<p style="font-size:200%"><b>Friend List</b></p>
+      		<p style="font-size:150%"><b>Friend List</b></p>
       </div>
       	
       	
@@ -241,7 +241,7 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
       	
     </div>
     <div class="col-sm-6" >
-        <input class="input-group col-md-12 custom-search-input" style="font-size:170%" type="text" id="searchbar"  type="search" class="search-query form-control" ng-keyup="search($evt)" placeholder="Search" />
+        <input class="input-group col-md-12 custom-search-input" style="font-size:120%" type="text" id="searchbar"  type="search" class="search-query form-control" ng-keyup="search($evt)" placeholder="User Search" />
     	<div class='md-padding' layout="row" layout-wrap>
         <md-card style="width: 150px;" ng-repeat="users in searchdUsers track by $index" ng-cloak>
           <img ng-src="/user/getProfilePicture/{{users.username}}" src="/user/getProfilePicture/{{users.userName}}"  style="height:150px;width:150px" />
