@@ -181,21 +181,25 @@ public class UserController {
 			name = usr.getPhotoName();
 
 		} catch (Exception e) {
-			name = "default.png";
-		}
-		File photo = new File("src/main/resources/static/images", name);
-		if (!photo.exists()) {
-			System.out.print("Photo not found");
 		}
 
-		if (request.checkNotModified(photo.lastModified()))
+		if (name != null) {
+			File photo = new File("src/main/resources/static/images", name);
+			if (!photo.exists()) {
+				System.out.print("Photo not found");
+			}
+
+			if (request.checkNotModified(photo.lastModified()))
+				return null;
+
+			byte[] photoFile = Files.readAllBytes(Paths.get(photo.getPath()));
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentLength(photoFile.length);
+			headers.setLastModified(photo.lastModified());
+			return new HttpEntity<byte[]>(photoFile, headers);
+		} else {
 			return null;
-
-		byte[] photoFile = Files.readAllBytes(Paths.get(photo.getPath()));
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentLength(photoFile.length);
-		headers.setLastModified(photo.lastModified());
-		return new HttpEntity<byte[]>(photoFile, headers);
+		}
 
 	}
 
