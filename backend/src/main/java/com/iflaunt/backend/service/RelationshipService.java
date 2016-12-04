@@ -9,4 +9,6 @@ public interface RelationshipService {
 
 	Relationship save(Relationship relationship);
 
+	void delete(Relationship rel);
+
 }

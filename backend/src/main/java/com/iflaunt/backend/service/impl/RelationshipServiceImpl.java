@@ -32,4 +32,10 @@ public class RelationshipServiceImpl implements RelationshipService {
 		return relationshipDao.save(relationship);
 	}
 
+	@Override
+	public void delete(Relationship rel) {
+		relationshipDao.delete(rel);
+		
+	}
+
 }

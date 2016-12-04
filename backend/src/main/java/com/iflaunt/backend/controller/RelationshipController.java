@@ -53,12 +53,24 @@ public class RelationshipController {
 			userService.save(saveUser);
 			map.put("label", "UNFOLLOW");
 		} else {
-			/* userService.removeRelationship(username,profileUserName); */
+			/*userService.removeRelationship(username,profileUserName);*/
 			map.put("label", "FOLLOW");
 		}
 		return map;
 	}
+	
+	@RequestMapping(value = "/unfollowAction/{profileUserName:.+}", method = RequestMethod.GET)
+	public void unfollowAction(@PathVariable String username, @PathVariable String profileUserName) {
+		User followed = userService.findByUserName(profileUserName);
+		User following = userService.findByUserName(username);
 
+		Relationship rel = relationshipService.isFollowingId(following,followed);
+		if(rel!=null)
+		{
+			relationshipService.delete(rel);
+		}
+		
+	}
 	@Autowired
 	public RelationshipController(UserService userService, RelationshipService relationshipService) {
 		this.relationshipService = relationshipService;
