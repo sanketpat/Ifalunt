@@ -118,6 +118,12 @@ app.controller('fupController', function ($scope, $http, sessionService, $window
                      
                      
                      $scope.firstname=response.data.firstName;
+                     if($scope.firstname!=null ){
+                    	 $scope.laterflag=false;
+                     }
+                     else{
+                    	 $scope.laterflag=true;
+                     }
                      $scope.lastname=response.data.lastName;
                      
                      $scope.myDate= response.data.birthDate ; 
