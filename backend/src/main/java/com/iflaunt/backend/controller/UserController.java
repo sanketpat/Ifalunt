@@ -172,7 +172,7 @@ public class UserController {
 		return user;
 	}
 	
-	@RequestMapping(value = "/isProfileImageAvailable/{userName:.+}", method = RequestMethod.POST)
+	@RequestMapping(value = "/isProfileImageAvailable/{userName:.+}", method = RequestMethod.GET)
 	public boolean isProfileImageAvailable(@PathVariable String userName) {
 		
 		User user = userService.findByUserName(userName);
