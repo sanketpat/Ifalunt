@@ -1,39 +1,51 @@
-<html ng-app="iflaunt"><head><title>i Flaunt</title>
+<html ng-app="iflaunt">
+<head>
+<title>i Flaunt</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-blue-grey.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="http://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Open+Sans">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="./css/friends.css">
 <link rel="stylesheet" href="./css/grid.css">
 <style>
-html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
+html, body, h1, h2, h3, h4, h5 {
+	font-family: "Open Sans", sans-serif
+}
 
 ._2hpcs {
-    background: 0 0;
-    border-color: #3897f0;
-    color: #fff;
+	background: 0 0;
+	border-color: #3897f0;
+	color: #fff;
 }
- ._95tat {
-    line-height: 24px;
-    padding: 0 9px;
+
+._95tat {
+	line-height: 24px;
+	padding: 0 9px;
 }
+
 ._o0442 {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .friend-list {
 	max-width: auto;
-    background: #dddddd;
-    border-radius: 3px;
-    height: auto
+	background: #dddddd;
+	border-radius: 3px;
+	height: auto
 }
-
 </style>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script
@@ -54,250 +66,297 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 
 
 <script language="javascript">
-app.controller('Home', function ($scope, $http, sessionService, $window, $mdToast,  $route) {
-	if(sessionService.get('user')==null){
-		$window.location.href = './index.html';
-        
-	}else{
-		$scope.user=sessionService.get('user')
-		$scope.Email=$scope.user;
-		
-		var req = {
-	             method : 'POST',
-	             url : 'http://localhost:8080/user/getUserdetails',
-	             headers : {
-	                 'Content-Type' : 'application/json'
-	             },
-	             data : {
-	                 username :sessionService.get('user')
-	                }
-	         };
-		
-	     $http(req)
-	     .then(function(response) {
-	    	 if (response.status == 200 && response.data!="") {
-                //alert("Photo Uploaded Successfully");
-                
-                
-                $scope.firstname=response.data.firstName;
-                $scope.lastname=response.data.lastName;
-                
-                $scope.myDate= response.data.birthDate
-                $scope.Bio= response.data.bio
-               
-             if( response.data.gender=="M")
-           	  { $scope.male=response.data.gender;
-           	  
-           	  }
-             else{$scope.male=response.data.gender;
-           	  
-             }
-            }
-	    	 
-	    	 $http.get('user/getFollowedUser/'+$scope.Email).success(function(data){
-	                console.log(data);
-	            	if(data != null){
-	            		$scope.follwedUsers=data;
-	                }
-	            });
-	    	 
-	     });
-		
-		
-	}
-	  $scope.Logout = function () {
-		  sessionService.destroy('user');
-		  $window.location.href = './index.html';
-	        	  
-	  }
-	  
-	   $scope.followAction = function(users){
-	        $http.get('/relationship/'+$scope.user+'/followAction/'+users).success(function(data){
-	            var btn = document.getElementById('followBtn');
-	            $scope.followBtnTxt = data.label;
-	            $mdToast.show(
-	                     $mdToast.simple()
-	                        .textContent('Followed')                       
-	                        .hideDelay(500)
-	                  );
-	            $window.location.reload();
-	        }).error(function(data){
-	            console.log('hiba '+data);
-	        });
-	    };
-	    
-	    $scope.unfollowAction = function(users){
-	        $http.get('/relationship/'+$scope.user+'/unfollowAction/'+users).success(function(data){
-	            var btn = document.getElementById('followBtn');
-	            $mdToast.show(
-	                     $mdToast.simple()
-	                        .textContent('Unfollowed')                       
-	                        .hideDelay(500)
-	                  );
-	            
-	            $window.location.reload();
-	            
-	        }).error(function(data){
-	            console.log('hiba '+data);
-	        });
-	    };
-	  
+	app.controller('Home', function($scope, $http, sessionService, $window,
+			$mdToast, $route) {
+		if (sessionService.get('user') == null) {
+			$window.location.href = './index.html';
 
-	  $scope.search = function($evt){
-	        var searchbar = document.getElementById('searchbar');
+		} else {
+			$scope.user = sessionService.get('user')
+			$scope.Email = $scope.user;
 
-	        if(!searchbar.value)
-	            document.getElementById('suggestions').style.display = "none";
-	        else{
-	            $http.get('user/search/'+searchbar.value+'/'+$scope.Email).success(function(data){
-	                console.log(data);
-	                
-	            	
-	            	if(data != null){
-	            		$scope.searchdUsers=data;
-	                }
-	            });
-	        }
-	    };
-	
-});
+			var req = {
+				method : 'POST',
+				url : 'http://localhost:8080/user/getUserdetails',
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				data : {
+					username : sessionService.get('user')
+				}
+			};
 
-      </script> 
-</head><body class="w3-theme-l5" ng-controller="Home" ng-cloak>
+			$http(req).then(
+					function(response) {
+						if (response.status == 200 && response.data != "") {
+							//alert("Photo Uploaded Successfully");
 
-<!-- Navbar -->
-<div class="w3-top" ng-cloak>
- <ul class="w3-navbar w3-theme-d2 w3-left-align w3-large">
-  <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
-    <a class="w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-  </li>
-  <li><a href="home.html" class=" w3-padding-large w3-hover-white" style="color:white"><i class="fa fa-home w3-margin-right"></i>i Flaunt</a></li>
-  
-  <li class="w3-hide-small"><a href="FriendsRequest.html" class="w3-padding-large w3-theme-d4" style="color:white"> Friends 
-  <i class="fa fa-group"></i></a></li>
-  <li class="w3-hide-small"><a href="ImageUpload.html" class="w3-padding-large w3-hover-white" style="color:white">Flaunt Now 
-  <i class="fa fa-camera-retro"></i></a></li>
-  <li class="w3-hide-small w3-dropdown-hover">
-    <a href="TrendsNearby.html" class="w3-padding-large w3-hover-white" style="color:white">Near By Trends
-  <i class="	fa fa-street-view"></i></a>
-  
-  <li class="w3-hide-small w3-dropdown-hover">
-    <a class="w3-padding-large w3-hover-white" ng-click="Logout()" style="color:white">Log Out
-  <i class="fa fa-power-off"></i></a>
-    
-  </li>
- <li class="w3-hide-small w3-right"><a href="profile-update.html" class=" w3-hover-white" title="My Account" style="color:white"> {{firstname}} {{lastname}}
-  <img ng-src="/user/getProfilePicture/{{user}}"  class="w3-circle" style="height:30px;width:30px" alt="Avatar"></a></li>
- </ul>
-</div>
+							$scope.firstname = response.data.firstName;
+							$scope.lastname = response.data.lastName;
 
-<!-- Navbar on small screens -->
-<div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:51px">
-  <ul class="w3-navbar w3-left-align w3-large w3-theme">
-    <li><a class="w3-padding-large" href="FriendsRequest.html" style="color:white"> Friends <i class="fa fa-group"></i></a></li>
-    <li><a class="w3-padding-large" href="ImageUpload.html" style="color:white">Flaunt Now <i class="fa fa-camera-retro"></i></a></li>
-    <li><a class="w3-padding-large" href="TrendsNearby.html" style="color:white">Near By Trends <i class="	fa fa-street-view"></i></a></li>
-    <li><a class="w3-padding-large" href="profile-update.html" style="color:white">My Profile <i class="fa fa-cog"></i></a></li>
-    <li><a class="w3-padding-large" ng-click="Logout()" style="color:white">Log Out <i class="fa fa-power-off"></i></a></li>
-  </ul>
-</div>
+							$scope.myDate = response.data.birthDate
+							$scope.Bio = response.data.bio
 
-<!-- Page Container -->
-<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
-  <div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-6">
-      	
-      <div class="friend-list" style="text-align: center; color:#4d636f;">
-      		<p style="font-size:150%"><b>Friend List</b></p>
-      </div>
-      	
-      	
-      	<div class='md-padding' layout="row" layout-wrap>
-        <md-card style="width: 150px; background-color:#fff;" ng-repeat="followedUser in follwedUsers track by $index" ng-cloak>
-          <img ng-src="/user/getProfilePicture/{{followedUser.username}}" src="/user/getProfilePicture/{{followedUser.userName}}"  style="height:150px;width:150px" />
-            <h2 style="font-size: 150%;text-align: center;">{{followedUser.firstName}} {{followedUser.lastName}}</h2>
-           
-           	<div style="text-align: center;"> <p ng-show="followedUser.gender == 'M'"">
-            	<i class ="fa fa-male"></i> &nbsp;&nbsp;&nbsp;
-            	 <i class = "fa fa-birthday-cake"></i> {{followedUser.birthDate | date:'dd MMM'}}
-            </p>
-             <p ng-show="followedUser.gender == 'F'">
-            	<i class ="fa fa-female"></i> <span></span>
-            	<i class = "fa fa-birthday-cake" layout-align="end center"></i> {{followedUser.birthDate | date:'dd MMM'}}
-            </p>
-            
-           </div>
-            	<div style="text-align: center; "> {{followedUser.bio}}</div>
-            	<div style="text-align: center;"><i class="fa fa-location-arrow"></i> {{followedUser.city}}</div>
-        
-          
-          <div  layout="row" layout-align="center end">
-          	<md-button style="background-color:#4d636f;" class="_aj7mu _2hpcs _95tat _o0442 " id="unfollowBtn" ng-click="unfollowAction(followedUser.userName)" > unfollow  <p class="fa fa-plus-square"> </p> </md-button>
-            <!-- <md-button id="unfollowBtn" ng-click="unfollowAction(followedUser.userName)">Unfollow</md-button> -->
-          </div>
-        </md-card>
-   		</div>
-      	
-    </div>
-    <div class="col-sm-6" >
-        <input class="input-group col-md-12 custom-search-input" style="font-size:120%" type="text" id="searchbar"  type="search" class="search-query form-control" ng-keyup="search($evt)" placeholder="User Search" />
-    	<div class='md-padding' layout="row" layout-wrap>
-        <md-card style="width: 150px;" ng-repeat="users in searchdUsers track by $index" ng-cloak>
-          <img ng-src="/user/getProfilePicture/{{users.username}}" src="/user/getProfilePicture/{{users.userName}}"  style="height:150px;width:150px" />
-            <div style="font-size: 150%; text-align:center;">{{users.firstName}} {{users.lastName}}
-           
-           		<b ng-show="users.gender == 'M'">
-            		<i class ="fa fa-mars"></i>
-            	</b>
-             	<b ng-show="users.gender == 'F'">
-            		<i class ="fa fa-mars"></i> <span></span>
-            	</b>
-           </div>
+							if (response.data.gender == "M") {
+								$scope.male = response.data.gender;
 
-         <div  layout="row" layout-align="center">
-          	<md-button style="background-color:#4d636f;" style="border-color: #3897f0;" class="_aj7mu _2hpcs _95tat _o0442 " id="followBtn" ng-click="followAction(users.userName)"> follow  <p class="fa fa-plus-square-o"> </p> </md-button>
-            <!-- <md-button id="unfollowBtn" ng-click="unfollowAction(followedUser.userName)">Unfollow</md-button> -->
-          </div>
-        </md-card>
-   		</div>
-    </div>
-  </div>
-</div>
-</div>
-<br>
+							} else {
+								$scope.male = response.data.gender;
 
-<!-- Footer -->
+							}
+						}
 
-<!-- The actual snackbar -->
+						$http.get('user/getFollowedUser/' + $scope.Email)
+								.success(function(data) {
+									console.log(data);
+									if (data != null) {
+										$scope.follwedUsers = data;
+									}
+								});
 
- 
-<script>
-// Accordion
-function myFunction(id) {
-    var x = document.getElementById(id);
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-        x.previousElementSibling.className += " w3-theme-d1";
-    } else {
-        x.className = x.className.replace("w3-show", "");
-        x.previousElementSibling.className =
-        x.previousElementSibling.className.replace(" w3-theme-d1", "");
-    }
-}
+					});
 
-// Used to toggle the menu on smaller screens when clicking on the menu button
-function openNav() {
-    var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else {
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
+		}
+		$scope.Logout = function() {
+			sessionService.destroy('user');
+			$window.location.href = './index.html';
+
+		}
+
+		$scope.followAction = function(users) {
+			$http
+					.get(
+							'/relationship/' + $scope.user + '/followAction/'
+									+ users).success(
+							function(data) {
+								var btn = document.getElementById('followBtn');
+								$scope.followBtnTxt = data.label;
+								$mdToast.show($mdToast.simple().textContent(
+										'Followed').hideDelay(500));
+								$window.location.reload();
+							}).error(function(data) {
+						console.log('hiba ' + data);
+					});
+		};
+
+		$scope.unfollowAction = function(users) {
+			$http
+					.get(
+							'/relationship/' + $scope.user + '/unfollowAction/'
+									+ users).success(
+							function(data) {
+								var btn = document.getElementById('followBtn');
+								$mdToast.show($mdToast.simple().textContent(
+										'Unfollowed').hideDelay(500));
+
+								$window.location.reload();
+
+							}).error(function(data) {
+						console.log('hiba ' + data);
+					});
+		};
+
+		$scope.search = function($evt) {
+			var searchbar = document.getElementById('searchbar');
+
+			if (!searchbar.value)
+				document.getElementById('suggestions').style.display = "none";
+			else {
+				$http
+						.get(
+								'user/search/' + searchbar.value + '/'
+										+ $scope.Email).success(function(data) {
+							console.log(data);
+
+							if (data != null) {
+								$scope.searchdUsers = data;
+							}
+						});
+			}
+		};
+
+	});
 </script>
+</head>
+<body class="w3-theme-l5" ng-controller="Home" ng-cloak>
+
+	<!-- Navbar -->
+	<div class="w3-top" ng-cloak>
+		<ul class="w3-navbar w3-theme-d2 w3-left-align w3-large">
+			<li class="w3-hide-medium w3-hide-large w3-opennav w3-right"><a
+				class="w3-padding-large w3-hover-white w3-large w3-theme-d2"
+				href="javascript:void(0);" onclick="openNav()"><i
+					class="fa fa-bars"></i></a></li>
+			<li><a href="home.html" class=" w3-padding-large w3-hover-white"
+				style="color: white"><i class="fa fa-home w3-margin-right"></i>i
+					Flaunt</a></li>
+
+			<li class="w3-hide-small"><a href="FriendsRequest.html"
+				class="w3-padding-large w3-theme-d4" style="color: white">
+					Friends <i class="fa fa-group"></i>
+			</a></li>
+			<li class="w3-hide-small"><a href="ImageUpload.html"
+				class="w3-padding-large w3-hover-white" style="color: white">Flaunt
+					Now <i class="fa fa-camera-retro"></i>
+			</a></li>
+			<li class="w3-hide-small w3-dropdown-hover"><a
+				href="TrendsNearby.html" class="w3-padding-large w3-hover-white"
+				style="color: white">Near By Trends <i
+					class="	fa fa-street-view"></i></a>
+			<li class="w3-hide-small w3-dropdown-hover"><a
+				class="w3-padding-large w3-hover-white" ng-click="Logout()"
+				style="color: white">Log Out <i class="fa fa-power-off"></i></a></li>
+			<li class="w3-hide-small w3-right"><a href="profile-update.html"
+				class=" w3-hover-white" title="My Account" style="color: white">
+					{{firstname}} {{lastname}} <img
+					ng-src="/user/getProfilePicture/{{user}}" class="w3-circle"
+					style="height: 30px; width: 30px" alt="Avatar">
+			</a></li>
+		</ul>
+	</div>
+
+	<!-- Navbar on small screens -->
+	<div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top"
+		style="margin-top: 51px">
+		<ul class="w3-navbar w3-left-align w3-large w3-theme">
+			<li><a class="w3-padding-large" href="FriendsRequest.html"
+				style="color: white"> Friends <i class="fa fa-group"></i></a></li>
+			<li><a class="w3-padding-large" href="ImageUpload.html"
+				style="color: white">Flaunt Now <i class="fa fa-camera-retro"></i></a></li>
+			<li><a class="w3-padding-large" href="TrendsNearby.html"
+				style="color: white">Near By Trends <i
+					class="	fa fa-street-view"></i></a></li>
+			<li><a class="w3-padding-large" href="profile-update.html"
+				style="color: white">My Profile <i class="fa fa-cog"></i></a></li>
+			<li><a class="w3-padding-large" ng-click="Logout()"
+				style="color: white">Log Out <i class="fa fa-power-off"></i></a></li>
+		</ul>
+	</div>
+
+	<!-- Page Container -->
+	<div class="w3-container w3-content"
+		style="max-width: 1400px; margin-top: 80px">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+
+					<div class="friend-list"
+						style="text-align: center; color: #4d636f;">
+						<p style="font-size: 150%">
+							<b>Friend List</b>
+						</p>
+					</div>
+
+
+					<div class='md-padding' layout="row" layout-wrap>
+						<md-card style="width: 150px; background-color:#fff;"
+							ng-repeat="followedUser in follwedUsers track by $index" ng-cloak>
+						<img ng-src="/user/getProfilePicture/{{followedUser.username}}"
+							src="/user/getProfilePicture/{{followedUser.userName}}"
+							style="height: 150px; width: 150px" />
+						<h2 style="font-size: 150%; text-align: center;">{{followedUser.firstName}}
+							{{followedUser.lastName}}</h2>
+
+						<div style="text-align: center;">
+							<p ng-show="followedUser.gender == 'M'"">
+								<i class="fa fa-male"></i> &nbsp;&nbsp;&nbsp; <i
+									class="fa fa-birthday-cake"></i> {{followedUser.birthDate |
+								date:'dd MMM'}}
+							</p>
+							<p ng-show="followedUser.gender == 'F'">
+								<i class="fa fa-female"></i> <span></span> <i
+									class="fa fa-birthday-cake" layout-align="end center"></i>
+								{{followedUser.birthDate | date:'dd MMM'}}
+							</p>
+
+						</div>
+						<div style="text-align: center;">{{followedUser.bio}}</div>
+						<div style="text-align: center;">
+							<i class="fa fa-location-arrow"></i> {{followedUser.city}}
+						</div>
+
+
+						<div layout="row" layout-align="center end">
+							<md-button style="background-color:#4d636f;"
+								class="_aj7mu _2hpcs _95tat _o0442 " id="unfollowBtn"
+								ng-click="unfollowAction(followedUser.userName)">
+							unfollow
+							<p class="fa fa-plus-square"></p>
+							</md-button>
+							<!-- <md-button id="unfollowBtn" ng-click="unfollowAction(followedUser.userName)">Unfollow</md-button> -->
+						</div>
+						</md-card>
+					</div>
+
+				</div>
+				<div class="col-sm-6">
+					<input class="input-group col-md-12 custom-search-input"
+						style="font-size: 120%" type="text" id="searchbar" type="search"
+						class="search-query form-control" ng-keyup="search($evt)"
+						placeholder="User Search" />
+					<div class='md-padding' layout="row" layout-wrap>
+						<md-card style="width: 150px;"
+							ng-repeat="users in searchdUsers track by $index" ng-cloak>
+						<img ng-src="/user/getProfilePicture/{{users.username}}"
+							src="/user/getProfilePicture/{{users.userName}}"
+							style="height: 150px; width: 150px" />
+						<div style="font-size: 150%; text-align: center;">
+							{{users.firstName}} {{users.lastName}} <b
+								ng-show="users.gender == 'M'"> <i class="fa fa-mars"></i>
+							</b> <b ng-show="users.gender == 'F'"> <i class="fa fa-mars"></i>
+								<span></span>
+							</b>
+						</div>
+
+						<div layout="row" layout-align="center">
+							<md-button style="background-color:#4d636f;"
+								style="border-color: #3897f0;"
+								class="_aj7mu _2hpcs _95tat _o0442 " id="followBtn"
+								ng-click="followAction(users.userName)"> follow
+							<p class="fa fa-plus-square-o"></p>
+							</md-button>
+							<!-- <md-button id="unfollowBtn" ng-click="unfollowAction(followedUser.userName)">Unfollow</md-button> -->
+						</div>
+						</md-card>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+
+	<!-- Footer -->
+
+	<!-- The actual snackbar -->
+
+
+	<script>
+		// Accordion
+		function myFunction(id) {
+			var x = document.getElementById(id);
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+				x.previousElementSibling.className += " w3-theme-d1";
+			} else {
+				x.className = x.className.replace("w3-show", "");
+				x.previousElementSibling.className = x.previousElementSibling.className
+						.replace(" w3-theme-d1", "");
+			}
+		}
+
+		// Used to toggle the menu on smaller screens when clicking on the menu button
+		function openNav() {
+			var x = document.getElementById("navDemo");
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+			} else {
+				x.className = x.className.replace(" w3-show", "");
+			}
+		}
+	</script>
 
 
 
 
-</body></html>
+</body>
+</html>

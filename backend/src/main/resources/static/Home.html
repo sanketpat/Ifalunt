@@ -1,113 +1,127 @@
-<html ng-app="iflaunt"><head><title>i Flaunt</title>
+<html ng-app="iflaunt">
+<head>
+<title>i Flaunt</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-blue-grey.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="http://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Open+Sans">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <link rel="stylesheet" href="./css/friends.css">
 <style>
-html,body,h1,h2,h3,h4,h5 {font-family: "Tahoma", Tahoma}
+html, body, h1, h2, h3, h4, h5 {
+	font-family: "Tahoma", Tahoma
+}
+
 .arrow {
-cursor: pointer;
-display: block;
-height: 64px;
-margin-top: -35px;
-outline: medium none;
-position: absolute;
-top: 50%;
-width: 64px;
-z-index: 5;
+	cursor: pointer;
+	display: block;
+	height: 64px;
+	margin-top: -35px;
+	outline: medium none;
+	position: absolute;
+	top: 50%;
+	width: 64px;
+	z-index: 5;
 }
+
 .arrow.prev {
-background-image: url("../images/prev.png");
-left: 20px;
-opacity: 0.2;
-transition: all 0.2s linear 0s;
+	background-image: url("../images/prev.png");
+	left: 20px;
+	opacity: 0.2;
+	transition: all 0.2s linear 0s;
 }
+
 .arrow.next {
-background-image: url("../images/arrow.png");
-opacity: 0.2;
-right: 20px;
-transition: all 0.2s linear 0s;
+	background-image: url("../images/arrow.png");
+	opacity: 0.2;
+	right: 20px;
+	transition: all 0.2s linear 0s;
 }
-.arrow.prev:hover{
-opacity:1;
+
+.arrow.prev:hover {
+	opacity: 1;
 }
-.arrow.next:hover{
-opacity:1;
+
+.arrow.next:hover {
+	opacity: 1;
 }
+
 .nav {
-bottom: -0px;
-display: block;
-height: 48px;
-left: 0;
-margin: 0 auto;
-padding: 1em 0 0.8em;
-position: absolute;
-right: 0;
-text-align: center;
-width: 100%;
-z-index: 5;
+	bottom: -0px;
+	display: block;
+	height: 48px;
+	left: 0;
+	margin: 0 auto;
+	padding: 1em 0 0.8em;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	width: 100%;
+	z-index: 5;
 }
+
 .nav li {
-border: 5px solid #AAAAAA;
-border-radius: 5px;
-cursor: pointer;
-display: inline-block;
-height: 30px;
-margin: 0 8px;
-position: relative;
-width: 50px;
+	border: 5px solid #AAAAAA;
+	border-radius: 5px;
+	cursor: pointer;
+	display: inline-block;
+	height: 30px;
+	margin: 0 8px;
+	position: relative;
+	width: 50px;
 }
+
 .nav li.active {
-border: 5px solid #FFFFFF;
+	border: 5px solid #FFFFFF;
 }
+
 .nav li img {
-width: 100%;
+	width: 100%;
 }
+
 .slider {
-border: 15px solid #FFFFFF;
-border-radius: 5px;
-
-
-display:block; 
-height: auto;
-margin: 20px auto;
-position: relative;
-width: auto;
--webkit-perspective: auto;
--moz-perspective: auto;
--ms-perspective: auto;
--o-perspective: auto;
-perspective: auto;
-
+	border: 15px solid #FFFFFF;
+	border-radius: 5px;
+	display: block;
+	height: auto;
+	margin: 20px auto;
+	position: relative;
+	width: auto;
+	-webkit-perspective: auto;
+	-moz-perspective: auto;
+	-ms-perspective: auto;
+	-o-perspective: auto;
+	perspective: auto;
 }
 
 .slide.ng-hide-add {
-opacity:1;
-
-
--webkit-transform-origin: right top 0;
--moz-transform-origin: right top 0;
--ms-transform-origin: right top 0;
--o-transform-origin: right top 0;
-transform-origin: right top 0;
+	opacity: 1;
+	-webkit-transform-origin: right top 0;
+	-moz-transform-origin: right top 0;
+	-ms-transform-origin: right top 0;
+	-o-transform-origin: right top 0;
+	transform-origin: right top 0;
 }
+
 .slide.ng-hide-add.ng-hide-add-active {
-opacity:0;
-}
-.slide.ng-hide-remove {
--webkit-transition:1s linear all;
--moz-transition:1s linear all;
--o-transition:1s linear all;
-transition:1s linear all;
-display:block!important;
-opacity:0;
-}
-.slide, .slide.ng-hide-remove.ng-hide-remove-active {
-opacity:1;
+	opacity: 0;
 }
 
+.slide.ng-hide-remove {
+	-webkit-transition: 1s linear all;
+	-moz-transition: 1s linear all;
+	-o-transition: 1s linear all;
+	transition: 1s linear all;
+	display: block !important;
+	opacity: 0;
+}
+
+.slide, .slide.ng-hide-remove.ng-hide-remove-active {
+	opacity: 1;
+}
 </style>
 
 <script
@@ -118,8 +132,8 @@ opacity:1;
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-	<script src="http://code.angularjs.org/1.2.0rc1/angular-touch.min.js"></script>
-	
+<script src="http://code.angularjs.org/1.2.0rc1/angular-touch.min.js"></script>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 <link rel="stylesheet"
@@ -132,175 +146,198 @@ opacity:1;
 <script src="./controller/sessionService.js"></script>
 
 <script src="./controller/Home.js">
-      </script> 
-</head><body class="w3-theme-l5" ng-controller="MainCtrl" ng-cloak>
-
-<!-- Navbar -->
-<div class="w3-top" ng-cloak>
- <ul class="w3-navbar w3-theme-d2 w3-left-align w3-large">
-  <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
-    <a class="w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-  </li>
-  <li><a href="home.html" class="w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>i Flaunt</a></li>
-  
-  <li class="w3-hide-small"><a href="FriendsRequest.html" class="w3-padding-large w3-hover-white"> Friends 
-  <i class="fa fa-group"></i></a></li>
-  <li class="w3-hide-small"><a href="ImageUpload.html" class="w3-padding-large w3-hover-white" >Flaunt Now 
-  <i class="fa fa-camera-retro"></i></a></li>
-  <li class="w3-hide-small w3-dropdown-hover">
-    <a href="TrendsNearby.html" class="w3-padding-large w3-hover-white">Near By Trends
-  <i class="fa fa-street-view"></i></a>
-  
-  <li class="w3-hide-small w3-dropdown-hover">
-    <a class="w3-padding-large w3-hover-white" ng-click="Logout()">Log Out
-  <i class="fa fa-power-off"></i></a>
-    
-  </li>
- <li class="w3-hide-small w3-right"><a href="profile-update.html" class=" w3-hover-white" title="My Account"> {{firstname}} {{lastname}}
-  <img ng-src="/user/getProfilePicture/{{user}}"  class="w3-circle" style="height:30px;width:30px" alt="Avatar"></a></li>
- </ul>
- 
-</div>
-
-<!-- Navbar on small screens -->
-
-
-<div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:51px">
-  <ul class="w3-navbar w3-left-align w3-large w3-theme">
-    <li><a class="w3-padding-large" href="FriendsRequest.html">Friends 
-  <i class="fa fa-group"></i></a></li>
-    <li><a class="w3-padding-large" href="ImageUpload.html">Flaunt Now 
-  <i class="fa fa-camera-retro"></i></a></li>
-    <li><a class="w3-padding-large" href="TrendsNearby.html">Near By Trends
-  <i class="fa fa-street-view"></i></a></li>
-  <li><a class="w3-padding-large" href="profile-update.html">Update Profile <i class="fa fa-cog"></i></a></li>
-    <li><a class="w3-padding-large" ng-click="Logout()">Log Out </a></li>
-  </ul>
-</div>
-
-<!-- Page Container -->
-<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
-  <!-- The Grid -->
- 
-  
-
-      
-  
-       <div class	="w3-row">
-     
-      
-        <div class="w3-col m3" ng-repeat="photo in Suggphotos| limitTo:4" >
-      <a target="_blank" href={{photo.desc}} >
-      <div align="center">
-     <img   ng-src="{{photo.src}}" class="img-responsive"  width="100" height="110" class="slide"  />
-     <br/>
-    <font face="Tahoma" color="#66757f" size=1.5  ><strong>{{photo.Name}}</strong></font>
-    </div>
-  </a>
-      
-    
-      </div>
-    
-      
-      </div>
-        <div class="w3-row">
-     <div class="w3-col m3">
- <div ng-repeat="photo in displayDetails"   ng-show="isActive($index)" >
- <br/><br/>
-         <font face="Tahoma" color="#66757f" style="font-weight: bold"> {{photo.userFullName}} is using {{photo.brand}} {{photo.accessoryType}}</font>
-      
-      </div></div>
-       
-      </div>
-      
-      
-  <div class="w3-row w3-center"  >
-    <!-- Left Column --><div class="w3-col m6">
-    </div>
-    <div class="w3-col m6 ">
-    
-  
-<div class="container slider" >
-<!-- enumerate all photos -->
-<div >
-<img  ng-repeat="photo in displayDetails" class="slide" ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="data:image/JPEG;base64,{{photo.image.body}}" />
-
-
-<!-- prev / next controls -->
-
-<a class="arrow prev" href="#" ng-click="showPrev()">
-</a>
-<a class="arrow next" href="#" ng-click="showNext()">
-<img alt="" src="/images/arrow.png"></a>
-
-<div>
-</div>
-<!-- extra navigation controls -->
-
-
-<ul class="nav">
-<li ng-repeat="photo in displayDetails" ng-class="{'active':isActive($index)}">
-<img src="data:image/JPEG;base64,{{photo.image.body}}" alt="{{photo.desc}}" title="{{photo.desc}}" ng-click="showPhoto($index);" />
-</li>
-</ul>
-</div>  
-</div>
-
-     
-    
-      <br>
-     
-      </div>
-    
-    
-      
-      
-      
-      
-      </div>
-      
-  
-    <!-- Middle Column -->
-    
-    
-    <!-- Right Column -->
-    
-    
-  <!-- End Grid -->
-  </div>
-   
-
-<br>
-
-<!-- Footer -->
-
-
- 
-<script>
-// Accordion
-function myFunction(id) {
-    var x = document.getElementById(id);
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-        x.previousElementSibling.className += " w3-theme-d1";
-    } else {
-        x.className = x.className.replace("w3-show", "");
-        x.previousElementSibling.className =
-        x.previousElementSibling.className.replace(" w3-theme-d1", "");
-    }
-}
-
-// Used to toggle the menu on smaller screens when clicking on the menu button
-function openNav() {
-    var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else {
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
+	
 </script>
+</head>
+<body class="w3-theme-l5" ng-controller="MainCtrl" ng-cloak>
+
+	<!-- Navbar -->
+	<div class="w3-top" ng-cloak>
+		<ul class="w3-navbar w3-theme-d2 w3-left-align w3-large">
+			<li class="w3-hide-medium w3-hide-large w3-opennav w3-right"><a
+				class="w3-padding-large w3-hover-white w3-large w3-theme-d2"
+				href="javascript:void(0);" onclick="openNav()"><i
+					class="fa fa-bars"></i></a></li>
+			<li><a href="home.html" class="w3-padding-large w3-theme-d4"><i
+					class="fa fa-home w3-margin-right"></i>i Flaunt</a></li>
+
+			<li class="w3-hide-small"><a href="FriendsRequest.html"
+				class="w3-padding-large w3-hover-white"> Friends <i
+					class="fa fa-group"></i></a></li>
+			<li class="w3-hide-small"><a href="ImageUpload.html"
+				class="w3-padding-large w3-hover-white">Flaunt Now <i
+					class="fa fa-camera-retro"></i></a></li>
+			<li class="w3-hide-small w3-dropdown-hover"><a
+				href="TrendsNearby.html" class="w3-padding-large w3-hover-white">Near
+					By Trends <i class="fa fa-street-view"></i>
+			</a>
+			<li class="w3-hide-small w3-dropdown-hover"><a
+				class="w3-padding-large w3-hover-white" ng-click="Logout()">Log
+					Out <i class="fa fa-power-off"></i>
+			</a></li>
+			<li class="w3-hide-small w3-right"><a href="profile-update.html"
+				class=" w3-hover-white" title="My Account"> {{firstname}}
+					{{lastname}} <img ng-src="/user/getProfilePicture/{{user}}"
+					class="w3-circle" style="height: 30px; width: 30px" alt="Avatar">
+			</a></li>
+		</ul>
+
+	</div>
+
+	<!-- Navbar on small screens -->
+
+
+	<div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top"
+		style="margin-top: 51px">
+		<ul class="w3-navbar w3-left-align w3-large w3-theme">
+			<li><a class="w3-padding-large" href="FriendsRequest.html">Friends
+					<i class="fa fa-group"></i>
+			</a></li>
+			<li><a class="w3-padding-large" href="ImageUpload.html">Flaunt
+					Now <i class="fa fa-camera-retro"></i>
+			</a></li>
+			<li><a class="w3-padding-large" href="TrendsNearby.html">Near
+					By Trends <i class="fa fa-street-view"></i>
+			</a></li>
+			<li><a class="w3-padding-large" href="profile-update.html">Update
+					Profile <i class="fa fa-cog"></i>
+			</a></li>
+			<li><a class="w3-padding-large" ng-click="Logout()">Log Out
+			</a></li>
+		</ul>
+	</div>
+
+	<!-- Page Container -->
+	<div class="w3-container w3-content"
+		style="max-width: 1400px; margin-top: 80px">
+		<!-- The Grid -->
 
 
 
-</body></html>
+
+
+		<div class="w3-row">
+
+
+			<div class="w3-col m3" ng-repeat="photo in Suggphotos| limitTo:4">
+				<a target="_blank" href={{photo.desc}}>
+					<div align="center">
+						<img ng-src="{{photo.src}}" class="img-responsive" width="100"
+							height="110" class="slide" /> <br /> <font face="Tahoma"
+							color="#66757f" size=1.5><strong>{{photo.Name}}</strong></font>
+					</div>
+				</a>
+
+
+			</div>
+
+
+		</div>
+		<div class="w3-row">
+			<div class="w3-col m3">
+				<div ng-repeat="photo in displayDetails" ng-show="isActive($index)">
+					<br />
+					<br /> <font face="Tahoma" color="#66757f"
+						style="font-weight: bold"> {{photo.userFullName}} is using
+						{{photo.brand}} {{photo.accessoryType}}</font>
+
+				</div>
+			</div>
+
+		</div>
+
+
+		<div class="w3-row w3-center">
+			<!-- Left Column -->
+			<div class="w3-col m6"></div>
+			<div class="w3-col m6 ">
+
+
+				<div class="container slider">
+					<!-- enumerate all photos -->
+					<div>
+						<img ng-repeat="photo in displayDetails" class="slide"
+							ng-swipe-right="showPrev()" ng-swipe-left="showNext()"
+							ng-show="isActive($index)"
+							ng-src="data:image/JPEG;base64,{{photo.image.body}}" />
+
+
+						<!-- prev / next controls -->
+
+						<a class="arrow prev" href="#" ng-click="showPrev()"> </a> <a
+							class="arrow next" href="#" ng-click="showNext()"> <img
+							alt="" src="/images/arrow.png"></a>
+
+						<div></div>
+						<!-- extra navigation controls -->
+
+
+						<ul class="nav">
+							<li ng-repeat="photo in displayDetails"
+								ng-class="{'active':isActive($index)}"><img
+								src="data:image/JPEG;base64,{{photo.image.body}}"
+								alt="{{photo.desc}}" title="{{photo.desc}}"
+								ng-click="showPhoto($index);" /></li>
+						</ul>
+					</div>
+				</div>
+
+
+
+				<br>
+
+			</div>
+
+
+
+
+
+
+		</div>
+
+
+		<!-- Middle Column -->
+
+
+		<!-- Right Column -->
+
+
+		<!-- End Grid -->
+	</div>
+
+
+	<br>
+
+	<!-- Footer -->
+
+
+
+	<script>
+		// Accordion
+		function myFunction(id) {
+			var x = document.getElementById(id);
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+				x.previousElementSibling.className += " w3-theme-d1";
+			} else {
+				x.className = x.className.replace("w3-show", "");
+				x.previousElementSibling.className = x.previousElementSibling.className
+						.replace(" w3-theme-d1", "");
+			}
+		}
+
+		// Used to toggle the menu on smaller screens when clicking on the menu button
+		function openNav() {
+			var x = document.getElementById("navDemo");
+			if (x.className.indexOf("w3-show") == -1) {
+				x.className += " w3-show";
+			} else {
+				x.className = x.className.replace(" w3-show", "");
+			}
+		}
+	</script>
+
+
+
+</body>
+</html>

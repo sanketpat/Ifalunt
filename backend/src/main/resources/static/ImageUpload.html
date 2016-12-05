@@ -141,41 +141,37 @@ html, body, h1, h2, h3, h4, h5 {
 					<br /> <br /> <img src=images/Loading_icon.gif ng-show="loading" />
 				</div>
 			</div>
-			
+
 			<div class='md-padding' layout="row" layout-wrap>
 
-					<md-card style="width: 304px; background-color:#fff;"
-						ng-repeat="x in img1" ng-cloak>
-						
-						<img ng-src="data:image/JPEG;base64,{{x.body}}"
-							class="img-responsive" width="304" height="236">
-							
-					<h2 style="font-size: 150%; text-align: center;">{{followedUser.firstName}}
-						{{followedUser.lastName}}</h2>
+				<md-card style="width: 304px; background-color:#fff;"
+					ng-repeat="x in img1" ng-cloak> <img
+					ng-src="data:image/JPEG;base64,{{x.body}}" class="img-responsive"
+					width="304" height="236">
 
-					<div style="width: 20%; margin: 0 auto; text-align:center">
-						<p ng-show="x.headers.Brand.join() == 'Levis'"">
-							<img src="/images/Levis.png"
-							style="width:50px; height:25px">
-							<b>{{x.headers.Accessory.join()}}</b>
-						</p>
-						<p ng-show="x.headers.Brand.join() == 'Wrangler'"">
-							<img src="/images/wrangler	.png"
-							style="width:50px; height:25px">
-								<b>{{x.headers.Accessory.join()}}</b>
-						</p>
-						<p ng-show="x.headers.Brand.join() == 'PepeJeans'"">
-							<img src="/images/PepeJeans.png"
-							style="width:50px; height:25px">
-								<b>{{x.headers.Accessory.join()}}</b>
-						</p>
-					</div>
-					
-					</md-card>
+				<h2 style="font-size: 150%; text-align: center;">{{followedUser.firstName}}
+					{{followedUser.lastName}}</h2>
+
+				<div style="width: 20%; margin: 0 auto; text-align: center">
+					<p ng-show="x.headers.Brand.join() == 'Levis'"">
+						<img src="/images/Levis.png" style="width: 50px; height: 25px">
+						<b>{{x.headers.Accessory.join()}}</b>
+					</p>
+					<p ng-show="x.headers.Brand.join() == 'Wrangler'"">
+						<img src="/images/wrangler	.png" style="width: 50px; height: 25px">
+						<b>{{x.headers.Accessory.join()}}</b>
+					</p>
+					<p ng-show="x.headers.Brand.join() == 'PepeJeans'"">
+						<img src="/images/PepeJeans.png" style="width: 50px; height: 25px">
+						<b>{{x.headers.Accessory.join()}}</b>
+					</p>
+				</div>
+
+				</md-card>
 
 
 
-					<!-- <div ng-repeat="x in img1" class="w3-col m3">
+				<!-- <div ng-repeat="x in img1" class="w3-col m3">
 						<img ng-src="data:image/JPEG;base64,{{x.body}}"
 							class="img-responsive" width="304" height="236"> <font
 							face="Tahoma" color="#66757f"> <strong><br />
@@ -183,7 +179,7 @@ html, body, h1, h2, h3, h4, h5 {
 								<div>Accessory: {{x.headers.Accessory.join()}}</div> </strong>
 						</font>
 					</div> -->
-				</div>
+			</div>
 			<br>
 			<script>
 // Accordion

@@ -1,11 +1,18 @@
-<html ng-app="iflaunt"><head><title>i Flaunt</title>
+<html ng-app="iflaunt">
+<head>
+<title>i Flaunt</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-blue-grey.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="http://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Open+Sans">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <style>
-html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
+html, body, h1, h2, h3, h4, h5 {
+	font-family: "Open Sans", sans-serif
+}
 </style>
 
 <script
@@ -21,7 +28,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
 <script src="http://code.angularjs.org/1.2.0rc1/angular-touch.min.js"></script>
-	
+
 <script src="./js/angular-route.min.js"></script>
 
 <script src="./controller/app.js"></script>
@@ -29,105 +36,118 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 
 <script src="./controller/TrendsNearby.js">
 
-      </script> 
-</head><body class="w3-theme-l5" ng-controller="Trends" ng-cloak>
+      </script>
+</head>
+<body class="w3-theme-l5" ng-controller="Trends" ng-cloak>
 
-<!-- Navbar -->
-<div class="w3-top" ng-cloak>
- <ul class="w3-navbar w3-theme-d2 w3-left-align w3-large">
-  <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
-    <a class="w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-  </li>
-  <li><a href="home.html" class="w3-padding-large w3-hover-white"><i class="fa fa-home w3-margin-right"></i>i Flaunt</a></li>
-  
-  <li class="w3-hide-small"><a href="FriendsRequest.html" class="w3-padding-large w3-hover-white"> Friends 
-  <i class="fa fa-group"></i></a></li>
-  <li class="w3-hide-small"><a href="ImageUpload.html" class="w3-padding-large w3-hover-white" >Flaunt Now 
-  <i class="fa fa-camera-retro"></i></a></li>
-  <li class="w3-hide-small w3-dropdown-hover">
-    <a href="TrendsNearby.html" class="w3-padding-large w3-theme-d4">Near By Trends
-  <i class="	fa fa-street-view"></i></a>
-  
-  <li class="w3-hide-small w3-dropdown-hover">
-    <a class="w3-padding-large w3-hover-white" ng-click="Logout()">Log Out
-  <i class="fa fa-power-off"></i></a>
-    
-  </li>
-  <li class="w3-hide-small w3-right"><a href="profile-update.html" class=" w3-hover-white" title="My Account"> {{firstname}} {{lastname}}
-  <img ng-src="/user/getProfilePicture/{{user}}"  class="w3-circle" style="height:30px;width:30px" alt="Avatar"></a></li>
- </ul>
-</div>
+	<!-- Navbar -->
+	<div class="w3-top" ng-cloak>
+		<ul class="w3-navbar w3-theme-d2 w3-left-align w3-large">
+			<li class="w3-hide-medium w3-hide-large w3-opennav w3-right"><a
+				class="w3-padding-large w3-hover-white w3-large w3-theme-d2"
+				href="javascript:void(0);" onclick="openNav()"><i
+					class="fa fa-bars"></i></a></li>
+			<li><a href="home.html" class="w3-padding-large w3-hover-white"><i
+					class="fa fa-home w3-margin-right"></i>i Flaunt</a></li>
 
-<!-- Navbar on small screens -->
-<div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:51px">
-  <ul class="w3-navbar w3-left-align w3-large w3-theme">
-    <li><a class="w3-padding-large" href="FriendsRequest.html">Friends 
-  <i class="fa fa-group"></i></a></li>
-    <li><a class="w3-padding-large" href="ImageUpload.html">Flaunt Now 
-  <i class="fa fa-camera-retro"></i></a></li>
-    <li><a class="w3-padding-large" href="TrendsNearby.html">Near By Trends
-  <i class="fa fa-street-view"></i></a></li>
-  <li><a class="w3-padding-large" href="profile-update.html">Update Profile <i class="fa fa-cog"></i></a></li>
-    <li><a class="w3-padding-large" ng-click="Logout()">Log Out </a></li>
-  </ul>
-</div>
+			<li class="w3-hide-small"><a href="FriendsRequest.html"
+				class="w3-padding-large w3-hover-white"> Friends <i
+					class="fa fa-group"></i></a></li>
+			<li class="w3-hide-small"><a href="ImageUpload.html"
+				class="w3-padding-large w3-hover-white">Flaunt Now <i
+					class="fa fa-camera-retro"></i></a></li>
+			<li class="w3-hide-small w3-dropdown-hover"><a
+				href="TrendsNearby.html" class="w3-padding-large w3-theme-d4">Near
+					By Trends <i class="	fa fa-street-view"></i>
+			</a>
+			<li class="w3-hide-small w3-dropdown-hover"><a
+				class="w3-padding-large w3-hover-white" ng-click="Logout()">Log
+					Out <i class="fa fa-power-off"></i>
+			</a></li>
+			<li class="w3-hide-small w3-right"><a href="profile-update.html"
+				class=" w3-hover-white" title="My Account"> {{firstname}}
+					{{lastname}} <img ng-src="/user/getProfilePicture/{{user}}"
+					class="w3-circle" style="height: 30px; width: 30px" alt="Avatar">
+			</a></li>
+		</ul>
+	</div>
 
-<!-- Page Container -->
-<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
-  <!-- The Grid -->
-  <div class="w3-row">
-    <!-- Left Column -->
-    <div class="w3-col m3">
-      <!-- Profile -->
-      
-      <br>
-      
-      <!-- Accordion -->
-      
-      <br>
-      
- 
-      <br>
-      
-      <!-- Alert Box -->
-      
-    
+	<!-- Navbar on small screens -->
+	<div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top"
+		style="margin-top: 51px">
+		<ul class="w3-navbar w3-left-align w3-large w3-theme">
+			<li><a class="w3-padding-large" href="FriendsRequest.html">Friends
+					<i class="fa fa-group"></i>
+			</a></li>
+			<li><a class="w3-padding-large" href="ImageUpload.html">Flaunt
+					Now <i class="fa fa-camera-retro"></i>
+			</a></li>
+			<li><a class="w3-padding-large" href="TrendsNearby.html">Near
+					By Trends <i class="fa fa-street-view"></i>
+			</a></li>
+			<li><a class="w3-padding-large" href="profile-update.html">Update
+					Profile <i class="fa fa-cog"></i>
+			</a></li>
+			<li><a class="w3-padding-large" ng-click="Logout()">Log Out
+			</a></li>
+		</ul>
+	</div>
 
- 
-    
-   
-    <!-- Middle Column -->
-    
-    
-    <!-- Right Column -->
-    
-    
-  <!-- End Grid -->
-  </div>
-  
-       <div class="w3-col m12"  >
-       <div >
-    <h4 >The Highly used Brands are Below:</h4>
-    <ol class="list-group">
-                <li ng-repeat="t in trends" class="list-group-item" >   <br/><br/>       <img ng-src="images/{{t}}.png" alt="" /><br/></li>
-                
-  
-           
-            </ol>
-            </div>
-      </div>
-      </div>
-  
-<!-- End Page Container -->
-</div>
-<br>
+	<!-- Page Container -->
+	<div class="w3-container w3-content"
+		style="max-width: 1400px; margin-top: 80px">
+		<!-- The Grid -->
+		<div class="w3-row">
+			<!-- Left Column -->
+			<div class="w3-col m3">
+				<!-- Profile -->
 
-<!-- Footer -->
+				<br>
+
+				<!-- Accordion -->
+
+				<br> <br>
+
+				<!-- Alert Box -->
 
 
 
-  
-<script>
+
+
+
+				<!-- Middle Column -->
+
+
+				<!-- Right Column -->
+
+
+				<!-- End Grid -->
+			</div>
+
+			<div class="w3-col m12">
+				<div>
+					<h4>The Highly used Brands are Below:</h4>
+					<ol class="list-group">
+						<li ng-repeat="t in trends" class="list-group-item"><br />
+						<br /> <img ng-src="images/{{t}}.png" alt="" /><br /></li>
+
+
+
+					</ol>
+				</div>
+			</div>
+		</div>
+
+		<!-- End Page Container -->
+	</div>
+	<br>
+
+	<!-- Footer -->
+
+
+
+
+	<script>
 // Accordion
 function myFunction(id) {
     var x = document.getElementById(id);
@@ -155,4 +175,5 @@ function openNav() {
 
 
 
-</body></html>
+</body>
+</html>
