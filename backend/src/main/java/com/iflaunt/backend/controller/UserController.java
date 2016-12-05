@@ -58,6 +58,11 @@ public class UserController {
 
 	private String imageName;
 
+    @RequestMapping(method = RequestMethod.GET)
+	public String serviceCheck() {
+	    return "User Service is Running.";
+	}
+	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public User registerUser(@RequestBody User user) {
 		if ((userService.findByUserName(user.getUserName())) == null) {

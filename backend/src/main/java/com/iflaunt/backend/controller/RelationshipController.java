@@ -23,6 +23,11 @@ public class RelationshipController {
 
 	private final RelationshipService relationshipService;
 
+	@RequestMapping(method = RequestMethod.GET)
+	public String serviceCheck() {
+	    return "Relationship Service is Running.";
+	}
+	
 	@RequestMapping(value = "/isfollowing/{profileUserName:.+}", method = RequestMethod.GET)
 	public HashMap<String, Boolean> isFollowing(@PathVariable String username, @PathVariable String profileUserName) {
 		HashMap<String, Boolean> map = new LinkedHashMap<>();

@@ -48,6 +48,11 @@ public class PhotoController {
 		return photoService.findAll();
 	}
 
+	@RequestMapping(method = RequestMethod.GET)
+	public String serviceCheck() {
+	    return "Photo Service is Running.";
+	}
+	
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public void upload(HttpServletResponse reponse, HttpServletRequest request) {
 
