@@ -21,7 +21,7 @@ import com.iflaunt.backend.model.User;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { IflauntApplication.class, WebApplicationContext.class })
 @ActiveProfiles("test")
-public class TestDao {
+public class TestUserDao {
 
 	private static final String USERNAME = "test@test.com";
 	private static final String FIRSTNAME = "TestFirst";
