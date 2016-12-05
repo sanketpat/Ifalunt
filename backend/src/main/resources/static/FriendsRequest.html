@@ -219,11 +219,11 @@ app.controller('Home', function ($scope, $http, sessionService, $window, $mdToas
             <h2 style="font-size: 150%;text-align: center;">{{followedUser.firstName}} {{followedUser.lastName}}</h2>
            
            	<div style="text-align: center;"> <p ng-show="followedUser.gender == 'M'"">
-            	<i class ="fa fa-mars"></i> &nbsp;&nbsp;&nbsp;
+            	<i class ="fa fa-male"></i> &nbsp;&nbsp;&nbsp;
             	 <i class = "fa fa-birthday-cake"></i> {{followedUser.birthDate | date:'dd MMM'}}
             </p>
              <p ng-show="followedUser.gender == 'F'">
-            	<i class ="fa fa-mars"></i> <span></span>
+            	<i class ="fa fa-female"></i> <span></span>
             	<i class = "fa fa-birthday-cake" layout-align="end center"></i> {{followedUser.birthDate | date:'dd MMM'}}
             </p>
             
