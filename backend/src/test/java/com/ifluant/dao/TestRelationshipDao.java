@@ -35,7 +35,7 @@ public class TestRelationshipDao {
 	@Before
 	public void setup() throws Exception {
 		user1 = new User();
-		user2= new User();
+		user2 = new User();
 		user1.setUserName("a@a.com");
 		user1.setPassword("aaaaaaa");
 		user2.setUserName("b@b.com");
@@ -47,33 +47,29 @@ public class TestRelationshipDao {
 		relationship = new Relationship();
 		relationship.setFollowed(user1);
 		relationship.setFollower(user2);
-		dbRelationship=relDao.save(relationship);
+		dbRelationship = relDao.save(relationship);
 	}
-	
-	
+
 	@Test
-	public void testSave()
-	{
+	public void testSave() {
 		assertEquals(relationship.getFollowed().getUserName(), dbRelationship.getFollowed().getUserName());
 		assertEquals(relationship.getFollower().getUserName(), dbRelationship.getFollower().getUserName());
 	}
-	
+
 	@Test
-	public void testIsFollowing()
-	{
-		Relationship isFollowing=relDao.isFollowingId(user2,user1);
-		
+	public void testIsFollowing() {
+		Relationship isFollowing = relDao.isFollowingId(user2, user1);
+
 		assertEquals(relationship.getFollowed().getUserName(), isFollowing.getFollowed().getUserName());
 		assertEquals(relationship.getFollower().getUserName(), isFollowing.getFollower().getUserName());
 	}
-	
+
 	@After
-	public void cleanUp()
-	{
+	public void cleanUp() {
 		relDao.delete(relationship);
 		userDao.delete(user1);
 		userDao.delete(user2);
-		
+
 	}
 
 }
