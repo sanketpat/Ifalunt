@@ -58,6 +58,15 @@ public class TestRelationshipDao {
 		assertEquals(relationship.getFollower().getUserName(), dbRelationship.getFollower().getUserName());
 	}
 	
+	@Test
+	public void testIsFollowing()
+	{
+		Relationship isFollowing=relDao.isFollowingId(user2,user1);
+		
+		assertEquals(relationship.getFollowed().getUserName(), isFollowing.getFollowed().getUserName());
+		assertEquals(relationship.getFollower().getUserName(), isFollowing.getFollower().getUserName());
+	}
+	
 	@After
 	public void cleanUp()
 	{
