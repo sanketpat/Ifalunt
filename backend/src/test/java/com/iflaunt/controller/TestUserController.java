@@ -33,6 +33,7 @@ public class TestUserController {
 	private static final String BIO="This is Bio";
 	private static final String BIRTHDATE="01/01/1993";
 	private static final String GENDER = "male";
+	private static final String CITY ="Test";
 	
 	@Mock
 	private UserService userService;
@@ -59,6 +60,7 @@ public class TestUserController {
 		user.setFirstName(FIRSTNAME);
 		user.setLastName(LASTNAME);
 		user.setPhotoName(USERNAME+".jpg");
+		user.setCity(CITY);
 	}
 	
 	@Test
