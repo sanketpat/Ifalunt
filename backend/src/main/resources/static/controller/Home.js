@@ -95,7 +95,8 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
 	                    	
 	                    	if( $scope.flag){
 	                    	
-	                        alert("Start Following your Friends to See their Posts ");
+	                        alert("Follow Many Friends to View Their Photos ");
+	                        $scope.flag=true;
 	                    	}else{
 	                    		 alert("Your Friend have not yet uploaded any picture ");
 	                    		
