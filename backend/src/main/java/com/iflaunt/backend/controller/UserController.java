@@ -108,6 +108,7 @@ public class UserController {
 			System.out.println(path);
 			User user = userService.findByUserName(multipartRequest.getParameter("username"));
 			user.setPhotoName(newFileName);
+			userService.save(user);
 			imageName = newFileName;
 			return user;
 		} catch (IOException e) {

@@ -42,7 +42,7 @@ public class RelationshipController {
 
 		Relationship rel = relationshipService.isFollowingId(followed, following);
 
-		if (rel == null) {
+		if (rel == null || rel.getFollowed()==following) {
 			Relationship relationship = new Relationship();
 
 			User saveUser = userService.findByUserName(username);
