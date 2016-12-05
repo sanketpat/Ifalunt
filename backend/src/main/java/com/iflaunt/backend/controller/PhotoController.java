@@ -4,13 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -51,9 +54,14 @@ public class PhotoController {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Iterator<String> it = multipartRequest.getFileNames();
 		MultipartFile multipartFile = multipartRequest.getFile(it.next());
-		String fileName = multipartFile.getOriginalFilename();
-		imageName = fileName;
-		String path = new File("src/main/resources/static/images").getAbsolutePath() + "/" + fileName;
+		Date date= new Date();
+		SimpleDateFormat localDateFormat = new SimpleDateFormat("HH_mm_ss");
+		String time = localDateFormat.format(date);
+		String fileNameExt = multipartFile.getOriginalFilename();
+		String fileExtention = FilenameUtils.getExtension(fileNameExt);
+		time = time.trim()+"."+fileExtention;
+		imageName = time;
+		String path = new File("src/main/resources/static/images").getAbsolutePath() + "/" + time;
 
 		try {
 			multipartFile.transferTo(new File(path));
