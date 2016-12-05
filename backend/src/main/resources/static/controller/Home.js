@@ -86,6 +86,48 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
 	                       
 	                        $scope.displayDetails=response.data;
 	                        
+	                        
+	                        
+	                        $scope.teamProfile=$scope.displayDetails[0].brand;
+	                        $scope.teamProfile1=$scope.displayDetails[0].gender;
+	                        if($scope.teamProfile=="Wrangler" && $scope.teamProfile1=="M" ){
+	            				
+	                    		
+	            				$scope.Suggphotos=$scope.Wrangler;
+	            			}
+	            			
+	            			else if($scope.teamProfile=="Wrangler" && $scope.teamProfile1=="F" ){
+	            				$scope.Suggphotos=$scope.WranglerWomen;
+	            			}	
+	            			else if($scope.teamProfile=="PepeJeans" && $scope.teamProfile1=="M"){
+	            				$scope.Suggphotos=$scope.PepeJeans;
+	            			}
+	            			else if($scope.teamProfile=="PepeJeans" && $scope.teamProfile1=="F"){
+	            				$scope.Suggphotos=$scope.PepeJeansWomen;
+	            			}
+	            			else if($scope.teamProfile=="Levis" && $scope.teamProfile1=="F"){
+	            				$scope.Suggphotos=$scope.LevisWomen;
+	            			}
+	            			else if($scope.teamProfile=="Levis" && $scope.teamProfile1=="M"){
+	            				$scope.Suggphotos=$scope.Levis;
+	            			}
+	                        
+	                        
+	                        
+	                        
+	                        
+	                        
+	                        
+	                        
+	                        
+	                        
+	                        
+	                        
+	                        
+	                        
+	                        
+	                        
+	                        
 	                    	$scope.myVar=true;
 	                    	$scope.hideflag=true;
 	                    
@@ -144,8 +186,8 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
 	
 
 	$scope.PepeJeans = [
-		             	{src: 'https://rukminim1.flixcart.com/image/832/832/jean/h/a/r/tyler-ht-bl-rinse-pepe-36-original-imaehj2sryzk54jh.jpeg?q=70', desc: 'https://www.flipkart.com/levi-s-regular-men-s-dark-blue-jeans/p/itmezeghbvnzbdfy?pid=JEAEMCBZXTNGGVKM&srno=s_1_1&otracker=search&lid=LSTJEAEMCBZXTNGGVKM4GRIWM&qH=36e28ffbc38804f5',Name: 'Levis Regular Men Dark Blue Jeans'},
-		             	{src: 'https://rukminim1.flixcart.com/image/832/832/jean/h/p/k/bickford-h-mid-tint-pepe-34-original-imaehj2zdj7sjkde.jpeg?q=70', desc: 'https://www.flipkart.com/levi-s-skinny-men-s-blue-jeans/p/itmeehwdcbyzwhfe?pid=JEAEEHWDMVHZTRFZ&srno=s_1_4&otracker=search&lid=LSTJEAEEHWDMVHZTRFZVGQKDW&qH=36e28ffbc38804f5',Name: 'Levis Skinny Men Blue Jeans'},
+		             	{src: 'https://rukminim1.flixcart.com/image/832/832/jean/g/f/s/anfieldmed-worn-pepe-jeans-32-original-imaehc9gwwhbg8rc.jpeg?q=70', desc: 'https://www.flipkart.com/pepe-jeans-slim-men-s-blue/p/itmekghqxdhgbbfm?pid=JEAEG76UPDXG8ZFF&srno=b_1_2&otracker=browse&lid=LSTJEAEG76UPDXG8ZFFX42SIY',Name: 'Pepe Jeans Slim Men Blue Jeans'},
+		             	{src: 'https://rukminim1.flixcart.com/image/832/832/jean/8/b/g/angel-rg-forst-pepe-38-original-imaebmmf7zwykhpq.jpeg?q=70', desc: 'https://www.flipkart.com/pepe-jeans-slim-men-s-black/p/itmech87rvc3kg9x?pid=JEAECH87SKBC8GDG&srno=b_1_4&otracker=browse&lid=LSTJEAECH87SKBC8GDGBLQ8Y0',Name: 'Pepe Jeans Slim Mens Black Jeans'},
 		             	{src: 'https://rukminim1.flixcart.com/image/832/832/shirt/m/u/5/bronco-lsindigo-pepe-jeans-m-original-imaektxsmwjgkyz9.jpeg?q=70', desc: 'https://www.flipkart.com/pepe-jeans-men-s-solid-casual-blue-shirt/p/itmemxhcs6rzgbnh?pid=SHTEJMDAKHWTGMU5&srno=s_1_7&otracker=search&lid=LSTSHTEJMDAKHWTGMU5BCKZPD&qH=15e8f2ea4a8bfff7',Name: 'Pepe Jeans Men Solid Casual Blue Shirt'},
 		             	{src: 'https://rukminim1.flixcart.com/image/832/832/shirt/y/8/b/jerry-lsnavy-pepe-jeans-l-original-imaemv7x6swe2q2g.jpeg?q=70', desc: 'https://www.flipkart.com/pepe-jeans-men-s-floral-print-casual-dark-blue-shirt/p/itmemwhy8augcuqe?pid=SHTEJMDACSJHVKP2&srno=s_1_6&otracker=search&lid=LSTSHTEJMDACSJHVKP2AMALWH&qH=15e8f2ea4a8bfff7',Name: 'Pepe Jeans Mens Floral Print Casual Dark Blue Shirt'},
 		        ];
@@ -188,28 +230,9 @@ app.controller('MainCtrl', function ($scope, $http, sessionService, $window) {
 	return $scope._Index === index;
 	
 	};
-	$scope.teamProfile = $scope.photos[$scope._Index];
-	if($scope.teamProfile.desc=="Image 03"){
-		
-		
-		$scope.Suggphotos=$scope.Wrangler;
-	}
 	
-	else if($scope.teamProfile.desc=="Image 02"){
-		$scope.Suggphotos=$scope.WranglerWomen;
-	}	
-	else if($scope.teamProfile.desc=="Image 01"){
-		$scope.Suggphotos=$scope.PepeJeansWomen;
-	}
-	else if($scope.teamProfile.desc=="Image 04"){
-		$scope.Suggphotos=$scope.PepeJeansWomen;
-	}
-	else if($scope.teamProfile.desc=="Image 05"){
-		$scope.Suggphotos=$scope.LevisWomen;
-	}
-	else if($scope.teamProfile.desc=="Image 06"){
-		$scope.Suggphotos=$scope.Wrangler;
-	}
+	
+	
 
 	
 	
