@@ -80,7 +80,7 @@ body {
 <!-- HTML code from Bootply.com editor -->
 <body>
 
-	<div class="container" ng-controller="fupController">
+	<div class="container" ng-controller="fupController" ng-cloak>
 		<h1>
 			Welcome to Iflaunt! <br />
 			<H5>Kindly Update your Profile details</H5>
@@ -190,11 +190,13 @@ body {
 						<label class="col-md-3 control-label"></label>
 						<div class="col-md-8">
 							<input type="button" class="btn btn-primary" value="Save Changes"
-								ng-click="uploadDetails()">
+								ng-click="uploadDetails()" >
 								<input type="button" class="btn btn-primary" value="Update Later"
-								ng-click="NavigetetoHome()">
+								ng-click="NavigetetoHome()"   ng-disabled="laterflag" >
 						</div>
+					
 					</div>
+				
 			</form>
 		</div>
 	</div>

@@ -245,6 +245,29 @@ public class UserController {
 		return posts;
 	}
 	
+	
+	
+	
+	@RequestMapping(value = "/isFollowed/{username:.+}", method = RequestMethod.GET)
+	public boolean isFollowed(@PathVariable String username) {
+		List<User> followed = userService.getFollowed(username);
+		if(followed.size()==0){
+			return true;
+			}
+		else{
+			return false;
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value = "/getFollowedUser/{username:.+}", method = RequestMethod.GET)
 	public List<User> getFollowedUser(@PathVariable String username) {
 		List<User> followed = userService.getFollowed(username);
