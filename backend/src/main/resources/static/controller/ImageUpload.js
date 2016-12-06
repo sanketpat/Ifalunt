@@ -90,6 +90,9 @@ app.controller('ImageUploadDetails', function($scope, $http, sessionService,
 				$scope.firstname = response.data.firstName;
 				$scope.lastname = response.data.lastName;
 
+				if(  $scope.firstname=="" ||   $scope.firstname==null){
+                	$window.location.href = 'profile-update.html';
+                }
 				$scope.myDate = response.data.birthDate
 				$scope.Bio = response.data.bio
 
