@@ -35,7 +35,6 @@ public class TestPhotoController {
 	private PhotoService photoservice;
 
 	@Mock
-	@Autowired
 	private UserService userService;
 
 	private User user;
