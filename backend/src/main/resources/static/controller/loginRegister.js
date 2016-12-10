@@ -1,6 +1,6 @@
 'use strict';
-app.controller('LoginController', [ '$window', '$scope', '$http',
-		'sessionService', function($window, $scope, $http, sessionService) {
+app.controller('LoginController', [ '$window','$mdToast', '$scope', '$http',
+		'sessionService', function($window, $mdToast, $scope, $http, sessionService) {
 
 			if (sessionService.get('user') != null) {
 				$window.location.href = './Home.html';
@@ -34,14 +34,14 @@ app.controller('LoginController', [ '$window', '$scope', '$http',
 					$http(req).then(function(response) {
 						// success callback
 						if (response.status == 200 && response.data != "") {
-							alert("Login Successful!");
+							$mdToast.show($mdToast.simple().textContent('Logged in Successfully').hideDelay(500));
+					$window.location.reload();
 							sessionService.set('user', $scope.email);
 							//alert("Session Created"+ sessionService.get($scope.email));
 							$window.location.href = './Home.html';
 
 						} else if (response.data == "") {
-							alert("Incorrect Credentials ");
-
+							$mdToast.show($mdToast.simple().textContent('Incorrect Credentials').hideDelay(500));
 						} else {
 							alert("Error: " + response.data.statusText);
 						}
@@ -57,9 +57,10 @@ app
 				[
 						'$window',
 						'$scope',
+						'$mdToast',
 						'$http',
 						'sessionService',
-						function($window, $scope, $http, sessionService) {
+						function($window, $scope, $mdToast, $http, sessionService) {
 							if (sessionService.get('user') != null) {
 								$window.location.href = './Home.html';
 
@@ -131,8 +132,7 @@ app
 																	.parse(JSON
 																			.stringify(response.data));
 
-															alert("Sign Up Successful!"
-																	+ json.userName);
+															$mdToast.show($mdToast.simple().textContent('Sign Up Successful').hideDelay(500));
 
 															sessionService
 																	.set(
