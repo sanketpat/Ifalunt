@@ -1,0 +1,19 @@
+1. Install Apache Maven 3.3.9 
+2. Install MySQl 5.7 
+3. Unzip the iflaunt.zip folder
+4. Run SQL scripts 'sql_script.sql' present in ~/backend/src/sql/
+5. Open eclipse
+6. Go to eclipse marketplace 
+7. Search for SpringSource Tool Suite
+8. Install SpringSource Tool Suite™ (STS) version 2.9.2 Release 
+9. Restart Eclipse
+10. File-> import project -> Maven -> existing maven project -> Navigate to the folder which contains pom.xml file (~/backend/)
+11. Click on finish
+12. If does not start resolving dependecies automatically
+	a. Right Click on imported project
+	b. Maven -> update project
+	c. Click ok
+13. Right click on project -> run -> maven install
+14. once the operation finished, right click on project -> run -> Spring boot app
+
+Note: step 11, 12, 13 are not mandatory, You might need to be perfomed only at first run. 
